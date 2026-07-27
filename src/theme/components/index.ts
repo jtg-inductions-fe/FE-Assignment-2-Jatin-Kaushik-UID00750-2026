@@ -1,20 +1,17 @@
-import type { Components } from '@mui/material/styles';
+import { type Components } from '@mui/material/styles';
 
 // Local Font files
 import InterRegularTTF from '@assets/fonts/inter/inter-regular.ttf';
 import InterRegularWOFF2 from '@assets/fonts/inter/inter-regular.woff2';
+import { COLORS } from '@constant';
 
-// TODO: Add necessary font face declarations here
-const fontFaceDeclarations = `
-       @font-face {
-        font-display: swap; 
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 500;
-        src: url(${InterRegularWOFF2}) format('woff2'), 
-        url(${InterRegularTTF}) format('truetype');
-      };
-    `;
+const fontFaceDeclarations = {
+    fontDisplay: 'swap',
+    fontFamily: 'Inter',
+    fontStyle: 'normal',
+    fontWeight: 500,
+    src: `url(${InterRegularWOFF2}) format('woff2'), url(${InterRegularTTF}) format('truetype')`,
+};
 
 export const components: Components = {
     MuiCssBaseline: {
@@ -22,7 +19,34 @@ export const components: Components = {
             html: {
                 fontSize: '62.5%',
             },
-            fontFaceDeclarations,
+            '@font-face': fontFaceDeclarations,
+        },
+    },
+
+    MuiTypography: {
+        styleOverrides: {
+            root: {
+                textWrap: 'balance',
+                wordBreak: 'break-word',
+            },
+        },
+    },
+
+    MuiSnackbarContent: {
+        styleOverrides: {
+            root: {
+                backgroundColor: COLORS.BACKGROUND.PAPER,
+                color: COLORS.TEXT.PRIMARY,
+            },
+        },
+    },
+
+    MuiTooltip: {
+        styleOverrides: {
+            tooltip: {
+                backgroundColor: COLORS.TEXT.PRIMARY,
+                color: COLORS.PRIMARY.CONSTRAST_TEXT,
+            },
         },
     },
 };

@@ -1,4 +1,4 @@
-## React Base Template
+## Nosh - Unified Food Delivery Platform
 
 ## Getting Started
 
