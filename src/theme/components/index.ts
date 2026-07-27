@@ -3,7 +3,6 @@ import { type Components } from '@mui/material/styles';
 // Local Font files
 import InterRegularTTF from '@assets/fonts/inter/inter-regular.ttf';
 import InterRegularWOFF2 from '@assets/fonts/inter/inter-regular.woff2';
-import { COLORS } from '@constant';
 
 const fontFaceDeclarations = {
     fontDisplay: 'swap',
@@ -28,24 +27,6 @@ export const components: Components = {
             root: {
                 textWrap: 'balance',
                 wordBreak: 'break-word',
-            },
-        },
-    },
-
-    MuiSnackbarContent: {
-        styleOverrides: {
-            root: {
-                backgroundColor: COLORS.BACKGROUND.PAPER,
-                color: COLORS.TEXT.PRIMARY,
-            },
-        },
-    },
-
-    MuiTooltip: {
-        styleOverrides: {
-            tooltip: {
-                backgroundColor: COLORS.TEXT.PRIMARY,
-                color: COLORS.PRIMARY.CONSTRAST_TEXT,
             },
         },
     },

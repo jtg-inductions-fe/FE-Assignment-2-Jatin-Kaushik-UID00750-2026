@@ -3,13 +3,13 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { ROUTES } from '@constant';
 
 import FullScreenLoader from './FullScreenLoader';
-import { useMockAuth } from '../hooks/useMockAuth';
+import { useMockAuth } from '../mocks/hooks/useMockAuth';
 
 const PublicOnlyRoute = () => {
     // Replace with actual Redux state selector later
-    const { isAuthenticated, isLoading } = useMockAuth();
+    const { isAuthenticated, status } = useMockAuth();
 
-    if (isLoading) return <FullScreenLoader message="Loading..." />;
+    if (status === 'loading') return <FullScreenLoader message="Loading..." />;
 
     if (isAuthenticated) {
         return <Navigate to={ROUTES.DISCOVERY} replace />;

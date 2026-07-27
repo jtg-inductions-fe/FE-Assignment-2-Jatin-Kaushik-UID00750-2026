@@ -3,7 +3,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { ROUTES } from '@constant';
 
 import FullScreenLoader from './FullScreenLoader';
-import { useMockAuth } from '../hooks/useMockAuth';
+import { useMockAuth } from '../mocks/hooks/useMockAuth';
 
 interface RoleGuardProps {
     allowedRoles: ('customer' | 'owner')[];
@@ -12,9 +12,9 @@ interface RoleGuardProps {
 type Role = 'customer' | 'owner';
 
 const RoleGuard = ({ allowedRoles }: RoleGuardProps) => {
-    const { currentUser, isAuthenticated, isLoading } = useMockAuth();
+    const { currentUser, isAuthenticated, status } = useMockAuth();
 
-    if (isLoading) return <FullScreenLoader message="Loading..." />;
+    if (status === 'loading') return <FullScreenLoader message="Loading..." />;
 
     // Safety fallback if a user somehow slips through the ProtectedRoute gate
     if (!isAuthenticated || !currentUser) {

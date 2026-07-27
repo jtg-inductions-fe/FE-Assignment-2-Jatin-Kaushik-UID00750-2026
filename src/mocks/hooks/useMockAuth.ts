@@ -3,7 +3,8 @@ const MOCK_STATE = {
     currentUser: {
         role: 'owner', // role can be "customer" or "owner"
     },
-    isLoading: false, // Simulates loading authentication state
+    status: 'succeeded', // Simulates authentication status:  type AsyncStatus = "idle" | "loading" | "succeeded" | "failed";
+    error: null,
 };
 
 export const useMockAuth = () =>
@@ -13,5 +14,6 @@ export const useMockAuth = () =>
     ({
         isAuthenticated: MOCK_STATE.isAuthenticated,
         currentUser: MOCK_STATE.currentUser,
-        isLoading: MOCK_STATE.isLoading,
+        status: MOCK_STATE.status,
+        error: MOCK_STATE.error,
     });
