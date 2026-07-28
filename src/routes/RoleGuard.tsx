@@ -1,8 +1,8 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
+import FullScreenLoader from '@components/FullScreenLoader/FullScreenLoader.component';
 import { ROUTES } from '@constant';
 
-import FullScreenLoader from './FullScreenLoader';
 import { useMockAuth } from '../mocks/hooks/useMockAuth';
 
 interface RoleGuardProps {
@@ -11,7 +11,7 @@ interface RoleGuardProps {
 
 type Role = 'customer' | 'owner';
 
-const RoleGuard = ({ allowedRoles }: RoleGuardProps) => {
+export const RoleGuard = ({ allowedRoles }: RoleGuardProps) => {
     const { currentUser, isAuthenticated, status } = useMockAuth();
 
     if (status === 'loading') return <FullScreenLoader message="Loading..." />;
@@ -28,4 +28,3 @@ const RoleGuard = ({ allowedRoles }: RoleGuardProps) => {
 
     return <Outlet />; // Renders the nested routes safely
 };
-export default RoleGuard;

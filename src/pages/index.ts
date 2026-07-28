@@ -1,0 +1,10 @@
+export { CartPage } from './CartPage';
+export { DiscoveryPage } from './DiscoveryPage';
+export { EditRestaurantPage } from './EditRestaurantPage';
+export { ErrorPage } from './ErrorPage';
+export { LoginPage } from './LoginPage';
+export { NewRestaurantPage } from './NewRestaurantPage';
+export { NotFoundPage } from './NotFoundPage';
+export { OrdersPage } from './OrdersPage';
+export { RestaurantDetailsPage } from './RestaurantDetailsPage';
+export { SignupPage } from './SignupPage';

@@ -1,11 +1,11 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
+import FullScreenLoader from '@components/FullScreenLoader/FullScreenLoader.component';
 import { ROUTES } from '@constant';
 
-import FullScreenLoader from './FullScreenLoader';
 import { useMockAuth } from '../mocks/hooks/useMockAuth';
 
-const PublicOnlyRoute = () => {
+export const PublicOnlyRoute = () => {
     // Replace with actual Redux state selector later
     const { isAuthenticated, status } = useMockAuth();
 
@@ -15,7 +15,5 @@ const PublicOnlyRoute = () => {
         return <Navigate to={ROUTES.DISCOVERY} replace />;
     }
 
-    return <Outlet />; // Renders Login / Signup page
+    return <Outlet />;
 };
-
-export default PublicOnlyRoute;

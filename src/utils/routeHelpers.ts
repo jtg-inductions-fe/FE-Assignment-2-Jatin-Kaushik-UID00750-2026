@@ -15,8 +15,7 @@ export const compileRoute = (route: string, params: RouteParams): string => {
         route,
     );
 
-    // Removes remaining unreplaced ':paramName' segments safely
-    return filledRoute.replace(/\/:[^/]+/g, '');
+    return filledRoute;
 };
 
 export const routeBuilders = {

@@ -1,11 +1,11 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
+import FullScreenLoader from '@components/FullScreenLoader/FullScreenLoader.component';
 import { ROUTES } from '@constant';
 
-import FullScreenLoader from './FullScreenLoader';
 import { useMockAuth } from '../mocks/hooks/useMockAuth';
 
-const ProtectedRoute = () => {
+export const ProtectedRoute = () => {
     const { isAuthenticated, status } = useMockAuth();
     const location = useLocation();
 
@@ -19,4 +19,3 @@ const ProtectedRoute = () => {
 
     return <Outlet />;
 };
-export default ProtectedRoute;

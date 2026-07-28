@@ -3,7 +3,13 @@
         "paths": {
             "@assets/*": ["./src/assets/*"],
             "@constant": ["./src/constant/index"],
-            "@theme": ["./src/theme/index"]
+            "@theme": ["./src/theme/index"],
+            "@routes": ["./src/routes/index"],
+            "@pages": ["./src/pages/index"],
+            "@layouts": ["./src/layouts/index"],
+            "@utlis": ["./src/utils/index"],
+            "@components/*": ["./src/components/*"],
+            "@containers/*": ["./src/containers/*"]
         }
     }
 }

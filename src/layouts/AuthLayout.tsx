@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 
-const AuthLayout = () => (
+export const AuthLayout = () => (
     <div>
         <header>
             <h1>Welcome to Nosh</h1>
@@ -11,5 +11,3 @@ const AuthLayout = () => (
         </main>
     </div>
 );
-
-export default AuthLayout;

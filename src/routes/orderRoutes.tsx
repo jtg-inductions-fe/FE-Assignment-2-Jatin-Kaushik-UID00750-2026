@@ -1,10 +1,10 @@
 import { RouteObject } from 'react-router-dom';
 
 import { ROUTES } from '@constant';
+import { CartPage } from '@pages';
+import { OrdersPage } from '@pages';
 
-import RoleGuard from './RoleGuard';
-import CartPage from '../features/cart/CartPage';
-import OrdersPage from '../features/orders/OrdersPage';
+import { RoleGuard } from './RoleGuard';
 
 export const orderRoutes: RouteObject[] = [
     {

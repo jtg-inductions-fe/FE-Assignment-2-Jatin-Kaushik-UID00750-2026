@@ -1,12 +1,12 @@
 import { RouteObject } from 'react-router-dom';
 
 import { ROUTES } from '@constant';
+import { RestaurantDetailsPage } from '@pages';
+import { DiscoveryPage } from '@pages';
+import { EditRestaurantPage } from '@pages';
+import { NewRestaurantPage } from '@pages';
 
-import RoleGuard from './RoleGuard';
-import RestaurantDetailsPage from '../features/menu/RestaurantDetailsPage';
-import DiscoveryPage from '../features/restaurants/DiscoveryPage';
-import EditRestaurantPage from '../features/restaurants/EditRestaurantPage';
-import NewRestaurantPage from '../features/restaurants/NewRestaurantPage';
+import { RoleGuard } from './RoleGuard';
 
 export const restaurantRoutes: RouteObject[] = [
     {

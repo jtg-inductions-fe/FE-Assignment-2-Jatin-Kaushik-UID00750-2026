@@ -4,15 +4,15 @@
  */
 export const COLORS = {
     PRIMARY: {
-        MAIN: '#D7263D',
-        LIGHT: '#E25164',
-        DARK: '#9E1B2C',
+        MAIN: '#FF380B',
+        LIGHT: '#FF6E51',
+        DARK: '#DE2F08',
         CONSTRAST_TEXT: '#FFFFFF',
     },
     SECONDARY: {
-        MAIN: '#F8F32B',
-        LIGHT: '#FAF555',
-        DARK: '#C4BE00',
+        MAIN: '#FDBF50',
+        LIGHT: '#FF9575',
+        DARK: '#E0532E',
         CONSTRAST_TEXT: '#2A2C41',
     },
     BACKGROUND: {

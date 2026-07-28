@@ -1,8 +1,6 @@
 import { useParams } from 'react-router-dom';
 
-const EditRestaurantPage = () => {
+export const EditRestaurantPage = () => {
     const params = useParams();
     return <div>EditRestaurantPage: {params.restaurantId}</div>;
 };
-
-export default EditRestaurantPage;
