@@ -9,7 +9,10 @@
             "@layouts": ["./src/layouts/index"],
             "@utlis": ["./src/utils/index"],
             "@components/*": ["./src/components/*"],
-            "@containers/*": ["./src/containers/*"]
+            "@containers/*": ["./src/containers/*"],
+            "@store/*": ["./src/store/*"],
+            "@hooks": ["./src/hooks/index"],
+            "@types": ["./src/types/index"]
         }
     }
 }
