@@ -2,8 +2,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 
 import FullScreenLoader from '@components/FullScreenLoader/FullScreenLoader.component';
 import { ROUTES } from '@constant';
-
-import { useMockAuth } from '../mocks/hooks/useMockAuth';
+import { useAppSelector } from '@hooks';
 
 interface RoleGuardProps {
     allowedRoles: ('customer' | 'owner')[];
@@ -12,7 +11,9 @@ interface RoleGuardProps {
 type Role = 'customer' | 'owner';
 
 export const RoleGuard = ({ allowedRoles }: RoleGuardProps) => {
-    const { currentUser, isAuthenticated, status } = useMockAuth();
+    const { currentUser, isAuthenticated, status } = useAppSelector(
+        (state) => state.auth,
+    );
 
     if (status === 'loading') return <FullScreenLoader message="Loading..." />;
 

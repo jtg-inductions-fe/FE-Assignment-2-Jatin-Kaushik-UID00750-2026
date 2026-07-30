@@ -5,4 +5,5 @@ export const StyledButton = styled(Button)(({ theme }) => ({
     borderRadius: theme.shape.borderRadius,
     textTransform: 'none',
     transition: 'all 0.2s ease-in-out',
+    boxShadow: 'none',
 }));

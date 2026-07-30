@@ -1,13 +1,20 @@
 import { Outlet } from 'react-router-dom';
 
-export const AuthLayout = () => (
-    <div>
-        <header>
-            <h1>Welcome to Nosh</h1>
-        </header>
+import { Box, styled } from '@mui/material';
 
-        <main>
+const AuthContainer = styled(Box)(() => ({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    minHeight: '100dvh',
+    padding: '1.6rem',
+}));
+
+export const AuthLayout = () => (
+    <main>
+        <AuthContainer>
             <Outlet />
-        </main>
-    </div>
+        </AuthContainer>
+    </main>
 );

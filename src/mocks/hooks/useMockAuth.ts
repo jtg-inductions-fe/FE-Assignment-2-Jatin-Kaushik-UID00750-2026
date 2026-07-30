@@ -1,5 +1,5 @@
 const MOCK_STATE = {
-    isAuthenticated: true,
+    isAuthenticated: false,
     currentUser: {
         role: 'owner', // role can be "customer" or "owner"
     },

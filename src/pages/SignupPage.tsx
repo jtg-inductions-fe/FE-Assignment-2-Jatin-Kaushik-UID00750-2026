@@ -1,1 +1,7 @@
-export const SignupPage = () => <div>SignupPage</div>;
+import SignupForm from '@containers/auth/SignupForm.container';
+
+export const SignupPage = () => (
+    <div>
+        <SignupForm></SignupForm>
+    </div>
+);

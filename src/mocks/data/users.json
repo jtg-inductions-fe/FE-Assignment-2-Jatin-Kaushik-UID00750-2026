@@ -1,0 +1,77 @@
+{
+    "customers": [
+        {
+            "id": "cus_001",
+            "name": "Aditi Sharma",
+            "email": "aditi.sharma@example.com",
+            "role": "customer",
+            "phone": "9876543210",
+            "address": {
+                "line1": "B-42, Sector 14",
+                "city": "Gurugram",
+                "state": "Haryana",
+                "pincode": "122001"
+            },
+            "createdAt": "2026-08-02T09:15:00.000Z"
+        },
+        {
+            "id": "cus_002",
+            "name": "Rohan Verma",
+            "email": "rohan.verma@example.com",
+            "role": "customer",
+            "phone": "9812345678",
+            "address": {
+                "line1": "Flat 7C, Palm Residency",
+                "line2": "MG Road",
+                "city": "Gurugram",
+                "state": "Haryana",
+                "pincode": "122002"
+            },
+            "createdAt": "2026-08-10T11:40:00.000Z"
+        }
+    ],
+
+    "owners": [
+        {
+            "id": "own_001",
+            "name": "Rajesh Kumar",
+            "email": "rajesh.kumar@example.com",
+            "role": "owner",
+            "phone": "9900112233",
+            "restaurantIds": ["rst_001"],
+            "createdAt": "2026-08-18T08:00:00.000Z"
+        },
+        {
+            "id": "own_002",
+            "name": "Meera Iyer",
+            "email": "meera.iyer@example.com",
+            "role": "owner",
+            "phone": "9911223344",
+            "restaurantIds": ["rst_002", "rst_003"],
+            "createdAt": "2026-08-20T08:00:00.000Z"
+        }
+    ],
+
+    "credentials": [
+        {
+            "userId": "cus_001",
+            "email": "aditi.sharma@example.com",
+            "password": "Customer@123"
+        },
+        {
+            "userId": "cus_002",
+            "email": "rohan.verma@example.com",
+            "password": "Customer@123"
+        },
+        {
+            "userId": "own_001",
+            "email": "rajesh.kumar@example.com",
+            "password": "Owner@123"
+        },
+        {
+            "userId": "own_002",
+            "email": "meera.iyer@example.com",
+            "password": "Owner@123"
+        }
+    ]
+}
