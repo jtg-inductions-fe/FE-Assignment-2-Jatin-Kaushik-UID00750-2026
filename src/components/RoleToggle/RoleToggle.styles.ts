@@ -11,7 +11,7 @@ export const StyledRoleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
 
 export const StyledRoleToggle = styled(ToggleButton)(({ theme }) => ({
     textTransform: 'none',
-    fontSize: '1.6rem',
+    fontSize: theme.typography.pxToRem(16),
     borderColor: theme.palette.divider,
     color: theme.palette.primary.main,
     transition: 'all 0.2s ease-in-out',

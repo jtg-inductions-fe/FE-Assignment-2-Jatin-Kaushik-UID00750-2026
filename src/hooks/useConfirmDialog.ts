@@ -1,15 +1,18 @@
-import { setConfirmResolve, showConfirmAction } from '@store/slices/uiSlice';
+import {
+    setConfirmResolve,
+    showConfirmDialogAction,
+} from '@store/slices/uiSlice';
 import { ConfirmDialogPayload } from '@types';
 
 import { useAppDispatch } from './storeHooks';
 
-export const useConfirm = () => {
+export const useConfirmDialog = () => {
     const dispatch = useAppDispatch();
 
     const confirm = (options: ConfirmDialogPayload): Promise<boolean> =>
         new Promise((resolve) => {
             setConfirmResolve(resolve);
-            dispatch(showConfirmAction(options));
+            dispatch(showConfirmDialogAction(options));
         });
 
     return confirm;

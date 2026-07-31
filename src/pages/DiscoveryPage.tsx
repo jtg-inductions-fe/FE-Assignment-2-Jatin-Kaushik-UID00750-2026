@@ -1,7 +1,7 @@
-import ProfileMenu from '@components/ProfileMenu/ProfileMenu.component';
+import ProfileMenuContainer from '@containers/ProfileMenuContainer/ProfileMenuContainer';
 
 export const DiscoveryPage = () => (
     <div>
-        <ProfileMenu />
+        <ProfileMenuContainer />
     </div>
 );

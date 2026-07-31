@@ -1,4 +1,4 @@
-import SignupForm from '@containers/auth/SignupForm.container';
+import SignupForm from '@containers/SignupForm/SignupForm';
 
 export const SignupPage = () => (
     <div>

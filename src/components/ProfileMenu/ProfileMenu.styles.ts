@@ -36,32 +36,32 @@ export const StyledMenuHeader = styled(MenuItem)(({ theme }) => ({
 
 export const StyledName = styled(Typography)(({ theme }) => ({
     fontWeight: theme.typography.fontWeightBold,
-    fontSize: '1.6rem',
+    fontSize: theme.typography.pxToRem(16),
     color: 'text.primary',
     [theme.breakpoints.up('md')]: {
-        fontSize: '1.8rem',
+        fontSize: theme.typography.pxToRem(18),
     },
 }));
 
 export const StyledEmail = styled(Typography)(({ theme }) => ({
-    fontSize: '1.4rem',
+    fontSize: theme.typography.pxToRem(14),
     color: 'text.secondary',
     wordBreak: 'break-all',
     [theme.breakpoints.up('md')]: {
-        fontSize: '1.6rem',
+        fontSize: theme.typography.pxToRem(16),
     },
 }));
 
 export const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
     padding: `${theme.spacing(2)} ${theme.spacing(4)}`,
     transition: 'all 0.2s ease-in-out',
-    fontSize: '1.6rem',
+    fontSize: theme.typography.pxToRem(16),
     color: theme.palette.error.main,
     '&:hover': {
         backgroundColor: alpha(theme.palette.error.main, 0.1),
     },
     [theme.breakpoints.up('sm')]: {
-        fontSize: '1.6rem',
+        fontSize: theme.typography.pxToRem(16),
     },
 }));
 

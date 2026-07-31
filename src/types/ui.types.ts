@@ -20,7 +20,7 @@ export interface ToastPayload {
     duration?: number;
 }
 
-export interface ConfirmState {
+export interface ConfirmDialogState {
     open: boolean;
     title: string;
     message: string;
@@ -30,7 +30,7 @@ export interface ConfirmState {
 
 export interface UIState {
     toast: ToastState;
-    confirm: ConfirmState;
+    confirmDialog: ConfirmDialogState;
 }
 
 export interface UseToastOptions {

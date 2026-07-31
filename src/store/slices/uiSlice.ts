@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
     ConfirmDialogPayload,
-    ConfirmState,
+    ConfirmDialogState,
     ToastPayload,
     ToastState,
     UIState,
@@ -14,7 +14,7 @@ const initialToastState: ToastState = {
     duration: 4000,
 };
 
-const initialConfirmState: ConfirmState = {
+const initialConfirmDialogState: ConfirmDialogState = {
     open: false,
     title: '',
     message: '',
@@ -24,7 +24,7 @@ const initialConfirmState: ConfirmState = {
 
 const initialState: UIState = {
     toast: initialToastState,
-    confirm: initialConfirmState,
+    confirmDialog: initialConfirmDialogState,
 };
 
 let resolvePointer: (value: boolean) => void = () => {};
@@ -51,19 +51,21 @@ const uiSlice = createSlice({
         },
 
         // Confirm Dialog Operations
-        showConfirmAction: (
+        showConfirmDialogAction: (
             state,
             action: PayloadAction<ConfirmDialogPayload>,
         ) => {
-            state.confirm.open = true;
-            state.confirm.title = action.payload.title ?? 'Confirm Action';
-            state.confirm.message = action.payload.message;
-            state.confirm.confirmLabel =
+            state.confirmDialog.open = true;
+            state.confirmDialog.title =
+                action.payload.title ?? 'Confirm Action';
+            state.confirmDialog.message = action.payload.message;
+            state.confirmDialog.confirmLabel =
                 action.payload.confirmLabel ?? 'Confirm';
-            state.confirm.cancelLabel = action.payload.cancelLabel ?? 'Cancel';
+            state.confirmDialog.cancelLabel =
+                action.payload.cancelLabel ?? 'Cancel';
         },
-        hideConfirmAction: (state) => {
-            state.confirm.open = false;
+        hideConfirmDialogAction: (state) => {
+            state.confirmDialog.open = false;
         },
     },
 });
@@ -71,8 +73,8 @@ const uiSlice = createSlice({
 export const {
     showToastAction,
     hideToastAction,
-    showConfirmAction,
-    hideConfirmAction,
+    showConfirmDialogAction,
+    hideConfirmDialogAction,
 } = uiSlice.actions;
 
 export default uiSlice.reducer;
