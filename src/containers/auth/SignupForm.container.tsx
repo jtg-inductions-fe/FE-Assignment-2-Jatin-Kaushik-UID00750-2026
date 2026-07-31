@@ -2,84 +2,39 @@ import { useEffect } from 'react';
 
 import { Controller, useForm } from 'react-hook-form';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import * as yup from 'yup';
 
 import { East, Fastfood, Storefront } from '@mui/icons-material';
 import { Alert, Box, Link, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
 
 import FormButton from '@components/FormButton/FormButton.component';
 import FormPasswordField from '@components/FormPasswordField/FormPasswordField.component';
 import FormTextField from '@components/FormTextField/FormTextField.component';
 import RoleToggle from '@components/RoleToggle/RoleToggle.component';
 import { RoleOptions } from '@components/RoleToggle/RoleToggle.types';
-import { ROUTES } from '@constant';
+import { ROUTES, USER_ROLES } from '@constant';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useAppDispatch, useAppSelector, useToast } from '@hooks';
-import { clearAuthError, signupThunk } from '@store/authSlice';
+import { clearAuthError } from '@store/slices/authSlice';
+import { signupThunk } from '@store/thunks';
 
-const signupSchema = yup
-    .object({
-        name: yup
-            .string()
-            .required('name is required')
-            .min(3, 'Name must contain at least 3 characters'),
-        email: yup
-            .string()
-            .required('Email is required')
-            .email('Enter a valid email address'),
-        password: yup
-            .string()
-            .required('Password is required')
-            .min(8, 'Password must be at least 8 characters long'),
-        role: yup
-            .string()
-            .oneOf(['customer', 'owner'], 'Please select a valid user role')
-            .required('User role is required'),
-    })
-    .required();
+import {
+    AuthFieldContainer,
+    AuthFormContainer,
+    AuthFormHeader,
+    AuthFormPaper,
+} from './authForm.styles';
+import { SignupFormData } from './authForm.types';
+import { signupSchema } from './authSchemas';
 
-type SignupFormData = yup.InferType<typeof signupSchema>;
-
-const FormContainer = styled(Box)(({ theme }) => ({
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: theme.spacing(4),
-    maxWidth: '60rem',
-    marginInline: 'auto',
-}));
-
-const FormPaper = styled(Box)(({ theme }) => ({
-    padding: `${theme.spacing(10)} ${theme.spacing(8)}`,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    borderRadius: theme.shape.borderRadius,
-    boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.08)',
-    backgroundColor: theme.palette.background.paper,
-    width: '100%',
-}));
-
-const FieldContainer = styled(Box)(({ theme }) => ({
-    paddingBlock: theme.spacing(2),
-    width: '100%',
-}));
-
-const FormHeader = styled(Box)(({ theme }) => ({
-    marginBottom: theme.spacing(6),
-    textAlign: 'center',
-}));
-
-const ROLES: Array<RoleOptions> = [
+const rolesConfig: Array<RoleOptions> = [
     {
-        value: 'owner',
-        label: 'Owner',
+        value: USER_ROLES.CUSTOMER,
+        label: 'Customer',
         icon: Fastfood,
     },
     {
-        value: 'customer',
-        label: 'Customer',
+        value: USER_ROLES.OWNER,
+        label: 'Owner',
         icon: Storefront,
     },
 ];
@@ -130,9 +85,9 @@ const SignupForm = () => {
     };
 
     return (
-        <FormContainer>
-            <FormPaper>
-                <FormHeader>
+        <AuthFormContainer>
+            <AuthFormPaper>
+                <AuthFormHeader>
                     <Box>
                         <img
                             src="/logo.png"
@@ -152,7 +107,7 @@ const SignupForm = () => {
                     >
                         Join us to get fresh meals delivered to your doorstep
                     </Typography>
-                </FormHeader>
+                </AuthFormHeader>
 
                 {/* Error Alert */}
                 {error && <Alert severity="error">{error}</Alert>}
@@ -165,7 +120,7 @@ const SignupForm = () => {
                     }}
                     noValidate
                 >
-                    <FieldContainer>
+                    <AuthFieldContainer>
                         <Typography component="label">Name</Typography>
                         {/* Name Input */}
                         <Controller
@@ -184,9 +139,9 @@ const SignupForm = () => {
                                 />
                             )}
                         />
-                    </FieldContainer>
+                    </AuthFieldContainer>
 
-                    <FieldContainer>
+                    <AuthFieldContainer>
                         <Typography component="label">Email</Typography>
                         {/* Email Input */}
                         <Controller
@@ -206,9 +161,9 @@ const SignupForm = () => {
                                 />
                             )}
                         />
-                    </FieldContainer>
+                    </AuthFieldContainer>
 
-                    <FieldContainer>
+                    <AuthFieldContainer>
                         <Typography component="label">Password</Typography>
 
                         {/* Password Input */}
@@ -225,25 +180,25 @@ const SignupForm = () => {
                                 />
                             )}
                         />
-                    </FieldContainer>
+                    </AuthFieldContainer>
 
-                    <FieldContainer>
+                    <AuthFieldContainer>
                         {/* Role Input */}
                         <Controller
                             name="role"
                             control={control}
                             render={({ field: { value, onChange } }) => (
                                 <RoleToggle
-                                    roles={ROLES}
+                                    roles={rolesConfig}
                                     value={value}
                                     onChange={onChange}
                                     isLoading={isLoading}
                                 />
                             )}
                         />
-                    </FieldContainer>
+                    </AuthFieldContainer>
 
-                    <FieldContainer>
+                    <AuthFieldContainer>
                         <FormButton
                             type="submit"
                             fullWidth
@@ -254,7 +209,7 @@ const SignupForm = () => {
                         >
                             Sign up
                         </FormButton>
-                    </FieldContainer>
+                    </AuthFieldContainer>
                 </Box>
                 <Typography
                     component="p"
@@ -267,7 +222,7 @@ const SignupForm = () => {
                         Log in
                     </Link>
                 </Typography>
-            </FormPaper>
+            </AuthFormPaper>
             <Typography
                 component="p"
                 variant="body2"
@@ -278,7 +233,7 @@ const SignupForm = () => {
                 <Link href="/">Terms of Service</Link> and{' '}
                 <Link href="/">Privacy Policy</Link>
             </Typography>
-        </FormContainer>
+        </AuthFormContainer>
     );
 };
 

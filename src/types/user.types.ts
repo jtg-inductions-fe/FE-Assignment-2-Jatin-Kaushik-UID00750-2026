@@ -1,3 +1,5 @@
+import { USER_ROLES } from '@constant';
+
 import { Address, UserRole } from './common.types';
 
 interface BaseUser {
@@ -5,31 +7,28 @@ interface BaseUser {
     name: string;
     email: string;
     role: UserRole;
-    phone?: string; // Ask to keep it or not
 }
 
-/** A user who browses restaurants and places orders. */
 export interface Customer extends BaseUser {
-    role: 'customer';
+    role: typeof USER_ROLES.CUSTOMER;
     address?: Address;
 }
 
-/** A user who owns and manages one or more restaurants. */
 export interface Owner extends BaseUser {
-    role: 'owner';
-    /** IDs of restaurants this partner manages — drives the "my restaurants only" filter on Discovery. */
+    role: typeof USER_ROLES.OWNER;
     restaurantIds: string[];
 }
 
-/**
- * Discriminated union — narrow with `if (user.role === 'owner')`
- * to safely access `restaurantIds`, or `'customer'` to access `address`.
- */
 export type User = Customer | Owner;
 
-/** Mock credential record, separated from the public User shape */
 export interface StoredCredential {
     userId: string;
     email: string;
-    password: string; // plaintext for now
+    password: string;
+}
+
+export interface UsersSeed {
+    customers: Customer[];
+    owners: Owner[];
+    credentials: StoredCredential[];
 }

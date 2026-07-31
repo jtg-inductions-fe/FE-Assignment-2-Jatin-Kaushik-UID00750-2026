@@ -1,2 +1,3 @@
-export { COLORS, HTML_FONT_SIZE, SCALING_FACTOR } from './themeConstant';
-export { ROUTES } from './routesConstant';
+export * from './themeConstant';
+export * from './routesConstant';
+export * from './commonConstants';

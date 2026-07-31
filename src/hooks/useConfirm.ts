@@ -1,4 +1,4 @@
-import { setConfirmResolve, showConfirmAction } from '@store/uiSlice';
+import { setConfirmResolve, showConfirmAction } from '@store/slices/uiSlice';
 import { ConfirmDialogPayload } from '@types';
 
 import { useAppDispatch } from './storeHooks';

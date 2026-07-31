@@ -1,26 +1,25 @@
-export type UserRole = 'customer' | 'owner';
+import {
+    ASYNC_STATUS,
+    DAYS_OF_WEEK,
+    ORDER_STATUS,
+    RESTAURANT_VEG_TYPES,
+    USER_ROLES,
+    VEG_TYPES,
+} from '@constant';
 
-export type VegType = 'veg' | 'non-veg';
+export type UserRole = (typeof USER_ROLES)[keyof typeof USER_ROLES];
+
+export type VegType = (typeof VEG_TYPES)[keyof typeof VEG_TYPES];
 
 /** A restaurant can serve only veg, only non-veg, or both. */
-export type RestaurantVegType = 'veg' | 'non-veg' | 'both';
+export type RestaurantVegType =
+    (typeof RESTAURANT_VEG_TYPES)[keyof typeof RESTAURANT_VEG_TYPES];
 
-export type DayOfWeek =
-    | 'monday'
-    | 'tuesday'
-    | 'wednesday'
-    | 'thursday'
-    | 'friday'
-    | 'saturday'
-    | 'sunday';
+export type DayOfWeek = (typeof DAYS_OF_WEEK)[keyof typeof DAYS_OF_WEEK];
 
-export type OrderStatus =
-    | 'pending'
-    | 'accepted'
-    | 'preparing'
-    | 'out-for-delivery'
-    | 'delivered'
-    | 'rejected';
+export type OrderStatus = (typeof ORDER_STATUS)[keyof typeof ORDER_STATUS];
+
+export type AsyncStatus = (typeof ASYNC_STATUS)[keyof typeof ASYNC_STATUS];
 
 /** ISO 8601 date-time string, e.g. "2026-07-19T14:32:00.000Z" */
 export type ISODateString = string;

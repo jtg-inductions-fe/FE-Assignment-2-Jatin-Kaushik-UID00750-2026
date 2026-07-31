@@ -1,12 +1,6 @@
-import usersData from '../mocks/data/users.json';
-import { LoginCredentials, SignUpPayload } from '../types/auth.types';
-import { Customer, Owner, StoredCredential, User } from '../types/user.types';
+import { LoginCredentials, SignUpPayload, User, UsersSeed } from '@types';
 
-export interface UsersSeed {
-    customers: Customer[];
-    owners: Owner[];
-    credentials: StoredCredential[];
-}
+import usersData from '../../mocks/data/users.json';
 
 const userSeed = usersData as UsersSeed;
 

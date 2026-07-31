@@ -2,11 +2,9 @@ import { useEffect } from 'react';
 
 import { Controller, useForm } from 'react-hook-form';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import * as yup from 'yup';
 
 import { East } from '@mui/icons-material';
 import { Alert, Box, Link, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
 
 import FormButton from '@components/FormButton/FormButton.component';
 import FormPasswordField from '@components/FormPasswordField/FormPasswordField.component';
@@ -14,52 +12,17 @@ import FormTextField from '@components/FormTextField/FormTextField.component';
 import { ROUTES } from '@constant';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useAppDispatch, useAppSelector, useToast } from '@hooks';
-import { clearAuthError, loginThunk } from '@store/authSlice';
+import { clearAuthError } from '@store/slices/authSlice';
+import { loginThunk } from '@store/thunks';
 
-const loginSchema = yup
-    .object({
-        email: yup
-            .string()
-            .required('Email is required')
-            .email('Enter a valid email address'),
-        password: yup
-            .string()
-            .required('Password is required')
-            .min(8, 'Password must be at least 8 characters long'),
-    })
-    .required();
-
-type LoginFormData = yup.InferType<typeof loginSchema>;
-
-const FormContainer = styled(Box)(({ theme }) => ({
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: theme.spacing(4),
-    maxWidth: '60rem',
-    marginInline: 'auto',
-}));
-
-const FormPaper = styled(Box)(({ theme }) => ({
-    padding: `${theme.spacing(10)} ${theme.spacing(8)}`,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    borderRadius: theme.shape.borderRadius,
-    boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.08)',
-    backgroundColor: theme.palette.background.paper,
-    width: '100%',
-}));
-
-const FieldContainer = styled(Box)(({ theme }) => ({
-    paddingBlock: theme.spacing(2),
-    width: '100%',
-}));
-
-const FormHeader = styled(Box)(({ theme }) => ({
-    marginBottom: theme.spacing(6),
-    textAlign: 'center',
-}));
+import {
+    AuthFieldContainer,
+    AuthFormContainer,
+    AuthFormHeader,
+    AuthFormPaper,
+} from './authForm.styles';
+import { LoginFormData } from './authForm.types';
+import { loginSchema } from './authSchemas';
 
 const LoginForm = () => {
     const dispatch = useAppDispatch();
@@ -97,9 +60,9 @@ const LoginForm = () => {
     };
 
     return (
-        <FormContainer>
-            <FormPaper>
-                <FormHeader>
+        <AuthFormContainer>
+            <AuthFormPaper>
+                <AuthFormHeader>
                     <Box>
                         <img
                             src="/logo.png"
@@ -119,7 +82,7 @@ const LoginForm = () => {
                     >
                         Log in to get your food hot and fast
                     </Typography>
-                </FormHeader>
+                </AuthFormHeader>
 
                 {/* Error Alert */}
                 {error && <Alert severity="error">{error}</Alert>}
@@ -132,7 +95,7 @@ const LoginForm = () => {
                     }}
                     noValidate
                 >
-                    <FieldContainer>
+                    <AuthFieldContainer>
                         <Typography component="label">Email</Typography>
                         {/* Email Input */}
                         <Controller
@@ -152,9 +115,9 @@ const LoginForm = () => {
                                 />
                             )}
                         />
-                    </FieldContainer>
+                    </AuthFieldContainer>
 
-                    <FieldContainer>
+                    <AuthFieldContainer>
                         <Typography component="label">Password</Typography>
 
                         {/* Password Input */}
@@ -171,8 +134,8 @@ const LoginForm = () => {
                                 />
                             )}
                         />
-                    </FieldContainer>
-                    <FieldContainer>
+                    </AuthFieldContainer>
+                    <AuthFieldContainer>
                         <FormButton
                             type="submit"
                             fullWidth
@@ -183,7 +146,7 @@ const LoginForm = () => {
                         >
                             Log In
                         </FormButton>
-                    </FieldContainer>
+                    </AuthFieldContainer>
                 </Box>
                 <Typography
                     component="p"
@@ -196,7 +159,7 @@ const LoginForm = () => {
                         Create an account
                     </Link>
                 </Typography>
-            </FormPaper>
+            </AuthFormPaper>
             <Typography
                 component="p"
                 variant="body2"
@@ -207,7 +170,7 @@ const LoginForm = () => {
                 <Link href="/">Terms of Service</Link> and{' '}
                 <Link href="/">Privacy Policy</Link>
             </Typography>
-        </FormContainer>
+        </AuthFormContainer>
     );
 };
 

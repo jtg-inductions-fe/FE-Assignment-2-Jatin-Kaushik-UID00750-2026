@@ -11,8 +11,8 @@ import {
 import storage from 'redux-persist/lib/storage';
 
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import authReducer from '@store/authSlice';
-import uiReducer from '@store/uiSlice';
+import authReducer from '@store/slices/authSlice';
+import uiReducer from '@store/slices/uiSlice';
 
 const authPersistConfig = {
     key: 'auth',
@@ -43,6 +43,3 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
-
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;

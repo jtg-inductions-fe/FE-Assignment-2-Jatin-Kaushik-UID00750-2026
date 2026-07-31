@@ -17,6 +17,10 @@ export const StyledRoleToggle = styled(ToggleButton)(({ theme }) => ({
     transition: 'all 0.2s ease-in-out',
     display: 'flex',
     gap: theme.spacing(2),
+    lineHeight: 1.5,
+    [theme.breakpoints.up('sm')]: {
+        lineHeight: 1.75,
+    },
 
     '&.MuiToggleButtonGroup-lastButton': {
         borderLeft: `1px solid ${theme.palette.divider}`,

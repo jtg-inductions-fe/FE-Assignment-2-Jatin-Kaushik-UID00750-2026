@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '@hooks';
-import { hideToastAction } from '@store/uiSlice';
+import { hideToastAction } from '@store/slices/uiSlice';
 
 import { StyledAlert, StyledSnackbar } from './Toast.styles';
 

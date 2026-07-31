@@ -1,4 +1,4 @@
-import { UserRole } from './common.types';
+import { AsyncStatus, UserRole } from './common.types';
 import { User } from './user.types';
 
 export interface LoginCredentials {
@@ -13,9 +13,6 @@ export interface SignUpPayload {
     role: UserRole;
 }
 
-export type AsyncStatus = 'idle' | 'loading' | 'succeeded' | 'failed';
-
-/** Shape of authSlice's state — the profile saved to storage on login */
 export interface AuthState {
     currentUser: User | null;
     isAuthenticated: boolean;

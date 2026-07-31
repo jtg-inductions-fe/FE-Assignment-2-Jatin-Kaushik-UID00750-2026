@@ -1,6 +1,6 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-import Fallback from '@components/fallback/Fallback.component';
+import Fallback from '@components/Fallback/Fallback.component';
 
 export const NotFoundPage = () => (
     <Fallback

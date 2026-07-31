@@ -1,6 +1,6 @@
 import { Refresh } from '@mui/icons-material';
 
-import Fallback from '@components/fallback/Fallback.component';
+import Fallback from '@components/Fallback/Fallback.component';
 
 export const ErrorPage = () => {
     const handleReloadPage = () => {

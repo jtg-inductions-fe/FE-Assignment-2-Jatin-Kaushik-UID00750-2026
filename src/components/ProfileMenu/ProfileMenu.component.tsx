@@ -1,22 +1,26 @@
 import React, { useState } from 'react';
 
 import { Logout } from '@mui/icons-material';
-import { Avatar, IconButton, ListItemIcon, Menu, Tooltip } from '@mui/material';
+import { IconButton, ListItemIcon, Tooltip } from '@mui/material';
 
-import { useAppDispatch, useAppSelector } from '@hooks';
-import { logout } from '@store/authSlice';
+import { useAppDispatch, useAppSelector, useConfirm, useToast } from '@hooks';
+import { logout } from '@store/slices/authSlice';
 
 import {
+    StyledAvatar,
     StyledEmail,
+    StyledMenu,
+    StyledMenuHeader,
     StyledMenuItem,
     StyledName,
-    StyledUserHeader,
 } from './ProfileMenu.styles';
 
 const ProfileMenu = () => {
     const dispatch = useAppDispatch();
     const { currentUser } = useAppSelector((state) => state.auth);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const confirm = useConfirm();
+    const toast = useToast();
 
     const isMenuOpen = Boolean(anchorEl);
 
@@ -28,12 +32,27 @@ const ProfileMenu = () => {
         setAnchorEl(null);
     };
 
-    const handleLogoutClick = () => {
+    const handleLogoutClick = async () => {
         handleCloseMenu();
-        dispatch(logout());
+        const isConfirmed = await confirm({
+            title: 'Are you sure you want to log out?',
+            message:
+                'You will need to sign in again with your credentials to access your account.',
+        });
+
+        if (!isConfirmed) {
+            toast({ message: 'Stayed signed in', type: 'info' });
+            return;
+        }
+
+        try {
+            dispatch(logout());
+            toast({ message: 'Successfully signed out', type: 'success' });
+        } catch {
+            toast({ message: 'Log out failed', type: 'error' });
+        }
     };
 
-    // Safe fallbacks to prevent runtime crashes if state syncs slowly
     const userDisplayName = currentUser?.name || 'User';
     const userEmail = currentUser?.email || '';
     const avatarLetter = userDisplayName.charAt(0).toUpperCase();
@@ -48,68 +67,33 @@ const ProfileMenu = () => {
                     aria-haspopup="true"
                     aria-expanded={isMenuOpen ? 'true' : undefined}
                 >
-                    <Avatar
-                        alt={userDisplayName}
-                        sx={{
-                            width: 40,
-                            height: 40,
-                            fontWeight: 600,
-                            fontSize: '1.6rem',
-                            backgroundColor: '#ffd700',
-                        }}
-                    >
+                    <StyledAvatar alt={userDisplayName}>
                         {avatarLetter}
-                    </Avatar>
+                    </StyledAvatar>
                 </IconButton>
             </Tooltip>
 
-            <Menu
+            <StyledMenu
                 anchorEl={anchorEl}
                 id="profile-menu"
                 open={isMenuOpen}
                 onClose={handleCloseMenu}
                 onClick={handleCloseMenu}
-                slotProps={{
-                    paper: {
-                        elevation: 0,
-                        sx: {
-                            overflow: 'visible',
-                            borderRadius: '12px',
-                            boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.08)',
-                            mt: 1.5,
-                            '&::before': {
-                                // Small indicator arrow pointing to avatar button
-                                content: '""',
-                                display: 'block',
-                                position: 'absolute',
-                                top: 0,
-                                right: 14,
-                                width: 10,
-                                height: 10,
-                                bgcolor: 'background.paper',
-                                transform: 'translateY(-50%) rotate(45deg)',
-                                zindex: 0,
-                            },
-                        },
-                    },
-                }}
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                {/* 1. Header Segment displaying User Credentials */}
-                <StyledUserHeader>
-                    <StyledName variant="body1">{userDisplayName}</StyledName>
-                    <StyledEmail variant="body2">{userEmail}</StyledEmail>
-                </StyledUserHeader>
+                <StyledMenuHeader>
+                    <StyledName>{userDisplayName}</StyledName>
+                    <StyledEmail>{userEmail}</StyledEmail>
+                </StyledMenuHeader>
 
-                {/* 2. Action Segment displaying Logout Button */}
-                <StyledMenuItem onClick={handleLogoutClick}>
+                <StyledMenuItem onClick={() => void handleLogoutClick()}>
                     <ListItemIcon>
-                        <Logout fontSize="small" color="inherit" />
+                        <Logout fontSize="small" color="error" />
                     </ListItemIcon>
                     Logout
                 </StyledMenuItem>
-            </Menu>
+            </StyledMenu>
         </>
     );
 };

@@ -1,13 +1,7 @@
-import { showToastAction } from '@store/uiSlice';
-import { ToastType } from '@types';
+import { showToastAction } from '@store/slices/uiSlice';
+import { UseToastOptions } from '@types';
 
 import { useAppDispatch } from './storeHooks';
-
-interface UseToastOptions {
-    message: string;
-    type?: ToastType;
-    duration?: number;
-}
 
 export const useToast = () => {
     const dispatch = useAppDispatch();

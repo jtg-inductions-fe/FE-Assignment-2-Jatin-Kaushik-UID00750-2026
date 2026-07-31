@@ -32,3 +32,9 @@ export interface UIState {
     toast: ToastState;
     confirm: ConfirmState;
 }
+
+export interface UseToastOptions {
+    message: string;
+    type?: ToastType;
+    duration?: number;
+}

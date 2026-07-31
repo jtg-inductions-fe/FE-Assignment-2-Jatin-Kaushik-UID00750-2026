@@ -1,12 +1,7 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AuthState, User } from '@types';
 
-import { authService } from './authService';
-import {
-    AuthState,
-    LoginCredentials,
-    SignUpPayload,
-} from '../types/auth.types';
-import { User } from '../types/user.types';
+import { loginThunk, signupThunk } from '../thunks/authThunk';
 
 const initialState: AuthState = {
     currentUser: null,
@@ -14,33 +9,6 @@ const initialState: AuthState = {
     status: 'idle',
     error: null,
 };
-
-const toErrorMessage = (error: unknown, fallback: string): string =>
-    error instanceof Error ? error.message : fallback;
-
-export const loginThunk = createAsyncThunk<
-    User,
-    LoginCredentials,
-    { rejectValue: string }
->('auth/login', async (credentials, { rejectWithValue }) => {
-    try {
-        return await authService.login(credentials);
-    } catch (error) {
-        return rejectWithValue(toErrorMessage(error, 'Login failed'));
-    }
-});
-
-export const signupThunk = createAsyncThunk<
-    boolean,
-    SignUpPayload,
-    { rejectValue: string }
->('auth/signup', async (payload, { rejectWithValue }) => {
-    try {
-        return await authService.signup(payload);
-    } catch (error) {
-        return rejectWithValue(toErrorMessage(error, 'Signup failed'));
-    }
-});
 
 const authSlice = createSlice({
     name: 'auth',

@@ -2,7 +2,7 @@ import { DialogTitle } from '@mui/material';
 
 import UiButton from '@components/UiButton/UiButton.component';
 import { useAppDispatch, useAppSelector } from '@hooks';
-import { getConfirmResolve, hideConfirmAction } from '@store/uiSlice';
+import { getConfirmResolve, hideConfirmAction } from '@store/slices/uiSlice';
 
 import {
     StyledDialog,
