@@ -1,28 +1,37 @@
-import { setConfirmResolve } from '@services/confirmDialogService';
-import { showConfirmDialogAction } from '@store/slices/uiSlice';
-import { ConfirmDialogPayload } from '@types';
+import { useCallback, useState } from 'react';
 
-import { useAppDispatch } from './storeHooks';
+import { ConfirmDialogState } from '@types';
 
 /**
  * Custom hook to trigger confirmation dialogs across the platform.
- * @returns An async function that resolves to true or false depending on user confirmation.
  */
 
 export const useConfirmDialog = () => {
-    const dispatch = useAppDispatch();
+    const [isOpen, setIsOpen] = useState(false);
+    const [config, setConfig] = useState<ConfirmDialogState>({
+        title: '',
+        message: '',
+    });
 
     /**
-     * Dispatches a modal dialogue window and waits for a user action response.
-     * @param options - Visual setup configurations including title text and button labels
-     * @returns A promise resolving to true if approved, or false if canceled/closed
+     * Opens the dialog and binds custom text options.
+     * @param options - Config for the dialog title and message text
      */
 
-    const confirm = (options: ConfirmDialogPayload): Promise<boolean> =>
-        new Promise((resolve) => {
-            setConfirmResolve(resolve);
-            dispatch(showConfirmDialogAction(options));
-        });
+    const openConfirmDialog = useCallback((options: ConfirmDialogState) => {
+        setConfig(options);
+        setIsOpen(true);
+    }, []);
 
-    return confirm;
+    /** Closes the active dialog component. */
+    const closeConfirmDialog = useCallback(() => {
+        setIsOpen(false);
+    }, []);
+
+    return {
+        isOpen,
+        config,
+        openConfirmDialog,
+        closeConfirmDialog,
+    };
 };

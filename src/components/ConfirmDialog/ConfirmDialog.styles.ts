@@ -4,13 +4,13 @@ import {
     DialogContent,
     DialogContentText,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { styled } from '@mui/material';
 
 export const StyledDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiPaper-root': {
         borderRadius: theme.shape.borderRadius * 2,
         padding: theme.spacing(1),
-        minWidth: '340px',
+        minWidth: theme.typography.pxToRem(340),
         boxShadow: theme.shadows[10],
     },
 }));
