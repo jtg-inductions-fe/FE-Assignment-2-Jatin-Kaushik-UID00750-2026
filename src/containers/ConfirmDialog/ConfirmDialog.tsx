@@ -1,11 +1,12 @@
 import { DialogTitle } from '@mui/material';
 
-import UiButton from '@components/UiButton/UiButton.component';
+import { UiButton } from '@components/UiButton/UiButton.component';
 import { useAppDispatch, useAppSelector } from '@hooks';
 import {
+    clearConfirmResolve,
     getConfirmResolve,
-    hideConfirmDialogAction,
-} from '@store/slices/uiSlice';
+} from '@services/confirmDialogService';
+import { hideConfirmDialogAction } from '@store/slices/uiSlice';
 
 import {
     StyledDialog,
@@ -14,6 +15,11 @@ import {
     StyledDialogContentText,
 } from './ConfirmDialog.styles';
 
+/**
+ * Global confirmation modal component.
+ * Connects directly to Redux UI state and resolves user selections using a central promise-based service.
+ */
+
 export const ConfirmDialog = () => {
     const dispatch = useAppDispatch();
 
@@ -21,9 +27,15 @@ export const ConfirmDialog = () => {
         (state) => state.ui.confirmDialog,
     );
 
+    /**
+     * Resolves the pending promise with user selection and hides the modal overlay.
+     * @param choice - Set to true when user accepts, or false when they decline
+     */
+
     const handleAction = (choice: boolean) => {
         const resolve = getConfirmResolve();
         if (resolve) resolve(choice);
+        clearConfirmResolve();
         dispatch(hideConfirmDialogAction());
     };
 

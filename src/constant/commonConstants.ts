@@ -1,3 +1,8 @@
+/**
+ * Common constants used across the application
+ * @constant
+ */
+
 export const USER_ROLES = {
     CUSTOMER: 'customer',
     OWNER: 'owner',

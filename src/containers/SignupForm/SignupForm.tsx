@@ -26,6 +26,10 @@ const rolesConfig: Array<RoleOptions> = [
     { value: USER_ROLES.OWNER, label: 'Owner', icon: Storefront },
 ];
 
+/**
+ * Component managing the user account registration form flow.
+ */
+
 const SignupForm = () => {
     const dispatch = useAppDispatch();
     const { status, error } = useAppSelector((state) => state.auth);
@@ -50,6 +54,11 @@ const SignupForm = () => {
             role: USER_ROLES.CUSTOMER,
         },
     });
+
+    /**
+     * Submits registration credentials to the auth store and handles post-signup navigation.
+     * @param data - Evaluated form fields containing validated registration data
+     */
 
     const onSubmit = async (data: SignupFormData) => {
         try {

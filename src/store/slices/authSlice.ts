@@ -10,16 +10,23 @@ const initialState: AuthState = {
     error: null,
 };
 
+/** Redux slice handling user authentication status, session records, and thunk side-effects. */
+
 const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
+        /** Removes user profile properties to destroy the active session. */
+
         logout: (state) => {
             state.currentUser = null;
             state.isAuthenticated = false;
             state.status = 'idle';
             state.error = null;
         },
+
+        /** Resets active authentication error string states.  */
+
         clearAuthError: (state) => {
             state.error = null;
         },

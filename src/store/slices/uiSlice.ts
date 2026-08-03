@@ -27,19 +27,19 @@ const initialState: UIState = {
     confirmDialog: initialConfirmDialogState,
 };
 
-let resolvePointer: ((value: boolean) => void) | null = null;
-
-export const setConfirmResolve = (resolve: (value: boolean) => void) => {
-    resolvePointer = resolve;
-};
-
-export const getConfirmResolve = () => resolvePointer;
+/**
+ * Redux slice handling global UI overlay states like toasts and confirmation modals.
+ */
 
 const uiSlice = createSlice({
     name: 'ui',
     initialState,
     reducers: {
-        // Toast Operations
+        /**
+         * Opens toast notification banner.
+         * @param action.payload - Banner customization options
+         */
+
         showToastAction: (state, action: PayloadAction<ToastPayload>) => {
             state.toast = {
                 ...initialToastState,
@@ -47,11 +47,18 @@ const uiSlice = createSlice({
                 open: true,
             };
         },
+
+        /* Hides toast notification banner. */
+
         hideToastAction: (state) => {
             state.toast.open = false;
         },
 
-        // Confirm Dialog Operations
+        /**
+         * Opens verification confirmation dialog screen.
+         * @param action.payload - Text content and button overrides
+         */
+
         showConfirmDialogAction: (
             state,
             action: PayloadAction<ConfirmDialogPayload>,
@@ -62,9 +69,11 @@ const uiSlice = createSlice({
                 open: true,
             };
         },
+
+        /* Hides verification confirmation dialog screen. */
+
         hideConfirmDialogAction: (state) => {
             state.confirmDialog.open = false;
-            resolvePointer = null;
         },
     },
 });

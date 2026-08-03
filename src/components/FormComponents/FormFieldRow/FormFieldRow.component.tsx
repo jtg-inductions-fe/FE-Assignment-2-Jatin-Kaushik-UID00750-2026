@@ -3,6 +3,14 @@ import { Typography } from '@mui/material';
 import { FormFieldContainer } from './FormFieldRow.styles';
 import { FormFieldRowProps } from './FormFieldRow.types';
 
+/**
+ * Custom form field row component with form label and custom child fields.
+ * @param props - Component custom properties
+ * @param props.label - Label content displayed adjacent to the field
+ * @param props.htmlFor - Target identifier mapping the label to its corresponding input node
+ * @param props.children - Form inputs or selection fields placed inside the container block
+ */
+
 export const FormFieldRow = ({
     label,
     htmlFor,

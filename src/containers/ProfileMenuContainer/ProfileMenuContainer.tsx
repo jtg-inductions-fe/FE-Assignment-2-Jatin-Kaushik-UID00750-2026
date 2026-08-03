@@ -7,11 +7,19 @@ import {
 } from '@hooks';
 import { logout } from '@store/slices/authSlice';
 
+/**
+ * Container component handling data fetching and logout workflows for ProfileMenu.
+ */
+
 const ProfileMenuContainer = () => {
     const dispatch = useAppDispatch();
     const { currentUser } = useAppSelector((state) => state.auth);
     const showConfirmDialog = useConfirmDialog();
     const toast = useToast();
+
+    /**
+     * Function to handle log out clicks and request user verification before destroying active store sessions.
+     */
 
     const handleLogoutClick = async () => {
         const isConfirmed = await showConfirmDialog({

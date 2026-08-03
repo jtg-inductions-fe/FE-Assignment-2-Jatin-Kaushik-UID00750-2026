@@ -1,6 +1,6 @@
 import { Link as RouterLink } from 'react-router-dom';
 
-import UiButton from '@components/UiButton/UiButton.component';
+import { UiButton } from '@components/UiButton/UiButton.component';
 
 import {
     FallbackDescription,
@@ -11,11 +11,16 @@ import {
 } from './Fallback.styles';
 import { FallbackOptions } from './Fallback.types';
 
+/**
+ * Generic layout template used to display HTTP errors, empty state screens, and crashes.
+ * Supports rendering buttons as interactive navigation links or click action handlers.
+ */
+
 const Fallback = ({
-    statusCode = 404,
-    title = '',
-    description = '',
-    buttonName = '',
+    statusCode,
+    title,
+    description,
+    buttonName,
     buttonAction,
     ButtonIcon,
     isLink = false,

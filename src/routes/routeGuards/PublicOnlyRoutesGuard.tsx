@@ -3,7 +3,10 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { ROUTES } from '@constant';
 import { useAppSelector } from '@hooks';
 
-export const PublicOnlyRoute = () => {
+/**
+ * Route guard component that restricts access to unauthenticated users only.
+ */
+export const PublicOnlyRoutesGuard = () => {
     const { isAuthenticated } = useAppSelector((state) => state.auth);
 
     if (isAuthenticated) {

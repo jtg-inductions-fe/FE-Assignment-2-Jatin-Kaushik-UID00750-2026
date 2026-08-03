@@ -8,6 +8,15 @@ import { IconButton, InputAdornment } from '@mui/material';
 import { StyledPasswordField } from './FormPasswordField.styles';
 import { FormPasswordFieldProps } from './FormPasswordField.types';
 
+/**
+ * Custom password input field for forms handling secure password visibility toggles.
+ * @param props - Component custom properties
+ * @param props.name - Unique form registration field identifier key
+ * @param props.control - Parent layout react-hook-form state manager instance
+ * @param props.errors - Field tracking errors
+ * @param props.isLoading - Submitting loading status indicator to lock the input
+ */
+
 const FormPasswordField = <T extends FieldValues>({
     name,
     control,

@@ -7,7 +7,14 @@ import {
 } from './FullScreenLoader.styles';
 import { FullScreenLoaderProps } from './FullScreenLoader.types';
 
-const FullScreenLoader = ({
+/**
+ * Fullscreen overlay loader component with an animated spinner and optional text.
+ * @param props - Component properties
+ * @param props.open - Controls visibility of the backdrop loader
+ * @param props.message - Optional text displayed below the loading spinner
+ */
+
+export const FullScreenLoader = ({
     open = true,
     message = 'Loading...',
 }: FullScreenLoaderProps) => (
@@ -20,5 +27,3 @@ const FullScreenLoader = ({
         </ContentWrapper>
     </StyledBackdrop>
 );
-
-export default FullScreenLoader;
