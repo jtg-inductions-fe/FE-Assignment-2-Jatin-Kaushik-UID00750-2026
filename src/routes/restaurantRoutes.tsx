@@ -8,10 +8,14 @@ import { NewRestaurantPage } from '@pages';
 
 import { RoleGuard } from './RoleGuard';
 
+/**
+ * Route configurations for restaurant discovery and management.
+ * Protects restaurant creation and editing views with owner role-based restrictions.
+ */
+
 export const restaurantRoutes: RouteObject[] = [
     {
         index: true,
-        path: ROUTES.DISCOVERY,
         element: <DiscoveryPage />,
     },
     {

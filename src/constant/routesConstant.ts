@@ -1,3 +1,8 @@
+/**
+ * Routes for platform pages
+ * @constant
+ */
+
 export const ROUTES = {
     LOGIN: '/login',
     SIGNUP: '/signup',

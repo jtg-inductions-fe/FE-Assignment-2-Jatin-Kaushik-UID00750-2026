@@ -6,6 +6,11 @@ import { OrdersPage } from '@pages';
 
 import { RoleGuard } from './RoleGuard';
 
+/**
+ * Route configurations for shopping cart and order management.
+ * Protects the cart route using role-based access control.
+ */
+
 export const orderRoutes: RouteObject[] = [
     {
         path: ROUTES.CART,
