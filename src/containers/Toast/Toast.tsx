@@ -1,3 +1,5 @@
+import { SnackbarCloseReason } from '@mui/material';
+
 import { useAppDispatch, useAppSelector } from '@hooks';
 import { hideToastAction } from '@store/slices/uiSlice';
 
@@ -10,7 +12,10 @@ export const Toast = () => {
         (state) => state.ui.toast,
     );
 
-    const handleClose = (reason?: string) => {
+    const handleClose = (
+        _event: React.SyntheticEvent | Event,
+        reason?: SnackbarCloseReason,
+    ) => {
         if (reason === 'clickaway') return;
         dispatch(hideToastAction());
     };
@@ -19,10 +24,10 @@ export const Toast = () => {
         <StyledSnackbar
             open={open}
             autoHideDuration={duration}
-            onClose={() => handleClose()}
+            onClose={handleClose}
             anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         >
-            <StyledAlert onClose={() => handleClose()} severity={type}>
+            <StyledAlert onClose={(e) => handleClose(e)} severity={type}>
                 {message}
             </StyledAlert>
         </StyledSnackbar>

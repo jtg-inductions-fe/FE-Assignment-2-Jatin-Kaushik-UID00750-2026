@@ -34,7 +34,6 @@ export const ProfileMenu = ({
         void onLogoutClick();
     };
 
-    // Component handles basic UI data transformation
     const avatarLetter = userDisplayName.charAt(0).toUpperCase();
 
     return (

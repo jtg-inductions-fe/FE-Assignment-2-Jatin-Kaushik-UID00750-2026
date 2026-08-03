@@ -22,18 +22,16 @@ export const ConfirmDialog = () => {
     );
 
     const handleAction = (choice: boolean) => {
-        dispatch(hideConfirmDialogAction());
-
         const resolve = getConfirmResolve();
         if (resolve) resolve(choice);
+        dispatch(hideConfirmDialogAction());
     };
 
+    const handleConfirm = () => handleAction(true);
+    const handleCancel = () => handleAction(false);
+
     return (
-        <StyledDialog
-            open={open}
-            disableRestoreFocus
-            onClose={() => handleAction(false)}
-        >
+        <StyledDialog open={open} disableRestoreFocus onClose={handleCancel}>
             <DialogTitle>{title}</DialogTitle>
 
             <StyledDialogContent>
@@ -43,13 +41,10 @@ export const ConfirmDialog = () => {
             </StyledDialogContent>
 
             <StyledDialogActions>
-                <UiButton color="inherit" onClick={() => handleAction(false)}>
+                <UiButton color="inherit" onClick={handleCancel}>
                     {cancelLabel}
                 </UiButton>
-                <UiButton
-                    variant="contained"
-                    onClick={() => handleAction(true)}
-                >
+                <UiButton variant="contained" onClick={handleConfirm}>
                     {confirmLabel}
                 </UiButton>
             </StyledDialogActions>

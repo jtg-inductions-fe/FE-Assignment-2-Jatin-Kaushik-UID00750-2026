@@ -27,7 +27,7 @@ const initialState: UIState = {
     confirmDialog: initialConfirmDialogState,
 };
 
-let resolvePointer: (value: boolean) => void = () => {};
+let resolvePointer: ((value: boolean) => void) | null = null;
 
 export const setConfirmResolve = (resolve: (value: boolean) => void) => {
     resolvePointer = resolve;
@@ -41,10 +41,11 @@ const uiSlice = createSlice({
     reducers: {
         // Toast Operations
         showToastAction: (state, action: PayloadAction<ToastPayload>) => {
-            state.toast.open = true;
-            state.toast.message = action.payload.message;
-            state.toast.type = action.payload.type ?? 'info';
-            state.toast.duration = action.payload.duration ?? 4000;
+            state.toast = {
+                ...initialToastState,
+                ...action.payload,
+                open: true,
+            };
         },
         hideToastAction: (state) => {
             state.toast.open = false;
@@ -55,17 +56,15 @@ const uiSlice = createSlice({
             state,
             action: PayloadAction<ConfirmDialogPayload>,
         ) => {
-            state.confirmDialog.open = true;
-            state.confirmDialog.title =
-                action.payload.title ?? 'Confirm Action';
-            state.confirmDialog.message = action.payload.message;
-            state.confirmDialog.confirmLabel =
-                action.payload.confirmLabel ?? 'Confirm';
-            state.confirmDialog.cancelLabel =
-                action.payload.cancelLabel ?? 'Cancel';
+            state.confirmDialog = {
+                ...initialConfirmDialogState,
+                ...action.payload,
+                open: true,
+            };
         },
         hideConfirmDialogAction: (state) => {
             state.confirmDialog.open = false;
+            resolvePointer = null;
         },
     },
 });
