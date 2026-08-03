@@ -1,6 +1,6 @@
 import { Link as RouterLink } from 'react-router-dom';
 
-import UiButton from '@components/UiButton/UiButton.component';
+import { UiButton } from '@components/UiButton/UiButton.component';
 
 import {
     FallbackDescription,
@@ -12,10 +12,10 @@ import {
 import { FallbackOptions } from './Fallback.types';
 
 const Fallback = ({
-    statusCode = 404,
-    title = '',
-    description = '',
-    buttonName = '',
+    statusCode,
+    title,
+    description,
+    buttonName,
     buttonAction,
     ButtonIcon,
     isLink = false,

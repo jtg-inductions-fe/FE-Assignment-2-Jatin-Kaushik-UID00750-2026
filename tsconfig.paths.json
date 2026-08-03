@@ -12,7 +12,8 @@
             "@containers/*": ["./src/containers/*"],
             "@store/*": ["./src/store/*"],
             "@hooks": ["./src/hooks/index"],
-            "@types": ["./src/types/index"]
+            "@types": ["./src/types/index"],
+            "@services/*": ["./src/services/*"]
         }
     }
 }

@@ -1,8 +1,13 @@
 import { Refresh } from '@mui/icons-material';
 
-import Fallback from '@components/fallback/Fallback.component';
+import Fallback from '@components/Fallback/Fallback.component';
+
+/**
+ * Fallback screen for unhandled application errors.
+ */
 
 export const ErrorPage = () => {
+    /** Triggers the browser window reload. */
     const handleReloadPage = () => {
         window.location.reload();
     };

@@ -1,16 +1,21 @@
-import { showToastAction } from '@store/uiSlice';
-import { ToastType } from '@types';
+import { showToastAction } from '@store/slices/uiSlice';
+import { UseToastOptions } from '@types';
 
 import { useAppDispatch } from './storeHooks';
 
-interface UseToastOptions {
-    message: string;
-    type?: ToastType;
-    duration?: number;
-}
+/**
+ * Custom hook to trigger toast notifications.
+ */
 
 export const useToast = () => {
     const dispatch = useAppDispatch();
+
+    /**
+     * Dispatches an alert banner payload to the UI store.
+     * @param options.message - Alert text
+     * @param options.type - Alert severity type
+     * @param options.duration - Visibility duration in ms
+     */
 
     const triggerToast = ({
         message,

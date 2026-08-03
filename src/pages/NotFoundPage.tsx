@@ -1,6 +1,10 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-import Fallback from '@components/fallback/Fallback.component';
+import Fallback from '@components/Fallback/Fallback.component';
+
+/**
+ * Fallback screen for non-existent routes (404 errors).
+ */
 
 export const NotFoundPage = () => (
     <Fallback

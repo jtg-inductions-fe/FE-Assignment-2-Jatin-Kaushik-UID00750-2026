@@ -1,8 +1,12 @@
 import { DialogTitle } from '@mui/material';
 
-import UiButton from '@components/UiButton/UiButton.component';
+import { UiButton } from '@components/UiButton/UiButton.component';
 import { useAppDispatch, useAppSelector } from '@hooks';
-import { getConfirmResolve, hideConfirmAction } from '@store/uiSlice';
+import {
+    clearConfirmResolve,
+    getConfirmResolve,
+} from '@services/confirmDialogService';
+import { hideConfirmDialogAction } from '@store/slices/uiSlice';
 
 import {
     StyledDialog,
@@ -11,22 +15,35 @@ import {
     StyledDialogContentText,
 } from './ConfirmDialog.styles';
 
+/**
+ * Global confirmation modal component.
+ * Connects directly to Redux UI state and resolves user selections using a central promise-based service.
+ */
+
 export const ConfirmDialog = () => {
     const dispatch = useAppDispatch();
 
     const { open, title, message, confirmLabel, cancelLabel } = useAppSelector(
-        (state) => state.ui.confirm,
+        (state) => state.ui.confirmDialog,
     );
 
-    const handleAction = (choice: boolean) => {
-        dispatch(hideConfirmAction());
+    /**
+     * Resolves the pending promise with user selection and hides the modal overlay.
+     * @param choice - Set to true when user accepts, or false when they decline
+     */
 
+    const handleAction = (choice: boolean) => {
         const resolve = getConfirmResolve();
         if (resolve) resolve(choice);
+        clearConfirmResolve();
+        dispatch(hideConfirmDialogAction());
     };
 
+    const handleConfirm = () => handleAction(true);
+    const handleCancel = () => handleAction(false);
+
     return (
-        <StyledDialog open={open} onClose={() => handleAction(false)}>
+        <StyledDialog open={open} disableRestoreFocus onClose={handleCancel}>
             <DialogTitle>{title}</DialogTitle>
 
             <StyledDialogContent>
@@ -36,13 +53,10 @@ export const ConfirmDialog = () => {
             </StyledDialogContent>
 
             <StyledDialogActions>
-                <UiButton color="inherit" onClick={() => handleAction(false)}>
+                <UiButton color="inherit" onClick={handleCancel}>
                     {cancelLabel}
                 </UiButton>
-                <UiButton
-                    variant="contained"
-                    onClick={() => handleAction(true)}
-                >
+                <UiButton variant="contained" onClick={handleConfirm}>
                     {confirmLabel}
                 </UiButton>
             </StyledDialogActions>
