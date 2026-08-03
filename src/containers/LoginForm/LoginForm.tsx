@@ -19,6 +19,10 @@ import { loginThunk } from '@store/thunks';
 import { loginSchema } from './LoginForm.schema';
 import { LoginFormData } from './LoginForm.types';
 
+/**
+ * Component managing the user authentication log-in form flow
+ */
+
 const LoginForm = () => {
     const dispatch = useAppDispatch();
     const { status, error } = useAppSelector((state) => state.auth);
@@ -42,6 +46,11 @@ const LoginForm = () => {
             password: '',
         },
     });
+
+    /**
+     * Dispatches user credentials to verification store thunks and handles navigation loops.
+     * @param data - Evaluated input values containing validated email and password strings
+     */
 
     const onSubmit = async (data: LoginFormData) => {
         try {

@@ -3,6 +3,15 @@ import { Controller, FieldValues } from 'react-hook-form';
 import { StyledTextField } from './FormTextField.styles';
 import { FormTextFieldProps } from './FormTextField.types';
 
+/**
+ * Custom input field for forms.
+ * @param props - Component custom properties
+ * @param props.name - Unique form registration field identifier key
+ * @param props.control - Parent layout react-hook-form state manager instance
+ * @param props.errors - Field tracking errors
+ * @param props.isLoading - Submitting loading status indicator to lock the input
+ */
+
 const FormTextField = <T extends FieldValues>({
     name,
     control,

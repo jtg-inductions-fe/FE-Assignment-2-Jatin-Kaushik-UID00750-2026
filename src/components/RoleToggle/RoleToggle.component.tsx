@@ -5,6 +5,15 @@ import {
 } from './RoleToggle.styles';
 import { RoleToggleOptions } from './RoleToggle.types';
 
+/**
+ * Toggle component to switch exclusively between defined user account roles.
+ * @param props - Component custom properties
+ * @param props.roles - Array of role configurations containing values, labels, and icons
+ * @param props.value - Active selected role value key identifier
+ * @param props.onChange - Trigger action handler passing the newly selected role key string
+ * @param props.isLoading - Submitting loading status indicator to lock selections
+ */
+
 const RoleToggle = ({
     roles,
     value,

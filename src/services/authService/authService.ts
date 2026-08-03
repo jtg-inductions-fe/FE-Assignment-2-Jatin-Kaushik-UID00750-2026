@@ -6,7 +6,15 @@ const userSeed = usersData as UsersSeed;
 
 const users = [...userSeed.owners, ...userSeed.customers];
 
+/** Service managing user authentication operations against local mock JSON data. */
+
 export const authService = {
+    /**
+     * Validates user credentials and resolves the matching profile data.
+     * @param payload - User login email and password strings
+     * @returns A promise resolving to the matched user profile object
+     */
+
     login: (payload: LoginCredentials): Promise<User> => {
         const requestedUser = userSeed.credentials.find(
             (user) => user.email === payload.email,
@@ -17,6 +25,12 @@ export const authService = {
         const user = users.find((u) => u.email === requestedUser.email);
         return Promise.resolve(user as User);
     },
+
+    /**
+     * Evaluates availability and processes new account registration requests.
+     * @param payload - New user credentials and profile registration configuration
+     * @returns A promise resolving to true if validation passes successfully
+     */
 
     signup: (payload: SignUpPayload): Promise<boolean> => {
         const isEmailExist = userSeed.credentials.find(

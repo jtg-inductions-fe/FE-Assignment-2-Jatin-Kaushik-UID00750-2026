@@ -4,8 +4,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import { CssBaseline, ThemeProvider } from '@mui/material';
 
-import FullScreenLoader from '@components/FullScreenLoader/FullScreenLoader.component';
-import FeedbackProvider from '@containers/Feedbacks/FeedbackProvider';
+import { FullScreenLoader } from '@components/FullScreenLoader/FullScreenLoader.component';
+import { Toast } from '@containers/Toast/Toast';
 import { router } from '@routes';
 import { persistor, store } from '@store/store';
 import { theme } from '@theme';
@@ -19,7 +19,7 @@ const App = () => (
             <ThemeProvider theme={theme}>
                 <CssBaseline />
                 <RouterProvider router={router} />
-                <FeedbackProvider />
+                <Toast />
             </ThemeProvider>
         </PersistGate>
     </Provider>

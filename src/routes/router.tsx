@@ -8,14 +8,14 @@ import { NotFoundPage } from '@pages';
 
 import { authRoutes } from './authRoutes';
 import { orderRoutes } from './orderRoutes';
-import { ProtectedRoute } from './ProtectedRoute';
-import { PublicOnlyRoute } from './PublicOnlyRoute';
 import { restaurantRoutes } from './restaurantRoutes';
+import { ProtectedRoutesGuard } from './routeGuards/ProtectedRoutesGuard';
+import { PublicOnlyRoutesGuard } from './routeGuards/PublicOnlyRoutesGuard';
 
 export const router = createBrowserRouter([
     // GLOBAL PROTECTED BOUNDARY
     {
-        element: <ProtectedRoute />,
+        element: <ProtectedRoutesGuard />,
         errorElement: <ErrorPage />,
         children: [
             {
@@ -27,7 +27,7 @@ export const router = createBrowserRouter([
     },
     // PUBLIC-ONLY ROUTES (Login / Signup)
     {
-        element: <PublicOnlyRoute />,
+        element: <PublicOnlyRoutesGuard />,
         children: [
             {
                 element: <AuthLayout />,

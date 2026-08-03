@@ -1,11 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {
-    ConfirmDialogPayload,
-    ConfirmDialogState,
-    ToastPayload,
-    ToastState,
-    UIState,
-} from '@types';
+import { ToastPayload, ToastState, UIState } from '@types';
 
 const initialToastState: ToastState = {
     open: false,
@@ -14,32 +8,23 @@ const initialToastState: ToastState = {
     duration: 4000,
 };
 
-const initialConfirmDialogState: ConfirmDialogState = {
-    open: false,
-    title: '',
-    message: '',
-    confirmLabel: 'Confirm',
-    cancelLabel: 'Cancel',
-};
-
 const initialState: UIState = {
     toast: initialToastState,
-    confirmDialog: initialConfirmDialogState,
 };
 
-let resolvePointer: ((value: boolean) => void) | null = null;
-
-export const setConfirmResolve = (resolve: (value: boolean) => void) => {
-    resolvePointer = resolve;
-};
-
-export const getConfirmResolve = () => resolvePointer;
+/**
+ * Redux slice handling global UI overlay states like toasts.
+ */
 
 const uiSlice = createSlice({
     name: 'ui',
     initialState,
     reducers: {
-        // Toast Operations
+        /**
+         * Opens toast notification banner.
+         * @param action.payload - Banner customization options
+         */
+
         showToastAction: (state, action: PayloadAction<ToastPayload>) => {
             state.toast = {
                 ...initialToastState,
@@ -47,33 +32,15 @@ const uiSlice = createSlice({
                 open: true,
             };
         },
+
+        /* Hides toast notification banner. */
+
         hideToastAction: (state) => {
             state.toast.open = false;
-        },
-
-        // Confirm Dialog Operations
-        showConfirmDialogAction: (
-            state,
-            action: PayloadAction<ConfirmDialogPayload>,
-        ) => {
-            state.confirmDialog = {
-                ...initialConfirmDialogState,
-                ...action.payload,
-                open: true,
-            };
-        },
-        hideConfirmDialogAction: (state) => {
-            state.confirmDialog.open = false;
-            resolvePointer = null;
         },
     },
 });
 
-export const {
-    showToastAction,
-    hideToastAction,
-    showConfirmDialogAction,
-    hideConfirmDialogAction,
-} = uiSlice.actions;
+export const { showToastAction, hideToastAction } = uiSlice.actions;
 
 export default uiSlice.reducer;

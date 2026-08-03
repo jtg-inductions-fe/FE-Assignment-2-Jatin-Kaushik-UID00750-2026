@@ -11,7 +11,6 @@ export type UserRole = (typeof USER_ROLES)[keyof typeof USER_ROLES];
 
 export type VegType = (typeof VEG_TYPES)[keyof typeof VEG_TYPES];
 
-/** A restaurant can serve only veg, only non-veg, or both. */
 export type RestaurantVegType =
     (typeof RESTAURANT_VEG_TYPES)[keyof typeof RESTAURANT_VEG_TYPES];
 
