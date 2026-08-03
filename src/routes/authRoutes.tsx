@@ -4,6 +4,10 @@ import { ROUTES } from '@constant';
 import { LoginPage } from '@pages';
 import { SignupPage } from '@pages';
 
+/**
+ * Route configurations for authentication pages.
+ */
+
 export const authRoutes: RouteObject[] = [
     {
         path: ROUTES.LOGIN,

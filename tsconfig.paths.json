@@ -7,7 +7,7 @@
             "@routes": ["./src/routes/index"],
             "@pages": ["./src/pages/index"],
             "@layouts": ["./src/layouts/index"],
-            "@utlis": ["./src/utils/index"],
+            "@utils": ["./src/utils/index"],
             "@components/*": ["./src/components/*"],
             "@containers/*": ["./src/containers/*"]
         }
