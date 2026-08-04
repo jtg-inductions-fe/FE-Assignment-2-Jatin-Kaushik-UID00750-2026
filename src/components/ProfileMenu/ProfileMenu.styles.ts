@@ -1,4 +1,13 @@
-import { alpha, Avatar, Menu, MenuItem, Typography } from '@mui/material';
+import { LinkProps as RouterLinkProps } from 'react-router-dom';
+
+import {
+    alpha,
+    Avatar,
+    Menu,
+    MenuItem,
+    MenuItemProps,
+    Typography,
+} from '@mui/material';
 import { styled } from '@mui/material';
 
 export const StyledMenu = styled(Menu)(({ theme }) => ({
@@ -52,16 +61,21 @@ export const StyledEmail = styled(Typography)(({ theme }) => ({
     },
 }));
 
-export const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
+export const StyledMenuItem = styled(MenuItem)<
+    MenuItemProps & Partial<RouterLinkProps>
+>(({ theme }) => ({
     padding: `${theme.spacing(2)} ${theme.spacing(4)}`,
     transition: 'all 0.2s ease-in-out',
     fontSize: theme.typography.pxToRem(16),
+    [theme.breakpoints.up('sm')]: {
+        fontSize: theme.typography.pxToRem(16),
+    },
+}));
+
+export const StyledCriticalMenuItem = styled(StyledMenuItem)(({ theme }) => ({
     color: theme.palette.error.main,
     '&:hover': {
         backgroundColor: alpha(theme.palette.error.main, 0.1),
-    },
-    [theme.breakpoints.up('sm')]: {
-        fontSize: theme.typography.pxToRem(16),
     },
 }));
 

@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 
+import { Link as RouterLink } from 'react-router-dom';
+
 import { Logout } from '@mui/icons-material';
-import { IconButton, ListItemIcon, Tooltip } from '@mui/material';
+import { Divider, IconButton, ListItemIcon, Tooltip } from '@mui/material';
 
 import {
     StyledAvatar,
+    StyledCriticalMenuItem,
     StyledEmail,
     StyledMenu,
     StyledMenuHeader,
@@ -25,6 +28,7 @@ export const ProfileMenu = ({
     userDisplayName,
     userEmail,
     onLogoutClick,
+    menuItemConfig,
 }: ProfileMenuProps) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const isMenuOpen = Boolean(anchorEl);
@@ -74,12 +78,25 @@ export const ProfileMenu = ({
                     <StyledEmail>{userEmail}</StyledEmail>
                 </StyledMenuHeader>
 
-                <StyledMenuItem onClick={handleLogoutAction}>
+                {menuItemConfig.map((item) => (
+                    <StyledMenuItem
+                        key={item.itemName}
+                        component={RouterLink}
+                        to={item.itemRoute}
+                    >
+                        <ListItemIcon>
+                            <item.itemIcon fontSize="small" />
+                        </ListItemIcon>
+                        {item.itemName}
+                    </StyledMenuItem>
+                ))}
+                <Divider />
+                <StyledCriticalMenuItem onClick={handleLogoutAction}>
                     <ListItemIcon>
                         <Logout fontSize="small" color="error" />
                     </ListItemIcon>
                     Logout
-                </StyledMenuItem>
+                </StyledCriticalMenuItem>
             </StyledMenu>
         </>
     );
