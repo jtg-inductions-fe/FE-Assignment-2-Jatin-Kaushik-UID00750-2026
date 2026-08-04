@@ -23,7 +23,7 @@ export const LogoBox = styled(Box)<BoxProps & RouterLinkProps>(({ theme }) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: theme.spacing(2),
+    gap: theme.spacing(1),
     width: 'max-content',
     padding: theme.spacing(0.5, 4, 0.5, 1),
     backgroundColor: theme.palette.common.white,

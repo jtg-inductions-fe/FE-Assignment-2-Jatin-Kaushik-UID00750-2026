@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { ToggleButton } from '@mui/material';
-
-import { StyledToggleButtonGroup } from './FilterToggle.styles';
+import {
+    StyledToggleButton,
+    StyledToggleButtonGroup,
+} from './FilterToggle.styles';
 import { FilterToggleProps } from './FilterToggle.types';
 
 export const FilterToggle = ({
@@ -35,9 +36,9 @@ export const FilterToggle = ({
             {...rest}
         >
             {filterConfig.map((filter) => (
-                <ToggleButton key={filter.value} value={filter.value}>
+                <StyledToggleButton key={filter.value} value={filter.value}>
                     {filter.label}
-                </ToggleButton>
+                </StyledToggleButton>
             ))}
         </StyledToggleButtonGroup>
     );

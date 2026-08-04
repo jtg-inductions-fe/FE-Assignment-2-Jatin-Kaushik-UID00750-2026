@@ -1,5 +1,6 @@
 import {
     styled,
+    ToggleButton,
     ToggleButtonGroup,
     toggleButtonGroupClasses,
 } from '@mui/material';
@@ -23,13 +24,24 @@ export const StyledToggleButtonGroup = styled(ToggleButtonGroup)(
                 paddingInline: theme.spacing(3),
             },
         },
+
         [`& .${toggleButtonGroupClasses.middleButton},& .${toggleButtonGroupClasses.lastButton}`]:
             {
                 borderLeft: `1px solid ${theme.palette.grey[300]}`,
             },
+
         [`& .${toggleButtonGroupClasses.selected}`]: {
             backgroundColor: theme.palette.primary.main,
             color: theme.palette.common.white,
         },
     }),
 );
+
+export const StyledToggleButton = styled(ToggleButton)(({ theme }) => ({
+    backgroundColor: theme.palette.background.paper,
+    color: theme.palette.text.primary,
+    '&:hover, &.Mui-selected, &.Mui-selected:hover': {
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.common.white,
+    },
+}));
