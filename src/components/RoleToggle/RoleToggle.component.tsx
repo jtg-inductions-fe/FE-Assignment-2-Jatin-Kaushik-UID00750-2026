@@ -14,7 +14,7 @@ import { RoleToggleOptions } from './RoleToggle.types';
  * @param props.isLoading - Submitting loading status indicator to lock selections
  */
 
-const RoleToggle = ({
+export const RoleToggle = ({
     roles,
     value,
     onChange,
@@ -47,5 +47,3 @@ const RoleToggle = ({
         </StyledRoleButtonGroup>
     </StyledRoleContainer>
 );
-
-export default RoleToggle;

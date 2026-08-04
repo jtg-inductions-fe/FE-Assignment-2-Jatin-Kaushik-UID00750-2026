@@ -1,4 +1,4 @@
-import ProfileMenuContainer from '@containers/ProfileMenuContainer/ProfileMenuContainer';
+import { ProfileMenuContainer } from '@containers/ProfileMenuContainer/ProfileMenuContainer';
 
 export const DiscoveryPage = () => (
     <div>

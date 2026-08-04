@@ -8,8 +8,6 @@ import { StyledFormButton } from './FormButton.styles';
  * @param props.children - Label or layout nodes printed inside the button
  */
 
-const FormButton = ({ children, ...props }: ButtonProps) => (
+export const FormButton = ({ children, ...props }: ButtonProps) => (
     <StyledFormButton {...props}>{children}</StyledFormButton>
 );
-
-export default FormButton;

@@ -5,11 +5,11 @@ import { useNavigate } from 'react-router-dom';
 
 import { East, Fastfood, Storefront } from '@mui/icons-material';
 
-import FormButton from '@components/FormComponents/FormButton/FormButton.component';
+import { FormButton } from '@components/FormComponents/FormButton/FormButton.component';
 import { FormFieldRow } from '@components/FormComponents/FormFieldRow/FormFieldRow.component';
-import FormPasswordField from '@components/FormComponents/FormPasswordField/FormPasswordField.component';
-import FormTextField from '@components/FormComponents/FormTextField/FormTextField.component';
-import RoleToggle from '@components/RoleToggle/RoleToggle.component';
+import { FormPasswordField } from '@components/FormComponents/FormPasswordField/FormPasswordField.component';
+import { FormTextField } from '@components/FormComponents/FormTextField/FormTextField.component';
+import { RoleToggle } from '@components/RoleToggle/RoleToggle.component';
 import { RoleOptions } from '@components/RoleToggle/RoleToggle.types';
 import { ASYNC_STATUS, ROUTES, USER_ROLES } from '@constant';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -30,7 +30,7 @@ const rolesConfig: Array<RoleOptions> = [
  * Component managing the user account registration form flow.
  */
 
-const SignupForm = () => {
+export const SignupForm = () => {
     const dispatch = useAppDispatch();
     const { status, error } = useAppSelector((state) => state.auth);
     const isLoading = status === ASYNC_STATUS.LOADING;
@@ -138,5 +138,3 @@ const SignupForm = () => {
         </AuthFormLayout>
     );
 };
-
-export default SignupForm;

@@ -5,10 +5,10 @@ import { useNavigate } from 'react-router-dom';
 
 import { East } from '@mui/icons-material';
 
-import FormButton from '@components/FormComponents/FormButton/FormButton.component';
+import { FormButton } from '@components/FormComponents/FormButton/FormButton.component';
 import { FormFieldRow } from '@components/FormComponents/FormFieldRow/FormFieldRow.component';
-import FormPasswordField from '@components/FormComponents/FormPasswordField/FormPasswordField.component';
-import FormTextField from '@components/FormComponents/FormTextField/FormTextField.component';
+import { FormPasswordField } from '@components/FormComponents/FormPasswordField/FormPasswordField.component';
+import { FormTextField } from '@components/FormComponents/FormTextField/FormTextField.component';
 import { ROUTES } from '@constant';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useAppDispatch, useAppSelector, useToast } from '@hooks';
@@ -23,7 +23,7 @@ import { LoginFormData } from './LoginForm.types';
  * Component managing the user authentication log-in form flow
  */
 
-const LoginForm = () => {
+export const LoginForm = () => {
     const dispatch = useAppDispatch();
     const { status, error } = useAppSelector((state) => state.auth);
 
@@ -107,5 +107,3 @@ const LoginForm = () => {
         </AuthFormLayout>
     );
 };
-
-export default LoginForm;

@@ -23,7 +23,7 @@ const menuItemConfig = [
  * Container component handling data fetching and logout workflows for ProfileMenu.
  */
 
-const ProfileMenuContainer = () => {
+export const ProfileMenuContainer = () => {
     const dispatch = useAppDispatch();
     const { currentUser } = useAppSelector((state) => state.auth);
     const { isOpen, config, openConfirmDialog, closeConfirmDialog } =
@@ -73,5 +73,3 @@ const ProfileMenuContainer = () => {
         </>
     );
 };
-
-export default ProfileMenuContainer;
