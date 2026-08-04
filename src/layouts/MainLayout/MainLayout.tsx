@@ -1,7 +1,14 @@
 import { Outlet } from 'react-router-dom';
 
+import { AppHeader } from '@containers/AppHeader/AppHeader';
+
+import { AppContainer } from './MainLayout.styles';
+
 export const MainLayout = () => (
     <div>
-        <Outlet />
+        <AppHeader />
+        <AppContainer component="main">
+            <Outlet />
+        </AppContainer>
     </div>
 );

@@ -3,14 +3,13 @@ import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
-import { East, Fastfood, Storefront } from '@mui/icons-material';
+import { East } from '@mui/icons-material';
 
 import FormButton from '@components/FormComponents/FormButton/FormButton.component';
 import { FormFieldRow } from '@components/FormComponents/FormFieldRow/FormFieldRow.component';
 import FormPasswordField from '@components/FormComponents/FormPasswordField/FormPasswordField.component';
 import FormTextField from '@components/FormComponents/FormTextField/FormTextField.component';
 import RoleToggle from '@components/RoleToggle/RoleToggle.component';
-import { RoleOptions } from '@components/RoleToggle/RoleToggle.types';
 import { ASYNC_STATUS, ROUTES, USER_ROLES } from '@constant';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useAppDispatch, useAppSelector, useToast } from '@hooks';
@@ -18,13 +17,9 @@ import { AuthFormLayout } from '@layouts';
 import { clearAuthError } from '@store/slices/authSlice';
 import { signupThunk } from '@store/thunks';
 
+import { rolesConfig } from './SignupForm.config';
 import { signupSchema } from './SignupForm.schema';
 import { SignupFormData } from './SignupForm.types';
-
-const rolesConfig: Array<RoleOptions> = [
-    { value: USER_ROLES.CUSTOMER, label: 'Customer', icon: Fastfood },
-    { value: USER_ROLES.OWNER, label: 'Owner', icon: Storefront },
-];
 
 /**
  * Component managing the user account registration form flow.

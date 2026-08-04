@@ -50,7 +50,7 @@ export const ProfileMenu = ({
 
     return (
         <>
-            <Tooltip title="Account settings">
+            <Tooltip title="Profile">
                 <IconButton
                     onClick={handleOpenMenu}
                     size="small"

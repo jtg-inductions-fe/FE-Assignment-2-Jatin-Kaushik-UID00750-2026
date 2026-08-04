@@ -1,8 +1,5 @@
-import { LocalMallOutlined } from '@mui/icons-material';
-
 import { ConfirmDialog } from '@components/ConfirmDialog/ConfirmDialog.component';
 import { ProfileMenu } from '@components/ProfileMenu/ProfileMenu.component';
-import { ROUTES } from '@constant';
 import {
     useAppDispatch,
     useAppSelector,
@@ -11,19 +8,13 @@ import {
 } from '@hooks';
 import { logout } from '@store/slices/authSlice';
 
-const menuItemConfig = [
-    {
-        itemName: 'Orders',
-        itemRoute: ROUTES.ORDERS,
-        itemIcon: LocalMallOutlined,
-    },
-];
+import { menuItemConfig } from './ProfileMenuContainer.config';
 
 /**
  * Container component handling data fetching and logout workflows for ProfileMenu.
  */
 
-const ProfileMenuContainer = () => {
+export const ProfileMenuContainer = () => {
     const dispatch = useAppDispatch();
     const { currentUser } = useAppSelector((state) => state.auth);
     const { isOpen, config, openConfirmDialog, closeConfirmDialog } =
@@ -73,5 +64,3 @@ const ProfileMenuContainer = () => {
         </>
     );
 };
-
-export default ProfileMenuContainer;
