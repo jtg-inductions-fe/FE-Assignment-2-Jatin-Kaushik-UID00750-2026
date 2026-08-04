@@ -5,29 +5,25 @@
             "name": "Aditi Sharma",
             "email": "aditi.sharma@example.com",
             "role": "customer",
-            "phone": "9876543210",
             "address": {
                 "line1": "B-42, Sector 14",
                 "city": "Gurugram",
                 "state": "Haryana",
                 "pincode": "122001"
-            },
-            "createdAt": "2026-08-02T09:15:00.000Z"
+            }
         },
         {
             "id": "cus_002",
             "name": "Rohan Verma",
             "email": "rohan.verma@example.com",
             "role": "customer",
-            "phone": "9812345678",
             "address": {
                 "line1": "Flat 7C, Palm Residency",
                 "line2": "MG Road",
                 "city": "Gurugram",
                 "state": "Haryana",
                 "pincode": "122002"
-            },
-            "createdAt": "2026-08-10T11:40:00.000Z"
+            }
         }
     ],
 
@@ -37,18 +33,14 @@
             "name": "Rajesh Kumar",
             "email": "rajesh.kumar@example.com",
             "role": "owner",
-            "phone": "9900112233",
-            "restaurantIds": ["rst_001"],
-            "createdAt": "2026-08-18T08:00:00.000Z"
+            "restaurantIds": ["rst_001"]
         },
         {
             "id": "own_002",
             "name": "Meera Iyer",
             "email": "meera.iyer@example.com",
             "role": "owner",
-            "phone": "9911223344",
-            "restaurantIds": ["rst_002", "rst_003"],
-            "createdAt": "2026-08-20T08:00:00.000Z"
+            "restaurantIds": ["rst_002", "rst_003"]
         }
     ],
 
