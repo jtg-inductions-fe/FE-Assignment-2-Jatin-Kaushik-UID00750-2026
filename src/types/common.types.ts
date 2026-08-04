@@ -26,7 +26,6 @@ export type ISODateString = string;
 /** 24-hour "HH:mm" time string, e.g. "09:00" */
 export type TimeString = string;
 
-/** Ask if single address string or complete address options */
 export interface Address {
     line1: string;
     line2?: string;
