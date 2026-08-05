@@ -48,8 +48,7 @@ export type TimeString = string;
  * State Structure for address of the restaurant or customer
  */
 export interface Address {
-    line1: string;
-    line2?: string;
+    street: string;
     city: string;
     state: string;
     pincode: string;

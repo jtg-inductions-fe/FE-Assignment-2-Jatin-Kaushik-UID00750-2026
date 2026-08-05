@@ -64,7 +64,7 @@ export const StatusChip = styled(Chip)(({ theme }) => ({
 
 export const DietChip = styled(Chip)(({ theme }) => ({
     position: 'absolute',
-    top: theme.spacing(2),
+    bottom: theme.spacing(2),
     left: theme.spacing(2),
     zIndex: 2,
     backgroundColor: theme.palette.background.paper,
@@ -75,7 +75,6 @@ export const CuisinesTypography = styled(Typography)(({ theme }) => ({
     ...theme.mixins.lineClamp(1),
 }));
 
-/** Separate container layer ensuring buttons receive mouse down inputs cleanly */
 export const InteractiveActionsZone = styled(CardActions)({
     position: 'relative',
     zIndex: 3,
