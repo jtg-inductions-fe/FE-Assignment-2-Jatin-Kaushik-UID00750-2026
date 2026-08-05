@@ -5,10 +5,12 @@ import { useNavigate } from 'react-router-dom';
 
 import { East } from '@mui/icons-material';
 
-import { FormButton } from '@components/FormComponents/FormButton/FormButton.component';
-import { FormFieldRow } from '@components/FormComponents/FormFieldRow/FormFieldRow.component';
-import { FormPasswordField } from '@components/FormComponents/FormPasswordField/FormPasswordField.component';
-import { FormTextField } from '@components/FormComponents/FormTextField/FormTextField.component';
+import {
+    FormButton,
+    FormFieldRow,
+    FormPasswordField,
+    FormTextField,
+} from '@components/FormComponents';
 import { ROUTES } from '@constant';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useAppDispatch, useAppSelector, useToast } from '@hooks';

@@ -1,10 +1,14 @@
 import { useFormContext } from 'react-hook-form';
 
-import { FormFieldRow } from '@components/FormComponents/FormFieldRow/FormFieldRow.component';
-import { FormTextField } from '@components/FormComponents/FormTextField/FormTextField.component';
+import { FormFieldRow, FormTextField } from '@components/FormComponents';
 import { RestaurantFormValues } from '@types';
 
-import * as S from '../RestaurantForm.styles';
+import * as FormStyles from './RestaurantForm.styles';
+
+/**
+ * RestaurantAddressForm Component
+ * Renders the structural address sub-section input fields for the restaurant details form
+ */
 
 export const RestaurantAddressForm = () => {
     const {
@@ -12,7 +16,7 @@ export const RestaurantAddressForm = () => {
         formState: { errors },
     } = useFormContext<RestaurantFormValues>();
     return (
-        <S.StepContentContainer>
+        <FormStyles.StepContentContainer>
             <FormFieldRow label="Street" htmlFor="address.street">
                 <FormTextField
                     name="address.street"
@@ -52,6 +56,6 @@ export const RestaurantAddressForm = () => {
                     helperText={errors.address?.pincode?.message}
                 />
             </FormFieldRow>
-        </S.StepContentContainer>
+        </FormStyles.StepContentContainer>
     );
 };

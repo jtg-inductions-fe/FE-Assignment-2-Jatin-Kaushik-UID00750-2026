@@ -1,30 +1,19 @@
 import { useFormContext } from 'react-hook-form';
 
-import { FormAutocomplete } from '@components/FormComponents/FormAutocomplete/FormAutocomplete.component';
-import { FormFieldRow } from '@components/FormComponents/FormFieldRow/FormFieldRow.component';
-import { FormSelect } from '@components/FormComponents/FormSelect/FormSelect.component';
-import { FormTextField } from '@components/FormComponents/FormTextField/FormTextField.component';
+import {
+    FormAutocomplete,
+    FormFieldRow,
+    FormSelect,
+    FormTextField,
+} from '@components/FormComponents';
 
-import * as S from '../RestaurantForm.styles';
+import { CUISINE_OPTIONS, VEG_OPTIONS } from './RestaurantForm.constants';
+import * as FormStyles from './RestaurantForm.styles';
 
-const CUISINE_OPTIONS = [
-    'Italian',
-    'North Indian',
-    'South Indian',
-    'Street Food',
-    'Chinese',
-    'Mexican',
-    'American',
-    'Japanese',
-    'Thai',
-    'Mediterranean',
-];
-
-const VEG_OPTIONS = [
-    { value: 'veg', label: 'Vegetarian Only' },
-    { value: 'non-veg', label: 'Non-Vegetarian Only' },
-    { value: 'both', label: 'Serving Both' },
-];
+/**
+ * RestaurantBasicInfoForm Component
+ * Renders the structural basic informations sub-section input fields for the restaurant details form
+ */
 
 export const RestaurantBasicInfoForm = () => {
     const {
@@ -32,7 +21,7 @@ export const RestaurantBasicInfoForm = () => {
         formState: { errors },
     } = useFormContext();
     return (
-        <S.StepContentContainer>
+        <FormStyles.StepContentContainer>
             <FormFieldRow label="Name" htmlFor="name">
                 <FormTextField name="name" control={control} errors={errors} />
             </FormFieldRow>
@@ -75,6 +64,6 @@ export const RestaurantBasicInfoForm = () => {
                     errors={errors}
                 />
             </FormFieldRow>
-        </S.StepContentContainer>
+        </FormStyles.StepContentContainer>
     );
 };

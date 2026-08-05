@@ -1,6 +1,6 @@
 import { DialogTitle } from '@mui/material';
 
-import { UiButton } from '@components/UiButton/UiButton.component';
+import { UiButton } from '@components/UiButton';
 
 import {
     StyledDialog,

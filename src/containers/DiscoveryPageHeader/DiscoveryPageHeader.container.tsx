@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import { FilterToggle } from '@components/FilterToggle/FilterToggle.component';
-import { Searchbar } from '@components/Searchbar/Searchbar.component';
+import { FilterToggle } from '@components/FilterToggle';
+import { Searchbar } from '@components/Searchbar';
 
 import { filterConfig } from './DiscoveryPageHeader.config';
 import { StyledDiscoveryPageHeader } from './DiscoveryPageHeader.styles';

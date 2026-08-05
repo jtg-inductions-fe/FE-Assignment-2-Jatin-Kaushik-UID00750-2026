@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 
-import { AppHeader } from '@containers/AppHeader/AppHeader';
+import { AppHeader } from '@containers/AppHeader';
 
 import { AppContainer } from './MainLayout.styles';
 

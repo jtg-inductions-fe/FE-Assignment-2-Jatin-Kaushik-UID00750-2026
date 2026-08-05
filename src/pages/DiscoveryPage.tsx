@@ -1,10 +1,10 @@
 import { Link as RouterLink } from 'react-router-dom';
 
-import { PageHeader } from '@components/PageHeader/PageHeader.component';
-import { UiButton } from '@components/UiButton/UiButton.component';
+import { PageHeader } from '@components/PageHeader';
+import { UiButton } from '@components/UiButton';
 import { ROUTES } from '@constant';
-import { DiscoveryPageHeader } from '@containers/DiscoveryPageHeader/DiscoveryPageHeader';
-import { RestaurantCardsList } from '@containers/RestaurantCardsList/RestaurantCardsList';
+import { DiscoveryPageHeader } from '@containers/DiscoveryPageHeader';
+import { RestaurantCardsList } from '@containers/RestaurantCardsList';
 
 export const DiscoveryPage = () => (
     <div>

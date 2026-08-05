@@ -2,8 +2,10 @@ import * as yup from 'yup';
 
 import { DayOfWeek, RestaurantVegType } from '@types';
 
+/** Regular expression validating 24-hour time values in HH:MM format */
 const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
 
+/** Schema representing operational schedules for a single day of the week */
 const dayHoursSchema = yup.object().shape({
     day: yup.string().required() as yup.Schema<DayOfWeek>,
     isClosed: yup.boolean().required(),
@@ -25,6 +27,7 @@ const dayHoursSchema = yup.object().shape({
     }),
 });
 
+/** Validation schema mapping restaurant configuration details */
 export const restaurantValidationSchema = yup.object().shape({
     name: yup
         .string()

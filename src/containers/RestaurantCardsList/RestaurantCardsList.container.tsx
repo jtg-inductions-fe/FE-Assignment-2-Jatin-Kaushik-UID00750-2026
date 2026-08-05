@@ -1,8 +1,8 @@
 import { Storefront } from '@mui/icons-material';
 
-import { EmptyListIndicator } from '@components/EmptyListIndicator/EmptyListIndicator.component';
-import { RestaurantCard } from '@components/RestaurantCard/RestaurantCard.component';
-import { RestaurantCardSkeleton } from '@components/RestaurantCardSkeleton/RestaurantCardSkeleton.component';
+import { EmptyListIndicator } from '@components/EmptyListIndicator';
+import { RestaurantCard } from '@components/RestaurantCard';
+import { RestaurantCardSkeleton } from '@components/RestaurantCardSkeleton';
 
 import { StyledRestaurantCardsList } from './RestaurantCardsList.styles';
 

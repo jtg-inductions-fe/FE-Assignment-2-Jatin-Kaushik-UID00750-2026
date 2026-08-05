@@ -2,13 +2,16 @@ import { Controller, useFormContext } from 'react-hook-form';
 
 import { Checkbox, FormControlLabel, Typography } from '@mui/material';
 
-import { FormTextField } from '@components/FormComponents/FormTextField/FormTextField.component';
-import { DAYS_OF_WEEK } from '@constant';
+import { FormTextField } from '@components/FormComponents';
 import { RestaurantFormValues } from '@types';
 
-import * as S from '../RestaurantForm.styles';
+import { DAYS } from './RestaurantForm.constants';
+import * as FormStyles from './RestaurantForm.styles';
 
-const DAYS = Object.values(DAYS_OF_WEEK);
+/**
+ * RestaurantHoursForm Component
+ * Renders the structural operating hours sub-section input fields for the restaurant details form
+ */
 
 export const RestaurantHoursForm = () => {
     const {
@@ -18,11 +21,11 @@ export const RestaurantHoursForm = () => {
         formState: { errors },
     } = useFormContext<RestaurantFormValues>();
     return (
-        <S.StepContentContainer>
+        <FormStyles.StepContentContainer>
             {DAYS.map((_, index) => {
                 const isDayClosed = watch(`operatingHours.${index}.isClosed`);
                 return (
-                    <S.OperatingHoursRow key={index}>
+                    <FormStyles.OperatingHoursRow key={index}>
                         <Typography variant="body1">
                             {getValues(`operatingHours.${index}.day`)}
                         </Typography>
@@ -71,9 +74,9 @@ export const RestaurantHoursForm = () => {
                                     ?.message
                             }
                         />
-                    </S.OperatingHoursRow>
+                    </FormStyles.OperatingHoursRow>
                 );
             })}
-        </S.StepContentContainer>
+        </FormStyles.StepContentContainer>
     );
 };

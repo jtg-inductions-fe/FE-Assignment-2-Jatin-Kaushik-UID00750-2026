@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 
-import { RestaurantFormContainer } from '@containers/RestaurantFormContainer/RestaurantFormContainer';
+import { RestaurantFormContainer } from '@containers/RestaurantFormContainer';
 
 export const EditRestaurantPage = () => {
     const params = useParams();

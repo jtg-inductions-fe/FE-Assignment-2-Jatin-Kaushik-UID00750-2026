@@ -1,8 +1,8 @@
 import { Link as RouterLink } from 'react-router-dom';
 
-import { CartBadge } from '@components/CartBadge/CartBadge.component';
+import { CartBadge } from '@components/CartBadge';
 import { ROUTES } from '@constant';
-import { ProfileMenuContainer } from '@containers/ProfileMenuContainer/ProfileMenuContainer';
+import { ProfileMenuContainer } from '@containers/ProfileMenuContainer';
 
 import {
     AppHeaderContainer,

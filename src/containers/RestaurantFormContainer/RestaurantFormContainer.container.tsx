@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import { FullScreenLoader } from '@components/FullScreenLoader/FullScreenLoader.component';
-import { RestaurantForm } from '@components/RestaurantForm/RestaurantForm.component';
+import { FullScreenLoader } from '@components/FullScreenLoader';
+import { RestaurantForm } from '@components/RestaurantForm';
 import { useToast } from '@hooks';
 import { RestaurantFormValues } from '@types';
 

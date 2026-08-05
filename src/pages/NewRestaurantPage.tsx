@@ -1,3 +1,3 @@
-import { RestaurantFormContainer } from '@containers/RestaurantFormContainer/RestaurantFormContainer';
+import { RestaurantFormContainer } from '@containers/RestaurantFormContainer';
 
 export const NewRestaurantPage = () => <RestaurantFormContainer />;

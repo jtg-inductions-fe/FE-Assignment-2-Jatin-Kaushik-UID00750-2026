@@ -1,4 +1,4 @@
-import { LoginForm } from '@containers/LoginForm/LoginForm';
+import { LoginForm } from '@containers/LoginForm';
 
 export const LoginPage = () => (
     <div>
