@@ -12,7 +12,7 @@ import { FormTextFieldProps } from './FormTextField.types';
  * @param props.isLoading - Submitting loading status indicator to lock the input
  */
 
-const FormTextField = <T extends FieldValues>({
+export const FormTextField = <T extends FieldValues>({
     name,
     control,
     errors,
@@ -47,5 +47,3 @@ const FormTextField = <T extends FieldValues>({
         />
     );
 };
-
-export default FormTextField;

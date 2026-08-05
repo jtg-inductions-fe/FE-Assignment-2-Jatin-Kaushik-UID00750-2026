@@ -2,6 +2,7 @@ import { CardContent, Stack, Typography } from '@mui/material';
 
 import { UiButton } from '@components/UiButton/UiButton.component';
 
+import { dietConfigurations } from './RestaurantCard.config';
 import {
     CardActionLink,
     CuisinesTypography,
@@ -15,8 +16,19 @@ import {
 import { RestaurantCardProps } from './RestaurantCard.types';
 
 /**
- * Presentational card component representing individual restaurant items.
- * Implements accessible block link architectures for nested action zones.
+ * Card component representing individual restaurants
+ *
+ * @param props - The component properties
+ * @param props.id - Unique identifier for the restaurant
+ * @param props.name - Name of the restaurant
+ * @param props.cuisines - Array of cuisine types served by the restaurant
+ * @param props.vegType - Dietary type: 'veg', 'non-veg', or 'both'
+ * @param props.imageUrl - URL for the restaurant's thumbnail image
+ * @param props.isClosed - Boolean indicating if the restaurant is currently closed
+ * @param props.showQuickActions - Optional boolean to show edit/delete buttons
+ * @param props.imageAltText - Optional alt text for the image for accessibility
+ * @param props.onEdit - Optional callback function triggered when the edit button is clicked
+ * @param props.onDelete - Optional callback function triggered when the delete button is clicked
  */
 export const RestaurantCard = ({
     id,
@@ -31,24 +43,6 @@ export const RestaurantCard = ({
     onDelete,
 }: RestaurantCardProps) => {
     const cuisineListString = cuisines.join(', ');
-
-    const dietConfigurations = {
-        veg: {
-            label: 'Veg',
-            color: 'success' as const,
-            ariaLabel: 'Vegetarian selection only',
-        },
-        'non-veg': {
-            label: 'Non-Veg',
-            color: 'error' as const,
-            ariaLabel: 'Non vegetarian selection only',
-        },
-        both: {
-            label: 'Veg & Non-Veg',
-            color: 'warning' as const,
-            ariaLabel: 'Serves both Vegetarian and Non Vegetarian dishes',
-        },
-    };
 
     const diet = dietConfigurations[vegType];
 

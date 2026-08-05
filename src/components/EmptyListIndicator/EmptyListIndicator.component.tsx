@@ -7,6 +7,15 @@ import {
 } from './EmptyListIndicator.styles';
 import { EmptyListIndicatorProps } from './EmptyListIndicator.types';
 
+/**
+ * A visual indicator shown when a list layout has no data
+ *
+ * @param props - The component properties
+ * @param props.title - The main bold heading text
+ * @param props.description - Additional detail or instructions for the user
+ * @param props.icon - An optional graphic element displayed above the text
+ */
+
 export const EmptyListIndicator = ({
     title,
     description,

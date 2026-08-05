@@ -17,7 +17,7 @@ import { FormPasswordFieldProps } from './FormPasswordField.types';
  * @param props.isLoading - Submitting loading status indicator to lock the input
  */
 
-const FormPasswordField = <T extends FieldValues>({
+export const FormPasswordField = <T extends FieldValues>({
     name,
     control,
     errors,
@@ -81,5 +81,3 @@ const FormPasswordField = <T extends FieldValues>({
         />
     );
 };
-
-export default FormPasswordField;

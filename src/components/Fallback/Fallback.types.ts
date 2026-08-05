@@ -1,3 +1,7 @@
+/**
+ * Configuration options to customize fallback display page
+ */
+
 export interface FallbackOptions {
     statusCode: number;
     title: string;

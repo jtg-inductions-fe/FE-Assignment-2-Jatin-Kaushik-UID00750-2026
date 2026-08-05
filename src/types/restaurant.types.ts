@@ -5,6 +5,9 @@ import {
     TimeString,
 } from './common.types';
 
+/**
+ * Operating schedule for a single day of the week
+ */
 export interface DayHours {
     day: DayOfWeek;
     isClosed: boolean;
@@ -12,12 +15,14 @@ export interface DayHours {
     closeTime?: TimeString;
 }
 
+/**
+ * Details of a restaurant
+ */
 export interface Restaurant {
     id: string;
     ownerId: string;
     name: string;
     description: string;
-    /** e.g. ["North Indian", "Chinese"] — used for display tags */
     cuisines: string[];
     vegType: RestaurantVegType;
     address: Address;

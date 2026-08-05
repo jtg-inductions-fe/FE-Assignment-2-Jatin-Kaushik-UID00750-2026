@@ -1,22 +1,25 @@
 import { Restaurant } from '@types';
 
+/**
+ * Defines the properties accepted by the RestaurantCard component
+ */
 export interface RestaurantCardProps
     extends Pick<
         Restaurant,
         'id' | 'name' | 'cuisines' | 'vegType' | 'imageUrl'
     > {
-    /** Operational availability status flag. */
     isClosed: boolean;
-
-    /** Explicit control flag to render owner controls */
     showQuickActions?: boolean;
-
-    /** Accessible label description alternative for screen reader parsing */
     imageAltText?: string;
-
-    /** Callback emitted when owner action "Edit" is clicked */
     onEdit?: () => void;
-
-    /** Callback emitted when owner action "Delete" is clicked */
     onDelete?: () => void;
+}
+
+/**
+ * Defines the visual and accessibility configuration for a specific dietary filter
+ */
+export interface DietConfiguration {
+    label: string;
+    color: 'primary' | 'secondary' | 'success' | 'error' | 'warning';
+    ariaLabel: string;
 }

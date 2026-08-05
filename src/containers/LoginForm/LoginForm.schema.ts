@@ -1,5 +1,9 @@
 import * as yup from 'yup';
 
+/**
+ * Validation rules and error messages for checking user login form inputs
+ */
+
 export const loginSchema = yup
     .object({
         email: yup

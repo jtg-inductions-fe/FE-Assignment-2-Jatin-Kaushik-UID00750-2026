@@ -16,7 +16,7 @@ import { FallbackOptions } from './Fallback.types';
  * Supports rendering buttons as interactive navigation links or click action handlers.
  */
 
-const Fallback = ({
+export const Fallback = ({
     statusCode,
     title,
     description,
@@ -49,5 +49,3 @@ const Fallback = ({
         </FallbackStyledContainer>
     </FallbackPageWrapper>
 );
-
-export default Fallback;

@@ -1,3 +1,7 @@
+/**
+ * An array of options that sets up the buttons for the restaurant layout filter toggle
+ */
+
 export const filterConfig = [
     {
         label: 'All',

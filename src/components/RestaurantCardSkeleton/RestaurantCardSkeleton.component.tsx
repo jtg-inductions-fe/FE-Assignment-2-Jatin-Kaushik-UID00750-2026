@@ -5,6 +5,10 @@ import {
     StyledTextSkeleton,
 } from './RestaurantCardSkeleton.styles';
 
+/**
+ * A placeholder loading card for the RestaurantCard component
+ * It uses animated wave patterns to show users that data is currently fetching or loading.
+ */
 export const RestaurantCardSkeleton = () => (
     <StyledSkeletonCard>
         <StyledMediaSkeleton
