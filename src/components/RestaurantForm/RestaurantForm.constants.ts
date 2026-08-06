@@ -28,5 +28,5 @@ export const CUISINE_OPTIONS = [
 export const VEG_OPTIONS = [
     { value: RESTAURANT_VEG_TYPES.VEG, label: 'Vegetarian Only' },
     { value: RESTAURANT_VEG_TYPES.NON_VEG, label: 'Non-Vegetarian Only' },
-    { value: RESTAURANT_VEG_TYPES.BOTH, label: 'Serving Both' },
+    { value: RESTAURANT_VEG_TYPES.ALL, label: 'Serving Both' },
 ];

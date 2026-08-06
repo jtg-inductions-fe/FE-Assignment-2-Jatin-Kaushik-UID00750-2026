@@ -12,6 +12,7 @@ import storage from 'redux-persist/lib/storage';
 
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import authReducer from '@store/slices/authSlice';
+import restaurantReducer from '@store/slices/restaurantsSlice';
 import uiReducer from '@store/slices/uiSlice';
 
 /** Persistence settings for session authentication keys. */
@@ -25,6 +26,7 @@ const authPersistConfig = {
 const rootReducer = combineReducers({
     ui: uiReducer,
     auth: persistReducer(authPersistConfig, authReducer),
+    restaurants: restaurantReducer,
 });
 
 /**

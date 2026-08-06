@@ -4,7 +4,12 @@ import { useNavigate } from 'react-router-dom';
 
 import { FullScreenLoader } from '@components/FullScreenLoader';
 import { RestaurantForm } from '@components/RestaurantForm';
-import { useToast } from '@hooks';
+import { useAppDispatch, useAppSelector, useToast } from '@hooks';
+import {
+    addRestaurant,
+    editRestaurant,
+    fetchMyRestaurants,
+} from '@store/thunks/restaurantsThunk';
 import { RestaurantFormValues } from '@types';
 
 export const RestaurantFormContainer = ({
@@ -12,107 +17,82 @@ export const RestaurantFormContainer = ({
 }: {
     restaurantId?: string;
 }) => {
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const toast = useToast();
+    const { currentUser } = useAppSelector((state) => state.auth);
+
+    // Query state directly if available locally
+    const existingRestaurant = useAppSelector((state) =>
+        state.restaurants.list.find((r) => r.id === restaurantId),
+    );
+
     const [initialData, setInitialData] = useState<
         RestaurantFormValues | undefined
     >(undefined);
     const [isPageLoading, setIsPageLoading] = useState<boolean>(!!restaurantId);
     const [isSubmitLoading, setIsSubmitLoading] = useState<boolean>(false);
 
-    const toast = useToast();
-    const navigate = useNavigate();
-
     useEffect(() => {
-        if (restaurantId) {
-            const fetchRestaurantDetails = async () => {
-                try {
-                    await new Promise((resolve) => setTimeout(resolve, 1000));
-                    const mockFetchedData: RestaurantFormValues = {
-                        name: 'Le Bistro Classique',
-                        description:
-                            'A beautiful Parisian dining destination offering rich artisanal cuisine choices.',
-                        cuisines: ['French', 'Mediterranean'],
-                        vegType: 'both',
-                        imageUrl: 'https://unsplash.com',
-                        address: {
-                            street: '456 Rue de Paris',
-                            city: 'Boston',
-                            state: 'MA',
-                            pincode: '02108',
-                        },
-                        operatingHours: [
-                            { day: 'Monday', isClosed: true },
-                            {
-                                day: 'Tuesday',
-                                isClosed: false,
-                                openTime: '11:00',
-                                closeTime: '23:00',
-                            },
-                            {
-                                day: 'Wednesday',
-                                isClosed: false,
-                                openTime: '11:00',
-                                closeTime: '23:00',
-                            },
-                            {
-                                day: 'Thursday',
-                                isClosed: false,
-                                openTime: '11:00',
-                                closeTime: '23:00',
-                            },
-                            {
-                                day: 'Friday',
-                                isClosed: false,
-                                openTime: '11:00',
-                                closeTime: '00:00',
-                            },
-                            {
-                                day: 'Saturday',
-                                isClosed: false,
-                                openTime: '10:00',
-                                closeTime: '00:00',
-                            },
-                            {
-                                day: 'Sunday',
-                                isClosed: false,
-                                openTime: '10:00',
-                                closeTime: '21:00',
-                            },
-                        ],
-                    };
-                    setInitialData(mockFetchedData);
-                } catch {
-                } finally {
-                    setIsPageLoading(false);
-                }
-            };
+        if (!restaurantId) return;
 
-            void fetchRestaurantDetails();
+        if (existingRestaurant) {
+            setInitialData(existingRestaurant);
+            setIsPageLoading(false);
+        } else {
+            dispatch(fetchMyRestaurants(currentUser?.id ?? ''))
+                .unwrap()
+                .then((list) => {
+                    const found = list.find((r) => r.id === restaurantId);
+                    if (found) setInitialData(found);
+                })
+                .catch(() => {
+                    toast({
+                        message: 'Failed to fetch restaurant details',
+                        type: 'error',
+                    });
+                })
+                .finally(() => {
+                    setIsPageLoading(false);
+                });
         }
-    }, [restaurantId]);
+    }, [restaurantId, existingRestaurant, dispatch, toast, currentUser?.id]);
 
     const handleFormSubmission = async (formData: RestaurantFormValues) => {
         setIsSubmitLoading(true);
         try {
-            await new Promise((resolve) => setTimeout(resolve, 2000));
-            if (restaurantId) {
-                // eslint-disable-next-line
-                console.log('PUT - Updating Existing Restaurant:', formData);
+            if (restaurantId && currentUser) {
+                await dispatch(
+                    editRestaurant({
+                        id: restaurantId,
+                        ownerId: currentUser?.id,
+                        ...formData,
+                    }),
+                ).unwrap();
                 toast({
-                    message: 'Restaurant updated successfully',
+                    message: 'Changes saved successfully',
+                    type: 'success',
+                });
+            } else if (currentUser) {
+                await dispatch(
+                    addRestaurant({ ownerId: currentUser?.id, ...formData }),
+                ).unwrap();
+                toast({
+                    message: 'Restaurant created successfully',
                     type: 'success',
                 });
             } else {
-                // eslint-disable-next-line
-                console.log('POST - Creating New Restaurant Record:', formData);
                 toast({
-                    message: 'New Restaurant added successfully',
-                    type: 'success',
+                    message: 'Unable to complete request. Please try again',
+                    type: 'error',
                 });
             }
             await navigate('/');
-        } catch (error) {
-            // eslint-disable-next-line
-            console.error('Submission execution failure:', error);
+        } catch {
+            toast({
+                message: 'Unable to complete request. Please try again',
+                type: 'error',
+            });
         } finally {
             setIsSubmitLoading(false);
         }

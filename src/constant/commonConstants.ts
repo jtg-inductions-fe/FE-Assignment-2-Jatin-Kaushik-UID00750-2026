@@ -16,7 +16,7 @@ export const VEG_TYPES = {
 export const RESTAURANT_VEG_TYPES = {
     VEG: 'veg',
     NON_VEG: 'non-veg',
-    BOTH: 'both',
+    ALL: 'all',
 } as const;
 
 export const DAYS_OF_WEEK = {

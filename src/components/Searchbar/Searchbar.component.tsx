@@ -16,6 +16,7 @@ import { SearchbarProps } from './Searchbar.types';
  */
 
 export const Searchbar = ({
+    value = '',
     onChange,
     placeholder = 'Search...',
 }: SearchbarProps) => (
@@ -25,6 +26,7 @@ export const Searchbar = ({
         </SearchIconWrapper>
         <StyledInputBase
             placeholder={placeholder}
+            value={value}
             inputProps={{ 'aria-label': 'search' }}
             onChange={onChange}
         />

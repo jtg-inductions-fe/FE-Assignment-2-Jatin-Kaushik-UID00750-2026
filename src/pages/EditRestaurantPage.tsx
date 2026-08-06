@@ -6,7 +6,6 @@ export const EditRestaurantPage = () => {
     const params = useParams();
     return (
         <>
-            <div>EditRestaurantPage: {params.restaurantId}</div>
             <RestaurantFormContainer
                 restaurantId={params.restaurantId as string}
             />

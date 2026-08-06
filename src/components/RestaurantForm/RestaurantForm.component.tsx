@@ -21,7 +21,7 @@ const defaultFormValues: RestaurantFormValues = {
     name: '',
     description: '',
     cuisines: [],
-    vegType: 'both',
+    vegType: 'all',
     imageUrl: '',
     address: { street: '', city: '', state: '', pincode: '' },
     operatingHours: DAYS.map((day) => ({

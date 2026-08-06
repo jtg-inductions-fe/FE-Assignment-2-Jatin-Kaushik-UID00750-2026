@@ -14,7 +14,7 @@ export const dietConfigurations: Record<string, DietConfiguration> = {
         color: 'error',
         ariaLabel: 'Non vegetarian selection only',
     },
-    both: {
+    all: {
         label: 'Veg & Non-Veg',
         color: 'warning',
         ariaLabel: 'Serves both Vegetarian and Non Vegetarian dishes',

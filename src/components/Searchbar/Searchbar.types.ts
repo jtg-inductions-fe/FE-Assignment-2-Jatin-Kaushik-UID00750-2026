@@ -3,6 +3,7 @@
  */
 
 export interface SearchbarProps {
+    value?: string;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     placeholder?: string;
 }

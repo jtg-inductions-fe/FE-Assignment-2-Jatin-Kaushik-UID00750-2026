@@ -1,18 +1,24 @@
+import React from 'react';
+
 import { Restaurant } from '@types';
 
 /**
  * Defines the properties accepted by the RestaurantCard component
  */
-export interface RestaurantCardProps
+export interface RestaurantCardBaseProps
     extends Pick<
         Restaurant,
         'id' | 'name' | 'cuisines' | 'vegType' | 'imageUrl'
     > {
     isClosed: boolean;
-    showQuickActions?: boolean;
     imageAltText?: string;
-    onEdit?: () => void;
-    onDelete?: () => void;
+    children?: React.ReactNode;
+}
+
+export interface RestaurantOwnerCardProps
+    extends Omit<RestaurantCardBaseProps, 'children'> {
+    onEdit: () => void;
+    onDelete: () => void;
 }
 
 /**

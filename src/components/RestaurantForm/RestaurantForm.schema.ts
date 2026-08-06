@@ -44,7 +44,7 @@ export const restaurantValidationSchema = yup.object().shape({
         .required('Cuisines are required'),
     vegType: yup
         .string()
-        .oneOf(['veg', 'non-veg', 'both'])
+        .oneOf(['veg', 'non-veg', 'all'])
         .required(
             'Veg type selection is required',
         ) as yup.Schema<RestaurantVegType>,
