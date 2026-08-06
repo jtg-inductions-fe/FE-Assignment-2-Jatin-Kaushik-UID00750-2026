@@ -1,5 +1,9 @@
 import { restaurantsService } from './restaurantsService';
 
+/**
+ * Configuration mapping for restaurant-related async service actions.
+ * Groups action types, API service calls, and user-facing fallback error messages.
+ */
 export const RESTAURANTS_SERVICE_ACTIONS = {
     GET_ALL: {
         type: 'restaurants/getAll',

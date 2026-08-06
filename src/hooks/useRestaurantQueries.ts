@@ -6,6 +6,10 @@ import { useAppDispatch } from '@hooks';
 import { setSearchQuery, setVegFilter } from '@store/slices/restaurantsSlice';
 import type { RestaurantVegType } from '@types';
 
+/**
+ * Custom state synchronisation hook that links component filter states with URL search parameters.
+ * Manages debounced text search dispatching and active dietary filters to keep global state in sync.
+ */
 export const useRestaurantQueries = () => {
     const dispatch = useAppDispatch();
     const [searchParams, setSearchParams] = useSearchParams();

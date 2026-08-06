@@ -3,7 +3,7 @@ import React from 'react';
 import { Restaurant } from '@types';
 
 /**
- * Defines the properties accepted by the RestaurantCard component
+ * Defines the properties accepted by the RestaurantCardBase component
  */
 export interface RestaurantCardBaseProps
     extends Pick<
@@ -15,6 +15,9 @@ export interface RestaurantCardBaseProps
     children?: React.ReactNode;
 }
 
+/**
+ * Defines the properties accepted by the RestaurantOwnerCard component
+ */
 export interface RestaurantOwnerCardProps
     extends Omit<RestaurantCardBaseProps, 'children'> {
     onEdit: () => void;

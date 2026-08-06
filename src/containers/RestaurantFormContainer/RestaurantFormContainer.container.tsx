@@ -12,6 +12,14 @@ import {
 } from '@store/thunks/restaurantsThunk';
 import { RestaurantFormValues } from '@types';
 
+/**
+ * Smart container component managing the lifecycle of the restaurant data entry form.
+ * Determines whether to hydrate the form fields with existing information or prepare
+ * clean slots for new listings.
+ *
+ * @param props - The component properties.
+ * @param props.restaurantId - Optional reference string used to identify records targeted for modification.
+ */
 export const RestaurantFormContainer = ({
     restaurantId,
 }: {
@@ -22,7 +30,6 @@ export const RestaurantFormContainer = ({
     const toast = useToast();
     const { currentUser } = useAppSelector((state) => state.auth);
 
-    // Query state directly if available locally
     const existingRestaurant = useAppSelector((state) =>
         state.restaurants.list.find((r) => r.id === restaurantId),
     );
@@ -58,6 +65,11 @@ export const RestaurantFormContainer = ({
         }
     }, [restaurantId, existingRestaurant, dispatch, toast, currentUser?.id]);
 
+    /**
+     * Dispatches payloads to modify current restaurant or add new restaurant.
+     *
+     * @param formData - Structured, user-provided values matching input configuration requirements of the restaurant.
+     */
     const handleFormSubmission = async (formData: RestaurantFormValues) => {
         setIsSubmitLoading(true);
         try {

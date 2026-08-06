@@ -12,6 +12,11 @@ import { filterConfig } from './DiscoveryPageHeader.config';
 import { StyledDiscoveryPageHeader } from './DiscoveryPageHeader.styles';
 import { useRestaurantQueries } from '../../hooks/useRestaurantQueries';
 
+/**
+ * Header controller for the restaurant discovery page.
+ * Orchestrates search filtering parameters, dietary toggles, and contextual
+ * action creation paths depending on the authenticated role profile.
+ */
 export const DiscoveryPageHeader = () => {
     const { currentUser } = useAppSelector((state) => state.auth);
 

@@ -6,9 +6,11 @@ export interface ServiceActions<Arg, Returned> {
     fallbackMessage: string;
 }
 
+/** Extracts an error message string from an unknown error or returns a fallback message. */
 const toErrorMessage = (error: unknown, fallback: string): string =>
     error instanceof Error ? error.message : fallback;
 
+/** Higher-order function that generates standardized Redux Async Thunks with built-in error handling. */
 export const asyncServiceThunk = <Arg, Returned>(
     actionConfig: ServiceActions<Arg, Returned>,
     options?: AsyncThunkOptions<Arg, { rejectValue: string }>,

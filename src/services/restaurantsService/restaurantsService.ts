@@ -3,10 +3,16 @@ import { Restaurant, RestaurantFormValues } from '@types';
 import restaurantsData from '../../mocks/data/restaurants.json';
 let allRestaurants = restaurantsData as Restaurant[];
 
+/**
+ * Service handler for managing restaurant data operations.
+ * Simulates an asynchronous backend database API layer using mock JSON data.
+ */
 export const restaurantsService = {
+    /** Retrieves a complete copy of all restaurant records */
     getAllRestaurants: (): Promise<Restaurant[]> =>
         Promise.resolve([...allRestaurants]),
 
+    /** Filters and returns restaurants belonging to a specific owner ID */
     getMyRestaurants: (ownerId: string): Promise<Restaurant[]> => {
         const myRestaurants = allRestaurants.filter(
             (restaurant) => restaurant.ownerId === ownerId,
@@ -14,6 +20,7 @@ export const restaurantsService = {
         return Promise.resolve(myRestaurants);
     },
 
+    /** Generates a unique ID and appends a new restaurant to the list */
     addRestaurant: (
         payload: RestaurantFormValues & { ownerId: string },
     ): Promise<Restaurant> => {
@@ -22,6 +29,7 @@ export const restaurantsService = {
         return Promise.resolve(newRestaurant);
     },
 
+    /** Searches for an existing restaurant by ID and updates its fields */
     editRestaurant: (payload: Restaurant): Promise<Restaurant> => {
         allRestaurants = allRestaurants.map((restaurant) =>
             restaurant.id === payload.id
@@ -31,6 +39,7 @@ export const restaurantsService = {
         return Promise.resolve(payload);
     },
 
+    /** Excludes a specific restaurant from the list to simulate deletion */
     deleteRestaurant: (restaurantId: string): Promise<string> => {
         allRestaurants = allRestaurants.filter(
             (restaurant) => restaurant.id !== restaurantId,

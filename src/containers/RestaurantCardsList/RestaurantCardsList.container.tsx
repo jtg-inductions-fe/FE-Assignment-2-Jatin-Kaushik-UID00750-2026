@@ -28,6 +28,10 @@ import { checkIsRestaurantClosed } from '@utils';
 
 import { StyledRestaurantCardsList } from './RestaurantCardsList.styles';
 
+/**
+ * Grid list that handles fetching, filtering, and displaying restaurants.
+ * Dynamically switches between consumer layouts and management control flows based on user role.
+ */
 export const RestaurantCardsList = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
