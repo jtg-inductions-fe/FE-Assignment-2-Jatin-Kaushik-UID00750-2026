@@ -19,11 +19,14 @@ import { RestaurantFormValues } from '@types';
  *
  * @param props - The component properties.
  * @param props.restaurantId - Optional reference string used to identify records targeted for modification.
+ * @param props.initialStep - Optional integer indicating the initial step of the multi-step form.
  */
 export const RestaurantFormContainer = ({
     restaurantId,
+    initialStep = 0,
 }: {
     restaurantId?: string;
+    initialStep?: number;
 }) => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -38,7 +41,6 @@ export const RestaurantFormContainer = ({
         RestaurantFormValues | undefined
     >(undefined);
     const [isPageLoading, setIsPageLoading] = useState<boolean>(!!restaurantId);
-    const [isSubmitLoading, setIsSubmitLoading] = useState<boolean>(false);
 
     useEffect(() => {
         if (!restaurantId) return;
@@ -52,18 +54,27 @@ export const RestaurantFormContainer = ({
                 .then((list) => {
                     const found = list.find((r) => r.id === restaurantId);
                     if (found) setInitialData(found);
+                    else throw new Error('Restaurant not found');
                 })
                 .catch(() => {
                     toast({
                         message: 'Failed to fetch restaurant details',
                         type: 'error',
                     });
+                    void navigate('/');
                 })
                 .finally(() => {
                     setIsPageLoading(false);
                 });
         }
-    }, [restaurantId, existingRestaurant, dispatch, toast, currentUser?.id]);
+    }, [
+        restaurantId,
+        existingRestaurant,
+        navigate,
+        dispatch,
+        toast,
+        currentUser?.id,
+    ]);
 
     /**
      * Dispatches payloads to modify current restaurant or add new restaurant.
@@ -71,7 +82,6 @@ export const RestaurantFormContainer = ({
      * @param formData - Structured, user-provided values matching input configuration requirements of the restaurant.
      */
     const handleFormSubmission = async (formData: RestaurantFormValues) => {
-        setIsSubmitLoading(true);
         try {
             if (restaurantId && currentUser) {
                 await dispatch(
@@ -105,8 +115,6 @@ export const RestaurantFormContainer = ({
                 message: 'Unable to complete request. Please try again',
                 type: 'error',
             });
-        } finally {
-            setIsSubmitLoading(false);
         }
     };
 
@@ -117,8 +125,8 @@ export const RestaurantFormContainer = ({
     return (
         <RestaurantForm
             initialValues={initialData}
+            initialStep={initialStep}
             onSubmit={handleFormSubmission}
-            isSubmitLoading={isSubmitLoading}
         />
     );
 };

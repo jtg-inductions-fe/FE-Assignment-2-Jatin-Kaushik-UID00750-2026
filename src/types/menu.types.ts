@@ -1,4 +1,4 @@
-import { VegType } from './common.types';
+import { AsyncStatus, VegType } from './common.types';
 
 /** Represents category of a menu item in the restaurant */
 export interface MenuCategory {
@@ -22,9 +22,19 @@ export interface MenuItem {
     stock: number;
 }
 
-/** Function to compute stock availability */
-export const isMenuItemAvailable = (item: Pick<MenuItem, 'stock'>): boolean =>
-    item.stock > 0;
-
 /** Payload shape for the Add/Edit Menu Item modal. */
 export type MenuItemFormValues = Omit<MenuItem, 'id' | 'restaurantId'>;
+
+/** Mock Data structure for menu items with categories */
+export interface MenuSeed {
+    categories: MenuCategory[];
+    items: MenuItem[];
+}
+
+/** Global state structure for managing menu data, including categories and items. */
+export interface MenuState {
+    categories: MenuCategory[];
+    items: MenuItem[];
+    status: AsyncStatus;
+    error: string | null;
+}

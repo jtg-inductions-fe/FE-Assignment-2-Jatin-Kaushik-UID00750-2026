@@ -93,16 +93,18 @@ export const RestaurantBanner = ({
                             <Typography variant="h6" component="h2">
                                 Operating Hours
                             </Typography>
-                            <UiButton
-                                size="small"
-                                variant="outlined"
-                                color="primary"
-                                startIcon={<Edit />}
-                                onClick={onEditHours}
-                                aria-label="Edit operating hours schedule"
-                            >
-                                Edit Hours
-                            </UiButton>
+                            {onEditHours && (
+                                <UiButton
+                                    size="small"
+                                    variant="outlined"
+                                    color="primary"
+                                    startIcon={<Edit />}
+                                    onClick={onEditHours}
+                                    aria-label="Edit operating hours schedule"
+                                >
+                                    Edit Hours
+                                </UiButton>
+                            )}
                         </ScheduleHeaderBlock>
 
                         <ScheduleList>

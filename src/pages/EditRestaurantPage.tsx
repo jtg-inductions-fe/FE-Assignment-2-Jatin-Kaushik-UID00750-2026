@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 
 import { RestaurantFormContainer } from '@containers/RestaurantFormContainer';
 
@@ -7,11 +7,14 @@ import { RestaurantFormContainer } from '@containers/RestaurantFormContainer';
  * Extracts the restaurant ID from the URL and forwards it to the form container.
  */
 export const EditRestaurantPage = () => {
-    const params = useParams();
+    const { restaurantId } = useParams<{ restaurantId: string }>();
+    const [searchParams] = useSearchParams();
+    const currentStep = parseInt(searchParams.get('step') || '0', 10);
     return (
         <>
             <RestaurantFormContainer
-                restaurantId={params.restaurantId as string}
+                restaurantId={restaurantId}
+                initialStep={currentStep}
             />
         </>
     );

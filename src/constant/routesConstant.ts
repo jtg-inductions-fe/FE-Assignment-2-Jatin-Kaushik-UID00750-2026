@@ -10,6 +10,8 @@ export const ROUTES = {
     RESTAURANT_NEW: '/restaurants/new',
     RESTAURANT_DETAILS: '/restaurants/:restaurantId',
     RESTAURANT_EDIT: '/restaurants/:restaurantId/edit',
+    MENU_EDIT: '/restaurants/:restaurantId/menu/edit/:menuItemId',
+    MENU_NEW: '/restaurants/:restaurantId/menu/new',
     CART: '/cart',
     ORDERS: '/orders',
     NOT_FOUND: '*',

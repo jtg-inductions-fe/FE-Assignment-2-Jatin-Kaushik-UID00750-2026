@@ -5,8 +5,10 @@ import { RestaurantDetailsPage } from '@pages';
 import { DiscoveryPage } from '@pages';
 import { EditRestaurantPage } from '@pages';
 import { NewRestaurantPage } from '@pages';
+import { EditMenuItemPage } from '@pages';
 
 import { RoleGuard } from './routeGuards/RoleGuard';
+import { NewMenuItemPage } from '../pages/NewMenuItemPage';
 
 /**
  * Route configurations for restaurant discovery and management.
@@ -29,16 +31,36 @@ export const restaurantRoutes: RouteObject[] = [
         ],
     },
     {
-        path: ROUTES.RESTAURANT_DETAILS,
-        element: <RestaurantDetailsPage />,
-    },
-    {
         path: ROUTES.RESTAURANT_EDIT,
         element: <RoleGuard allowedRoles={['owner']} />,
         children: [
             {
                 index: true,
                 element: <EditRestaurantPage />,
+            },
+        ],
+    },
+    {
+        path: ROUTES.RESTAURANT_DETAILS,
+        element: <RestaurantDetailsPage />,
+    },
+    {
+        path: ROUTES.MENU_EDIT,
+        element: <RoleGuard allowedRoles={['owner']} />,
+        children: [
+            {
+                index: true,
+                element: <EditMenuItemPage />,
+            },
+        ],
+    },
+    {
+        path: ROUTES.MENU_NEW,
+        element: <RoleGuard allowedRoles={['owner']} />,
+        children: [
+            {
+                index: true,
+                element: <NewMenuItemPage />,
             },
         ],
     },

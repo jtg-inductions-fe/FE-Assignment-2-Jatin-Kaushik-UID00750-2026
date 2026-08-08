@@ -1,4 +1,4 @@
-import { RESTAURANTS_SERVICE_ACTIONS } from '@services/restaurantsService/restaurantsService.config';
+import { RESTAURANTS_SERVICE_ACTIONS } from '@services/restaurantsService';
 import { Restaurant } from '@types';
 import { asyncServiceThunk } from '@utils';
 

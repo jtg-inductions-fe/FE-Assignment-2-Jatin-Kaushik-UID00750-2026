@@ -1,42 +1,92 @@
+import { useEffect } from 'react';
+
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { FullScreenLoader } from '@components/FullScreenLoader';
 import { RestaurantBanner } from '@components/RestaurantBanner';
-import { UiButton } from '@components/UiButton';
 import { CustomerMenuList } from '@containers/CustomerMenuList';
 import { OwnerMenuList } from '@containers/OwnerMenuList';
-import { useAppSelector } from '@hooks';
+import { useAppDispatch, useAppSelector } from '@hooks';
+import {
+    fetchAllRestaurants,
+    fetchMyRestaurants,
+} from '@store/thunks/restaurantsThunk';
 import { Restaurant } from '@types';
 import { routeBuilders } from '@utils';
 
 export const RestaurantDetailsPage = () => {
     const { currentUser } = useAppSelector((state) => state.auth);
     const isOwner = currentUser?.role === 'owner';
-    const params = useParams();
-    const { list } = useAppSelector((state) => state.restaurants);
+    const { restaurantId } = useParams<{ restaurantId: string }>();
+    const dispatch = useAppDispatch();
+
+    const { list, status } = useAppSelector((state) => state.restaurants);
     const navigate = useNavigate();
 
     const restaurantData = list.find(
-        (res) => res.id === params?.restaurantId,
+        (res) => res.id === restaurantId,
     ) as Restaurant;
-    const handleOnEdit = async () =>
-        await navigate(routeBuilders.restaurantEdit(restaurantData?.id));
+
+    useEffect(() => {
+        if (list.length !== 0) {
+            return;
+        }
+        if (isOwner && currentUser.id) {
+            void dispatch(fetchMyRestaurants(currentUser.id))
+                .unwrap()
+                .then((restaurants) => {
+                    const found = restaurants.find(
+                        (r) => r.id === restaurantId,
+                    );
+                    if (!found) {
+                        void navigate('/404', { replace: true });
+                    }
+                })
+                .catch(() => {
+                    void navigate('/404', { replace: true });
+                });
+        } else {
+            void dispatch(fetchAllRestaurants())
+                .unwrap()
+                .then((restaurants) => {
+                    const found = restaurants.find(
+                        (r) => r.id === restaurantId,
+                    );
+                    if (!found) {
+                        void navigate('/404', { replace: true });
+                    }
+                })
+                .catch(() => {
+                    void navigate('/404', { replace: true });
+                });
+        }
+    }, [dispatch, currentUser, isOwner, list, navigate, restaurantId]);
+
+    const handleOnEdit = async () => {
+        if (!restaurantId) return;
+        await navigate(routeBuilders.restaurantEdit(restaurantId) + '?step=2');
+    };
+
+    if (status === 'loading' || !restaurantData) {
+        return <FullScreenLoader message="Loading Restaurant Details..." />;
+    }
 
     return (
         <>
             <div>
                 <RestaurantBanner
                     restaurant={restaurantData}
-                    onEditHours={() => void handleOnEdit()}
+                    {...(isOwner && {
+                        onEditHours: () => void handleOnEdit(),
+                    })}
                 />
             </div>
-            <div
-                style={{
-                    marginBlock: '2rem',
-                }}
-            >
-                <UiButton variant="contained">Add Menu Item </UiButton>
-            </div>
-            {isOwner ? <OwnerMenuList /> : <CustomerMenuList />}
+            <div></div>
+            {isOwner ? (
+                <OwnerMenuList restaurantId={restaurantId as string} />
+            ) : (
+                <CustomerMenuList />
+            )}
         </>
     );
 };

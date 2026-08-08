@@ -39,15 +39,15 @@ const defaultFormValues: RestaurantFormValues = {
  * @param props - Properties of the form component
  * @param props.initialValues - Existing restaurant data to pre-populate inputs during edit modes
  * @param props.onSubmit - Submission callback triggered after all form stages validate successfully
- * @param props.isSubmitLoading - Async loading state to disable action keys and trigger loaders
+ * @param props.initialStep - Optional integer indicating the initial step of the multi-step form
  */
 
 export const RestaurantForm = ({
     initialValues,
     onSubmit,
-    isSubmitLoading,
+    initialStep,
 }: RestaurantFormProps) => {
-    const [activeStep, setActiveStep] = useState(0);
+    const [activeStep, setActiveStep] = useState(initialStep || 0);
 
     const methods = useForm<RestaurantFormValues>({
         resolver: yupResolver(restaurantValidationSchema),
@@ -55,9 +55,13 @@ export const RestaurantForm = ({
         mode: 'onTouched',
     });
 
-    const { handleSubmit, trigger } = methods;
+    const {
+        handleSubmit,
+        trigger,
+        formState: { isSubmitting },
+    } = methods;
 
-    /** Validates current form inputs and handle next step navigation */
+    /** validates current form inputs and handle next step navigation */
     const handleNext = async () => {
         let fieldsToValidate: FieldPath<RestaurantFormValues>[] = [];
         if (activeStep === 0)
@@ -108,7 +112,7 @@ export const RestaurantForm = ({
 
                     <FormStyles.ButtonContainer>
                         <UiButton
-                            disabled={activeStep === 0 || isSubmitLoading}
+                            disabled={activeStep === 0 || isSubmitting}
                             onClick={handleBack}
                             variant="outlined"
                         >
@@ -116,8 +120,8 @@ export const RestaurantForm = ({
                         </UiButton>
                         <UiButton
                             variant="contained"
-                            loading={isSubmitLoading}
-                            disabled={isSubmitLoading}
+                            loading={isSubmitting}
+                            disabled={isSubmitting}
                             onClick={() =>
                                 activeStep < RESTAURANT_FORM_STEPS.length - 1
                                     ? void handleNext()
