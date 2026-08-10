@@ -17,6 +17,7 @@ import {
     ScheduleHeaderBlock,
     ScheduleItem,
     ScheduleList,
+    StatusChip,
     TitleContainer,
 } from './RestaurantBanner.styles';
 import { RestaurantBannerProps } from './RestaurantBanner.types';
@@ -28,10 +29,12 @@ import { RestaurantBannerProps } from './RestaurantBanner.types';
  * @param {RestaurantBannerProps} props - Component properties.
  * @param {object} props.restaurant - Full dataset representing restaurant parameters.
  * @param {function} props.onEditHours - Callback triggered when clicking the "Edit Hours" button.
+ * @param {boolean} props.isClosed - Flag indicating if the restaurant is closed.
  */
 export const RestaurantBanner = ({
     restaurant,
     onEditHours,
+    isClosed,
 }: RestaurantBannerProps) => {
     const {
         name,
@@ -56,7 +59,18 @@ export const RestaurantBanner = ({
                     variant="outlined"
                     size="medium"
                 />
-                <BannerImage src={imageUrl} alt={`${name} banner image`} />
+                <BannerImage
+                    src={imageUrl}
+                    alt={`${name} banner image`}
+                    isClosed={isClosed}
+                />
+                {isClosed && (
+                    <StatusChip
+                        label="Closed"
+                        color="error"
+                        aria-live="polite"
+                    />
+                )}
             </HeroImageWrapper>
 
             <DetailsSection>

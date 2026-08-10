@@ -28,6 +28,7 @@ export const Searchbar = ({
         <StyledInputBase
             placeholder={placeholder}
             value={value}
+            id="searchbar"
             inputProps={{ 'aria-label': 'search' }}
             onChange={onChange}
         />

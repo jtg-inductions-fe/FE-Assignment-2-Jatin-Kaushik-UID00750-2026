@@ -17,13 +17,15 @@ export const MenuItemCustomerCard = ({
     item,
     quantity,
     isAvailable,
+    disabled,
     onIncrement,
     onDecrement,
 }: MenuItemCustomerCardProps) => (
-    <MenuItemCardBase item={item} showAsDimmed={!isAvailable}>
+    <MenuItemCardBase item={item} showAsDimmed={disabled || !isAvailable}>
         <AddToCartButton
             isAvailable={isAvailable}
             quantity={quantity}
+            disabled={disabled}
             onIncrement={onIncrement}
             onDecrement={onDecrement}
         />

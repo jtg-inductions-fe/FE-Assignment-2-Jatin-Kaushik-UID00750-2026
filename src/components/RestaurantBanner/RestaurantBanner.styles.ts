@@ -18,12 +18,15 @@ export const HeroImageWrapper = styled('div')(({ theme }) => ({
     },
 }));
 
-export const BannerImage = styled('img')({
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-    display: 'block',
-});
+export const BannerImage = styled('img')<{ isClosed?: boolean }>(
+    ({ isClosed }) => ({
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+        display: 'block',
+        filter: isClosed ? 'grayscale(100%)' : 'none',
+    }),
+);
 
 export const FloatChip = styled(Chip)(({ theme }) => ({
     position: 'absolute',
@@ -33,6 +36,13 @@ export const FloatChip = styled(Chip)(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
     fontWeight: theme.typography.fontWeightBold,
     boxShadow: theme.shadows[1],
+}));
+
+export const StatusChip = styled(Chip)(({ theme }) => ({
+    position: 'absolute',
+    top: theme.spacing(3),
+    right: theme.spacing(3),
+    zIndex: 2,
 }));
 
 export const DetailsSection = styled(Box)(({ theme }) => ({

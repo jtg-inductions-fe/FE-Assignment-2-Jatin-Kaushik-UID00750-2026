@@ -10,7 +10,10 @@ import { selectCategorizedMenu } from '@store/selectors/menuSelector';
 import { fetchMenuByRestaurant } from '@store/thunks/menuThunk';
 import { MenuItem } from '@types';
 
-export const CustomerMenuList = () => {
+/** Container component for displaying the customer's menu list.
+ * @param isClosed - Boolean indicating if the restaurant is currently closed.
+ */
+export const CustomerMenuList = ({ isClosed }: { isClosed: boolean }) => {
     const dispatch = useAppDispatch();
     const toast = useToast();
     const { restaurantId } = useParams<{ restaurantId: string }>();
@@ -37,6 +40,9 @@ export const CustomerMenuList = () => {
     const [cart, setCart] = useState<Record<string, number>>({});
     const getCartQuantity = (itemId: string): number => cart[itemId] || 0;
 
+    /** Handles incrementing the quantity of a menu item in the cart.
+     * @param item - The menu item to increment in the cart.
+     */
     const handleIncrement = (item: MenuItem) => {
         const currentQty = getCartQuantity(item.id);
         if (currentQty >= item.stock) {
@@ -46,6 +52,9 @@ export const CustomerMenuList = () => {
         setCart((prevCart) => ({ ...prevCart, [item.id]: currentQty + 1 }));
     };
 
+    /** Handles decrementing the quantity of a menu item in the cart.
+     * @param itemId - The ID of the menu item to decrement in the cart.
+     */
     const handleDecrement = (itemId: string) => {
         const currentQty = getCartQuantity(itemId);
         if (currentQty <= 0) return;
@@ -73,6 +82,7 @@ export const CustomerMenuList = () => {
                         item={{ ...item, stock: computedAvailableStock }}
                         quantity={currentQuantity}
                         isAvailable={computedAvailableStock > 0}
+                        disabled={isClosed}
                         onIncrement={() => handleIncrement(item)}
                         onDecrement={() => handleDecrement(item.id)}
                     />

@@ -13,6 +13,7 @@ export interface MenuItemCustomerCardProps {
     item: MenuItem;
     quantity: number;
     isAvailable: boolean;
+    disabled?: boolean;
     onIncrement: () => void;
     onDecrement: () => void;
 }

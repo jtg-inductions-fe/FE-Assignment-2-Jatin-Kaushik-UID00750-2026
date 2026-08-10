@@ -16,6 +16,7 @@ import { AddToCartButtonProps } from './AddToCartButton.types';
 export const AddToCartButton = ({
     isAvailable,
     quantity,
+    disabled,
     onIncrement,
     onDecrement,
 }: AddToCartButtonProps) => {
@@ -32,6 +33,7 @@ export const AddToCartButton = ({
                 color="primary"
                 onClick={onIncrement}
                 size="small"
+                disabled={disabled}
             >
                 ADD
             </UiButton>

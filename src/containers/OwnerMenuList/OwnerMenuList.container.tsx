@@ -19,6 +19,9 @@ import { selectCategorizedMenu } from '@store/selectors/menuSelector';
 import { deleteMenuItem, fetchMenuByRestaurant } from '@store/thunks/menuThunk';
 import { routeBuilders } from '@utils';
 
+/** Container component for displaying the owner's menu list
+ * @param restaurantId - The ID of the restaurant whose menu is being displayed.
+ */
 export const OwnerMenuList = ({ restaurantId }: { restaurantId: string }) => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -49,10 +52,16 @@ export const OwnerMenuList = ({ restaurantId }: { restaurantId: string }) => {
             });
     }, [restaurantId, dispatch, toast, rawItemsCount]);
 
+    /** Handles navigation to the menu item edit page for a specific item.
+     * @param itemId - The ID of the menu item to edit.
+     */
     const handleEdit = async (itemId: string) => {
         await navigate(routeBuilders.menuItemEdit(restaurantId, itemId));
     };
 
+    /** Handles the deletion of a menu item, prompting for confirmation first.
+     * @param itemId - The ID of the menu item to delete.
+     */
     const handleDelete = (itemId: string) => {
         setSelectedIdToDelete(itemId);
         openConfirmDialog({
@@ -61,12 +70,14 @@ export const OwnerMenuList = ({ restaurantId }: { restaurantId: string }) => {
         });
     };
 
+    /** Handles the cancellation of a menu item deletion, closing the confirmation dialog. */
     const handleDeleteCancel = () => {
         closeConfirmDialog();
         setSelectedIdToDelete(null);
         toast({ message: 'Deletion cancelled', type: 'info' });
     };
 
+    /** Handles the confirmation of a menu item deletion, dispatching the delete action. */
     const handleDeleteConfirm = async () => {
         if (!selectedIdToDelete) return;
         try {

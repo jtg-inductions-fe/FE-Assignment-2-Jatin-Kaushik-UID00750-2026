@@ -23,6 +23,15 @@ const defaultFormValues: MenuItemFormValues = {
     vegType: 'veg',
 };
 
+/** MenuForm component
+ * A form component for creating or editing menu items.
+ *
+ * @param props - The component properties.
+ * @param props.menuItemId - Optional ID of the menu item being edited. If provided, the form is in edit mode.
+ * @param props.initialValues - Optional initial values for the form fields. Used when editing an existing item.
+ * @param props.categories - List of available categories to populate the category dropdown.
+ * @param props.onSubmit - Callback function triggered when the form is submitted with valid data.
+ */
 export const MenuForm = ({
     menuItemId,
     initialValues,

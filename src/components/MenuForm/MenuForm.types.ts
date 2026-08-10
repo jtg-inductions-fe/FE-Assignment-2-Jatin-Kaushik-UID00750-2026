@@ -13,9 +13,10 @@ export interface MenuCategory {
     displayOrder: number;
 }
 
-// Inferred TypeScript Form Type ensures runtime validations match compile-time types perfectly
+/** Form values type for the menu item form */
 export type MenuItemFormValues = yup.InferType<typeof menuFormSchema>;
 
+/** Props for the MenuForm component */
 export interface MenuFormProps {
     menuItemId?: string;
     initialValues?: MenuItemFormValues;

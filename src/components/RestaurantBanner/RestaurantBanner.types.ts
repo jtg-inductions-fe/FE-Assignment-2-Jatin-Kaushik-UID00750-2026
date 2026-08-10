@@ -6,4 +6,5 @@ import { Restaurant } from '@types';
 export interface RestaurantBannerProps {
     restaurant: Restaurant;
     onEditHours?: () => void;
+    isClosed?: boolean;
 }
