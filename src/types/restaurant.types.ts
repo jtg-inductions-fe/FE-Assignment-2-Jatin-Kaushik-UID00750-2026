@@ -1,5 +1,6 @@
 import {
     Address,
+    AsyncStatus,
     DayOfWeek,
     RestaurantVegType,
     TimeString,
@@ -32,3 +33,14 @@ export interface Restaurant {
 
 /** Payload shape for the Add/Edit Restaurant form */
 export type RestaurantFormValues = Omit<Restaurant, 'id' | 'ownerId'>;
+
+/** Global state structure for managing restaurant data, including list, loading status, error, and filters. */
+export interface RestaurantState {
+    list: Restaurant[];
+    status: AsyncStatus;
+    error: string | null;
+    filters: {
+        vegType: RestaurantVegType;
+        searchQuery: string;
+    };
+}

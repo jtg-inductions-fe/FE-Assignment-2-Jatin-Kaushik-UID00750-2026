@@ -6,21 +6,11 @@ import {
     fetchAllRestaurants,
     fetchMyRestaurants,
 } from '@store/thunks/restaurantsThunk';
-import type { Restaurant, RestaurantVegType } from '@types';
-
-export interface RestaurantState {
-    list: Restaurant[];
-    loading: boolean;
-    error: string | null;
-    filters: {
-        vegType: RestaurantVegType;
-        searchQuery: string;
-    };
-}
+import type { Restaurant, RestaurantState, RestaurantVegType } from '@types';
 
 const initialState: RestaurantState = {
     list: [],
-    loading: false,
+    status: 'idle',
     error: null,
     filters: {
         vegType: 'all',
@@ -46,73 +36,64 @@ const restaurantSlice = createSlice({
         builder
             // Fetch All Restaurants
             .addCase(fetchAllRestaurants.pending, (state) => {
-                state.loading = true;
+                state.status = 'loading';
                 state.error = null;
             })
             .addCase(
                 fetchAllRestaurants.fulfilled,
                 (state, action: PayloadAction<Restaurant[]>) => {
-                    state.loading = false;
+                    state.status = 'succeeded';
                     state.list = action.payload;
                 },
             )
             .addCase(fetchAllRestaurants.rejected, (state, action) => {
-                state.loading = false;
-                state.error =
-                    action.payload ??
-                    action.error.message ??
-                    'An unknown error occurred';
+                state.status = 'failed';
+                state.error = action.payload ?? 'An unknown error occurred';
             })
 
             // Fetch Owner Restaurants
             .addCase(fetchMyRestaurants.pending, (state) => {
-                state.loading = true;
+                state.status = 'loading';
                 state.error = null;
             })
             .addCase(
                 fetchMyRestaurants.fulfilled,
                 (state, action: PayloadAction<Restaurant[]>) => {
-                    state.loading = false;
+                    state.status = 'succeeded';
                     state.list = action.payload;
                 },
             )
             .addCase(fetchMyRestaurants.rejected, (state, action) => {
-                state.loading = false;
-                state.error =
-                    action.payload ??
-                    action.error.message ??
-                    'An unknown error occurred';
+                state.status = 'failed';
+                state.error = action.payload ?? 'An unknown error occurred';
             })
 
             // Add Restaurant
             .addCase(addRestaurant.pending, (state) => {
-                state.loading = true;
+                state.status = 'loading';
                 state.error = null;
             })
             .addCase(
                 addRestaurant.fulfilled,
                 (state, action: PayloadAction<Restaurant>) => {
-                    state.loading = false;
+                    state.status = 'succeeded';
                     state.list.push(action.payload);
                 },
             )
             .addCase(addRestaurant.rejected, (state, action) => {
-                state.loading = false;
-                state.error =
-                    action.payload ??
-                    action.error.message ??
-                    'An unknown error occurred';
+                state.status = 'failed';
+                state.error = action.payload ?? 'An unknown error occurred';
             })
 
             // Edit Restaurant
             .addCase(editRestaurant.pending, (state) => {
-                state.loading = true;
+                state.status = 'loading';
                 state.error = null;
             })
             .addCase(
                 editRestaurant.fulfilled,
                 (state, action: PayloadAction<Restaurant>) => {
-                    state.loading = false;
+                    state.status = 'succeeded';
                     const index = state.list.findIndex(
                         (r) => r.id === action.payload.id,
                     );
@@ -120,33 +101,27 @@ const restaurantSlice = createSlice({
                 },
             )
             .addCase(editRestaurant.rejected, (state, action) => {
-                state.loading = false;
-                state.error =
-                    action.payload ??
-                    action.error.message ??
-                    'An unknown error occurred';
+                state.status = 'failed';
+                state.error = action.payload ?? 'An unknown error occurred';
             })
 
             // Delete Restaurant
             .addCase(deleteRestaurant.pending, (state) => {
-                state.loading = true;
+                state.status = 'loading';
                 state.error = null;
             })
             .addCase(
                 deleteRestaurant.fulfilled,
                 (state, action: PayloadAction<string>) => {
-                    state.loading = false;
+                    state.status = 'succeeded';
                     state.list = state.list.filter(
                         (r) => r.id !== action.payload,
                     );
                 },
             )
             .addCase(deleteRestaurant.rejected, (state, action) => {
-                state.loading = false;
-                state.error =
-                    action.payload ??
-                    action.error.message ??
-                    'An unknown error occurred';
+                state.status = 'failed';
+                state.error = action.payload ?? 'An unknown error occurred';
             });
     },
 });

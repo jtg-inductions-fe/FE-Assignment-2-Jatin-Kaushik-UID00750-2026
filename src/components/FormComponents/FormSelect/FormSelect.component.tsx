@@ -34,7 +34,7 @@ export const FormSelect = <
             name={name}
             control={control}
             render={({ field }) => (
-                <Select {...field} value={field.value ?? ''}>
+                <Select {...field} value={field.value ?? ''} id={name}>
                     {options.map((option) => (
                         <MenuItem key={option.value} value={option.value}>
                             {option.label}
