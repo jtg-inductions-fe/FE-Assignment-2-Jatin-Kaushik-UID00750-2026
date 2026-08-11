@@ -8,6 +8,7 @@ import { ROUTES } from '@constant';
 import { useAppDispatch, useAppSelector, useToast } from '@hooks';
 import { selectCartTotals } from '@store/selectors/cartSelector';
 import { clearCart, updateQuantity } from '@store/slices/cartSlice';
+import { fetchMenuItemById } from '@store/thunks/menuThunk';
 
 import { StyledCartContainer } from './CartContainer.styles';
 
@@ -35,8 +36,69 @@ export const CartContainer = () => {
                 type: 'info',
             });
             void navigate('/');
+            return;
         }
-    }, [cartItems, navigate, toast]);
+
+        /** Validates stock availability for cart items */
+        const validateStockAsync = async () => {
+            try {
+                // Fetch stock details for all cart items
+                const fetchPromises = cartItems.map((cartItem) =>
+                    dispatch(fetchMenuItemById(cartItem.menuItemId))
+                        .unwrap()
+                        .then((item) => ({ cartItem, item })),
+                );
+
+                const results = await Promise.all(fetchPromises);
+
+                // Evaluate stock sequentially after all data arrives
+                for (const { cartItem, item } of results) {
+                    if (!item) {
+                        toast({
+                            message: `${cartItem.name} is no longer available. Removed from cart.`,
+                            type: 'error',
+                        });
+                        dispatch(
+                            updateQuantity({
+                                menuItemId: cartItem.menuItemId,
+                                quantity: 0,
+                            }),
+                        );
+                    } else if (item.stock === 0) {
+                        toast({
+                            message: `${cartItem.name} is out of stock. Removed from cart.`,
+                            type: 'error',
+                        });
+                        dispatch(
+                            updateQuantity({
+                                menuItemId: cartItem.menuItemId,
+                                quantity: 0,
+                            }),
+                        );
+                    } else if (cartItem.quantity > item.stock) {
+                        toast({
+                            message: `Only ${item.stock} units of ${cartItem.name} are available. Updated your cart.`,
+                            type: 'error',
+                        });
+                        dispatch(
+                            updateQuantity({
+                                menuItemId: cartItem.menuItemId,
+                                quantity: item.stock,
+                            }),
+                        );
+                    }
+                }
+            } catch {
+                toast({
+                    message: 'Unexpected error occurred while checking stock.',
+                    type: 'error',
+                });
+                void navigate('/');
+            }
+        };
+
+        void validateStockAsync();
+    }, [cartItems, navigate, toast, dispatch]);
 
     /** Handles the checkout process. */
     const handleCheckout = async () => {
