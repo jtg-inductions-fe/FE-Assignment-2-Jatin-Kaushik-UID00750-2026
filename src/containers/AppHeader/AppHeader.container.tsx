@@ -18,6 +18,7 @@ import {
  */
 export const AppHeader = () => {
     const { currentUser } = useAppSelector((state) => state.auth);
+    const cartItems = useAppSelector((state) => state.cart.cartItems);
 
     return (
         <AppHeaderContainer component="header">
@@ -33,7 +34,7 @@ export const AppHeader = () => {
                 </LogoBox>
                 <HeaderActions>
                     {currentUser?.role === 'customer' && (
-                        <CartBadge count={2} />
+                        <CartBadge count={cartItems.length} />
                     )}
                     <ProfileMenuContainer />
                 </HeaderActions>

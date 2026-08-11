@@ -5,4 +5,5 @@ export interface AddToCartButtonProps {
     disabled?: boolean;
     onIncrement: () => void;
     onDecrement: () => void;
+    onAddToCart: () => void;
 }
