@@ -6,6 +6,11 @@ export const fetchMenuByRestaurant = asyncServiceThunk(
     MENU_SERVICE_ACTIONS.FETCH_BY_RESTAURANT,
 );
 
+/** Asynchronous Thunk action that fetch a menu item by specific id. */
+export const fetchMenuItemById = asyncServiceThunk(
+    MENU_SERVICE_ACTIONS.FETCH_BY_ID,
+);
+
 /** Asynchronous Thunk action that adds a new menu item for a specific restaurant. */
 export const addMenuItem = asyncServiceThunk(MENU_SERVICE_ACTIONS.ADD_ITEM);
 

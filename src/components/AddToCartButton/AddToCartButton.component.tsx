@@ -7,11 +7,6 @@ import { AddToCartButtonProps } from './AddToCartButton.types';
 /**
  * Add to cart button component for managing items in a shopping cart.
  * Automatically toggles between out-of-stock badges, call-to-actions, and counter controls.
- *
- * @param props.isAvailable - Availability state flag to determine if the item can be bought.
- * @param props.quantity - Current amount of the food item selected in the basket.
- * @param props.onIncrement - Action handler to add items or increase count.
- * @param props.onDecrement - Action handler to reduce item count or remove from cart.
  */
 export const AddToCartButton = ({
     isAvailable,

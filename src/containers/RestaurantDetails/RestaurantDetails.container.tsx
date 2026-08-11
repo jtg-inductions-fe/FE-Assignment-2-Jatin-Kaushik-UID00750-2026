@@ -8,15 +8,10 @@ import { CustomerMenuList } from '@containers/CustomerMenuList';
 import { OwnerMenuList } from '@containers/OwnerMenuList';
 import { useAppDispatch, useAppSelector } from '@hooks';
 import { fetchMenuByRestaurant } from '@store/thunks/menuThunk';
-import {
-    fetchAllRestaurants,
-    fetchMyRestaurants,
-} from '@store/thunks/restaurantsThunk';
-import { Restaurant } from '@types';
+import { fetchRestaurantById } from '@store/thunks/restaurantsThunk';
 import { checkIsRestaurantClosed, routeBuilders } from '@utils';
 
 /** Container component for displaying restaurant details and menu items.
- * @param restaurantId - Reference ID of the restaurant to fetch and display details for.
  */
 export const RestaurantDetails = ({
     restaurantId,
@@ -27,46 +22,24 @@ export const RestaurantDetails = ({
     const isOwner = currentUser?.role === 'owner';
     const dispatch = useAppDispatch();
 
-    const { list, status } = useAppSelector((state) => state.restaurants);
+    const { selectedRestaurant, status } = useAppSelector(
+        (state) => state.restaurants,
+    );
     const navigate = useNavigate();
 
-    const restaurantData = list.find(
-        (res) => res.id === restaurantId,
-    ) as Restaurant;
-
     useEffect(() => {
-        if (isOwner && currentUser.id) {
-            void dispatch(fetchMyRestaurants(currentUser.id))
-                .unwrap()
-                .then((restaurants) => {
-                    const found = restaurants.find(
-                        (r) => r.id === restaurantId,
-                    );
-                    if (!found) {
-                        void navigate('/404', { replace: true });
-                    }
-                    void dispatch(fetchMenuByRestaurant(restaurantId));
-                })
-                .catch(() => {
+        void dispatch(fetchRestaurantById(restaurantId))
+            .unwrap()
+            .then((restaurant) => {
+                if (!restaurant) {
                     void navigate('/404', { replace: true });
-                });
-        } else {
-            void dispatch(fetchAllRestaurants())
-                .unwrap()
-                .then((restaurants) => {
-                    const found = restaurants.find(
-                        (r) => r.id === restaurantId,
-                    );
-                    if (!found) {
-                        void navigate('/404', { replace: true });
-                    }
-                    void dispatch(fetchMenuByRestaurant(restaurantId));
-                })
-                .catch(() => {
-                    void navigate('/404', { replace: true });
-                });
-        }
-    }, [dispatch, currentUser, isOwner, navigate, restaurantId]);
+                }
+                void dispatch(fetchMenuByRestaurant(restaurantId));
+            })
+            .catch(() => {
+                void navigate('/404', { replace: true });
+            });
+    }, [dispatch, navigate, restaurantId]);
 
     /** Handler for navigating to the edit restaurant page. */
     const handleOnEdit = async () => {
@@ -74,7 +47,7 @@ export const RestaurantDetails = ({
         await navigate(routeBuilders.restaurantEdit(restaurantId) + '?step=2');
     };
 
-    if (status === 'loading' || !restaurantData) {
+    if (status === 'loading' || !selectedRestaurant) {
         return <FullScreenLoader message="Loading Restaurant Details..." />;
     }
 
@@ -82,9 +55,9 @@ export const RestaurantDetails = ({
         <>
             <div>
                 <RestaurantBanner
-                    restaurant={restaurantData}
+                    restaurant={selectedRestaurant}
                     isClosed={checkIsRestaurantClosed(
-                        restaurantData.operatingHours,
+                        selectedRestaurant.operatingHours,
                     )}
                     {...(isOwner && {
                         onEditHours: () => void handleOnEdit(),
@@ -97,7 +70,7 @@ export const RestaurantDetails = ({
             ) : (
                 <CustomerMenuList
                     isClosed={checkIsRestaurantClosed(
-                        restaurantData.operatingHours,
+                        selectedRestaurant.operatingHours,
                     )}
                 />
             )}

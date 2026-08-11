@@ -9,14 +9,13 @@ import {
     addMenuItem,
     editMenuItem,
     fetchMenuByRestaurant,
+    fetchMenuItemById,
 } from '@store/thunks/menuThunk';
 import { MenuItemFormValues } from '@types';
 import { routeBuilders } from '@utils';
 
 /**
  * Container component for managing the initialization and submission of the menu item data form.
- * @param restaurantId - The ID of the restaurant for which the menu item is being created or edited.
- * @param menuItemId - Optional ID of the menu item being edited. If not provided, the form will be in creation mode.
  */
 export const MenuFormContainer = ({
     restaurantId,
@@ -29,14 +28,14 @@ export const MenuFormContainer = ({
     const navigate = useNavigate();
     const toast = useToast();
 
-    const { categories, items } = useAppSelector((state) => state.menu);
+    const { categories } = useAppSelector((state) => state.menu);
 
     const [initialData, setInitialData] = useState<
         MenuItemFormValues | undefined
     >(undefined);
     const [isPageLoading, setIsPageLoading] = useState<boolean>(true);
 
-    // Load categories (and items) if they are missing from the store on window reload
+    // Load restaurant menu data if they are missing from the store on window reload
     useEffect(() => {
         if (!restaurantId) {
             setIsPageLoading(false);
@@ -66,31 +65,42 @@ export const MenuFormContainer = ({
     // Load form initial data if editing an existing item
     useEffect(() => {
         if (menuItemId && categories.length > 0) {
-            const foundItem = items.find((item) => item.id === menuItemId);
-            if (foundItem) {
-                const formInitialData = Object.fromEntries(
-                    Object.entries(foundItem).filter(
-                        ([key]) => key !== 'id' && key !== 'restaurantId',
-                    ),
-                ) as MenuItemFormValues;
-                setInitialData(formInitialData);
-            } else {
-                toast({
-                    message: 'Requested menu item could not be found.',
-                    type: 'error',
+            dispatch(fetchMenuItemById(menuItemId))
+                .unwrap()
+                .then((item) => {
+                    if (item) {
+                        const formInitialData = Object.fromEntries(
+                            Object.entries(item).filter(
+                                ([key]) =>
+                                    key !== 'id' && key !== 'restaurantId',
+                            ),
+                        ) as MenuItemFormValues;
+                        setInitialData(formInitialData);
+                    }
+                })
+                .catch(() => {
+                    toast({
+                        message: 'Requested menu item could not be found.',
+                        type: 'error',
+                    });
+                    void navigate(
+                        restaurantId
+                            ? routeBuilders.restaurantDetails(restaurantId)
+                            : '/',
+                    );
                 });
-                void navigate(
-                    restaurantId
-                        ? routeBuilders.restaurantDetails(restaurantId)
-                        : '/',
-                );
-            }
         }
-    }, [menuItemId, items, categories.length, navigate, restaurantId, toast]);
+    }, [
+        menuItemId,
+        categories.length,
+        dispatch,
+        navigate,
+        restaurantId,
+        toast,
+    ]);
 
     /**
      * Processes form submission to update or append menu elements.*
-     * @param formData - Structured, schema-validated values of menu item
      */
     const handleFormSubmission = async (formData: MenuItemFormValues) => {
         if (!restaurantId) {

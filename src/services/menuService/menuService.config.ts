@@ -9,6 +9,11 @@ export const MENU_SERVICE_ACTIONS = {
         service: menuService.fetchMenuByRestaurant,
         fallbackMessage: 'Failed to fetch menu for the restaurant.',
     },
+    FETCH_BY_ID: {
+        type: 'menu/fetchById',
+        service: menuService.fetchMenuItemById,
+        fallbackMessage: 'Failed to fetch menu item',
+    },
     ADD_ITEM: {
         type: 'menu/addItem',
         service: menuService.addMenuItem,

@@ -25,11 +25,6 @@ import { RestaurantBannerProps } from './RestaurantBanner.types';
 /**
  * Displays a restaurant's hero banner, metadata details, and operational schedule.
  * Renders an interactive action to trigger an editing workflow for operating hours.
- *
- * @param {RestaurantBannerProps} props - Component properties.
- * @param {object} props.restaurant - Full dataset representing restaurant parameters.
- * @param {function} props.onEditHours - Callback triggered when clicking the "Edit Hours" button.
- * @param {boolean} props.isClosed - Flag indicating if the restaurant is closed.
  */
 export const RestaurantBanner = ({
     restaurant,

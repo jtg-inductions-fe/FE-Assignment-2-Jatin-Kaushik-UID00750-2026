@@ -16,6 +16,12 @@ export const menuService = {
             ),
         }),
 
+    /** Retrieves specific menu item by its unique ID, returning null if not found */
+    fetchMenuItemById: (menuItemId: string): Promise<MenuItem | null> => {
+        const menu = menuData.items.find((item) => item.id === menuItemId);
+        return Promise.resolve(menu ?? null);
+    },
+
     /** Adds a new menu item */
     addMenuItem: (payload: {
         restaurantId: string;

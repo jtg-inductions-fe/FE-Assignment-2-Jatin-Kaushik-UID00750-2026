@@ -35,6 +35,7 @@ export interface MenuSeed {
 export interface MenuState {
     categories: MenuCategory[];
     items: MenuItem[];
+    selectedMenuItem: MenuItem | null;
     status: AsyncStatus;
     error: string | null;
 }
