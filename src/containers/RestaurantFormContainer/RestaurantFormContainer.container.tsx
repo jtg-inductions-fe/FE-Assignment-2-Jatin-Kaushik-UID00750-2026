@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector, useToast } from '@hooks';
 import {
     addRestaurant,
     editRestaurant,
-    fetchMyRestaurants,
+    fetchRestaurantById,
 } from '@store/thunks/restaurantsThunk';
 import { RestaurantFormValues } from '@types';
 
@@ -16,10 +16,6 @@ import { RestaurantFormValues } from '@types';
  * Smart container component managing the lifecycle of the restaurant data entry form.
  * Determines whether to hydrate the form fields with existing information or prepare
  * clean slots for new listings.
- *
- * @param props - The component properties.
- * @param props.restaurantId - Optional reference string used to identify records targeted for modification.
- * @param props.initialStep - Optional integer indicating the initial step of the multi-step form.
  */
 export const RestaurantFormContainer = ({
     restaurantId,
@@ -49,11 +45,10 @@ export const RestaurantFormContainer = ({
             setInitialData(existingRestaurant);
             setIsPageLoading(false);
         } else {
-            dispatch(fetchMyRestaurants(currentUser?.id ?? ''))
+            dispatch(fetchRestaurantById(restaurantId))
                 .unwrap()
-                .then((list) => {
-                    const found = list.find((r) => r.id === restaurantId);
-                    if (found) setInitialData(found);
+                .then((restaurant) => {
+                    if (restaurant) setInitialData(restaurant);
                     else throw new Error('Restaurant not found');
                 })
                 .catch(() => {
@@ -67,19 +62,10 @@ export const RestaurantFormContainer = ({
                     setIsPageLoading(false);
                 });
         }
-    }, [
-        restaurantId,
-        existingRestaurant,
-        navigate,
-        dispatch,
-        toast,
-        currentUser?.id,
-    ]);
+    }, [restaurantId, existingRestaurant, navigate, dispatch, toast]);
 
     /**
      * Dispatches payloads to modify current restaurant or add new restaurant.
-     *
-     * @param formData - Structured, user-provided values matching input configuration requirements of the restaurant.
      */
     const handleFormSubmission = async (formData: RestaurantFormValues) => {
         try {

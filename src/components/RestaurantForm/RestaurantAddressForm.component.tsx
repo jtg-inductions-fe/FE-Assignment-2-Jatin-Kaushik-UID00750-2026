@@ -11,50 +11,23 @@ import * as FormStyles from './RestaurantForm.styles';
  */
 
 export const RestaurantAddressForm = () => {
-    const {
-        control,
-        formState: { errors },
-    } = useFormContext<RestaurantFormValues>();
+    const { control } = useFormContext<RestaurantFormValues>();
     return (
         <FormStyles.StepContentContainer>
             <FormFieldRow label="Street" htmlFor="address.street">
-                <FormTextField
-                    name="address.street"
-                    control={control}
-                    errors={errors}
-                    error={!!errors.address?.street}
-                    helperText={errors.address?.street?.message}
-                />
+                <FormTextField name="address.street" control={control} />
             </FormFieldRow>
 
             <FormFieldRow label="City" htmlFor="address.city">
-                <FormTextField
-                    name="address.city"
-                    control={control}
-                    errors={errors}
-                    error={!!errors.address?.city}
-                    helperText={errors.address?.city?.message}
-                />
+                <FormTextField name="address.city" control={control} />
             </FormFieldRow>
 
             <FormFieldRow label="State" htmlFor="address.state">
-                <FormTextField
-                    name="address.state"
-                    control={control}
-                    errors={errors}
-                    error={!!errors.address?.state}
-                    helperText={errors.address?.state?.message}
-                />
+                <FormTextField name="address.state" control={control} />
             </FormFieldRow>
 
             <FormFieldRow label="Pincode" htmlFor="address.pincode">
-                <FormTextField
-                    name="address.pincode"
-                    control={control}
-                    errors={errors}
-                    error={!!errors.address?.pincode}
-                    helperText={errors.address?.pincode?.message}
-                />
+                <FormTextField name="address.pincode" control={control} />
             </FormFieldRow>
         </FormStyles.StepContentContainer>
     );

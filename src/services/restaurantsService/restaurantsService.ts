@@ -8,6 +8,14 @@ let allRestaurants = restaurantsData as Restaurant[];
  * Simulates an asynchronous backend database API layer using mock JSON data.
  */
 export const restaurantsService = {
+    /** Retrieves a restaurant by its unique ID, returning null if not found */
+    getRestaurantById: (restaurantId: string): Promise<Restaurant | null> => {
+        const restaurant = allRestaurants.find(
+            (res) => res.id === restaurantId,
+        );
+        return Promise.resolve(restaurant ?? null);
+    },
+
     /** Retrieves a complete copy of all restaurant records */
     getAllRestaurants: (): Promise<Restaurant[]> =>
         Promise.resolve([...allRestaurants]),

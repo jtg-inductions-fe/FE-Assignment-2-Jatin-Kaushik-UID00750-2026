@@ -37,6 +37,7 @@ export type RestaurantFormValues = Omit<Restaurant, 'id' | 'ownerId'>;
 /** Global state structure for managing restaurant data, including list, loading status, error, and filters. */
 export interface RestaurantState {
     list: Restaurant[];
+    selectedRestaurant: Restaurant | null;
     status: AsyncStatus;
     error: string | null;
     filters: {

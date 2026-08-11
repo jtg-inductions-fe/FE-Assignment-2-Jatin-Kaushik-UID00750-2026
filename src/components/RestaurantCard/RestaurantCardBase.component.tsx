@@ -14,16 +14,6 @@ import { RestaurantCardBaseProps } from './RestaurantCard.types';
 
 /**
  * Base layout card for a restaurant listing
- *
- * @param props - The component properties.
- * @param props.id - Unique id used to build the internal navigation link routing.
- * @param props.name - The commercial display name of the restaurant.
- * @param props.cuisines - List of food categories associated with the location.
- * @param props.vegType - Diet categorization key.
- * @param props.imageUrl - Network image endpoint address for the restaurant preview.
- * @param props.isClosed - Boolean flag indicating if restaurant is currently open.
- * @param props.imageAltText - Custom alt text for image.
- * @param props.children - Optional target slot for injection of action buttons or something.
  */
 
 export const RestaurantCardBase = ({

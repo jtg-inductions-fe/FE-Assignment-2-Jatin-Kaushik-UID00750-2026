@@ -5,6 +5,11 @@ import { restaurantsService } from './restaurantsService';
  * Groups action types, API service calls, and user-facing fallback error messages.
  */
 export const RESTAURANTS_SERVICE_ACTIONS = {
+    GET_BY_ID: {
+        type: 'restaurants/id',
+        service: restaurantsService.getRestaurantById,
+        fallbackMessage: 'Failed to fetch the restaurant.',
+    },
     GET_ALL: {
         type: 'restaurants/getAll',
         service: restaurantsService.getAllRestaurants,

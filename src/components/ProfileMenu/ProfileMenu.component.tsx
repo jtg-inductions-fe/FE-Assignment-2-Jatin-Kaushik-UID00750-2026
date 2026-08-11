@@ -18,10 +18,6 @@ import { ProfileMenuProps } from './ProfileMenu.types';
 
 /**
  * Interactive user profile avatar and menu showing user details and logout action.
- * @param props - Component custom properties
- * @param props.userDisplayName - Active user profile username text
- * @param props.userEmail - Active user profile email text
- * @param props.onLogoutClick - Function to trigger logout action
  */
 
 export const ProfileMenu = ({
