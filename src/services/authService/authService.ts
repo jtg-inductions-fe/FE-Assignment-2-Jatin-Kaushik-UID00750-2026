@@ -11,8 +11,6 @@ const users = [...userSeed.owners, ...userSeed.customers];
 export const authService = {
     /**
      * Validates user credentials and resolves the matching profile data.
-     * @param payload - User login email and password strings
-     * @returns A promise resolving to the matched user profile object
      */
 
     login: (payload: LoginCredentials): Promise<User> => {
@@ -28,8 +26,6 @@ export const authService = {
 
     /**
      * Evaluates availability and processes new account registration requests.
-     * @param payload - New user credentials and profile registration configuration
-     * @returns A promise resolving to true if validation passes successfully
      */
 
     signup: (payload: SignUpPayload): Promise<boolean> => {

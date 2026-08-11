@@ -1,26 +1,33 @@
 import * as yup from 'yup';
 
+import { USER_ROLES, VALIDATION_MESSAGES } from '@constant';
+
+import { SIGNUP_FIELD_NAMES } from './SignupForm.constants';
+
 /**
  * Validation rules and error messages for checking user signup form inputs
  */
 
 export const signupSchema = yup
     .object({
-        name: yup
+        [SIGNUP_FIELD_NAMES.NAME]: yup
             .string()
-            .required('name is required')
-            .min(3, 'Name must contain at least 3 characters'),
-        email: yup
+            .required(VALIDATION_MESSAGES.REQUIRED_FIELD)
+            .min(3, VALIDATION_MESSAGES.INVALID_NAME),
+        [SIGNUP_FIELD_NAMES.EMAIL]: yup
             .string()
-            .required('Email is required')
-            .email('Enter a valid email address'),
-        password: yup
+            .required(VALIDATION_MESSAGES.REQUIRED_FIELD)
+            .email(VALIDATION_MESSAGES.INVALID_EMAIL),
+        [SIGNUP_FIELD_NAMES.PASSWORD]: yup
             .string()
-            .required('Password is required')
-            .min(8, 'Password must be at least 8 characters long'),
-        role: yup
+            .required(VALIDATION_MESSAGES.REQUIRED_FIELD)
+            .min(8, VALIDATION_MESSAGES.INVALID_PASSWORD),
+        [SIGNUP_FIELD_NAMES.ROLE]: yup
             .string()
-            .oneOf(['customer', 'owner'], 'Please select a valid user role')
-            .required('User role is required'),
+            .oneOf(
+                [USER_ROLES.CUSTOMER, USER_ROLES.OWNER],
+                VALIDATION_MESSAGES.INVALID_ROLE,
+            )
+            .required(VALIDATION_MESSAGES.REQUIRED_FIELD),
     })
     .required();

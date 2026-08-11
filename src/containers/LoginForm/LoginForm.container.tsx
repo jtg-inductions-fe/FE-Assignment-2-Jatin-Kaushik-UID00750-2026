@@ -16,6 +16,8 @@ import { AuthFormLayout } from '@layouts';
 import { clearAuthError } from '@store/slices/authSlice';
 import { loginThunk } from '@store/thunks';
 
+import { LOGIN_FIELD_NAMES } from './LoginForm.constants';
+import { defaultLoginFormValues } from './LoginForm.constants';
 import { loginSchema } from './LoginForm.schema';
 import { LoginFormData } from './LoginForm.types';
 
@@ -35,21 +37,13 @@ export const LoginForm = () => {
         dispatch(clearAuthError());
     }, [dispatch]);
 
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<LoginFormData>({
+    const { control, handleSubmit } = useForm<LoginFormData>({
         resolver: yupResolver(loginSchema),
-        defaultValues: {
-            email: '',
-            password: '',
-        },
+        defaultValues: defaultLoginFormValues,
     });
 
     /**
      * Dispatches user credentials to verification store thunks and handles navigation loops.
-     * @param data - Evaluated input values containing validated email and password strings
      */
 
     const onSubmit = async (data: LoginFormData) => {
@@ -74,20 +68,18 @@ export const LoginForm = () => {
             footerLinkText="Create an account"
             footerLinkTo="/signup"
         >
-            <FormFieldRow label="Email" htmlFor="email">
+            <FormFieldRow label="Email" htmlFor={LOGIN_FIELD_NAMES.EMAIL}>
                 <FormTextField<LoginFormData>
-                    name="email"
+                    name={LOGIN_FIELD_NAMES.EMAIL}
                     control={control}
-                    errors={errors}
                     isLoading={isLoading}
                 />
             </FormFieldRow>
 
-            <FormFieldRow label="Password" htmlFor="password">
+            <FormFieldRow label="Password" htmlFor={LOGIN_FIELD_NAMES.PASSWORD}>
                 <FormPasswordField<LoginFormData>
-                    name="password"
+                    name={LOGIN_FIELD_NAMES.PASSWORD}
                     control={control}
-                    errors={errors}
                     isLoading={isLoading}
                 />
             </FormFieldRow>

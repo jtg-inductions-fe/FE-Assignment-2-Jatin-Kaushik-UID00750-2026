@@ -12,12 +12,6 @@ import { ConfirmDialogProps } from './ConfirmDialog.types';
 
 /**
  * Custom confirmation dialog modal component.
- * @param props - Component options
- * @param props.open - Visibility trigger flag
- * @param props.title - Main title text string
- * @param props.message - Descriptive body text string
- * @param props.handleCancel - Cancel click handler
- * @param props.handleConfirm - Confirm click handler
  */
 
 export const ConfirmDialog = ({
