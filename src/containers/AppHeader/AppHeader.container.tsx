@@ -1,6 +1,5 @@
 import { Link as RouterLink } from 'react-router-dom';
 
-import { CartBadge } from '@components/CartBadge';
 import { ROUTES } from '@constant';
 import { ProfileMenuContainer } from '@containers/ProfileMenuContainer';
 import { useAppSelector } from '@hooks';
@@ -33,7 +32,8 @@ export const AppHeader = () => {
                 </LogoBox>
                 <HeaderActions>
                     {currentUser?.role === 'customer' && (
-                        <CartBadge count={2} />
+                        // <CartBadge count={2} />
+                        <></>
                     )}
                     <ProfileMenuContainer />
                 </HeaderActions>
