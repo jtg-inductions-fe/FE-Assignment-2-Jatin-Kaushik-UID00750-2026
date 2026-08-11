@@ -5,10 +5,6 @@ import { CartItemsListProps } from './CartItemsList.types';
 
 /**
  * Renders a list of cart items.
- *
- * @param props - The props for the component.
- * @param props.items - An array of cart items to be displayed.
- * @param props.onQuantityChange - A callback function to handle quantity changes for a specific cart item.
  */
 export const CartItemsList = ({
     items,

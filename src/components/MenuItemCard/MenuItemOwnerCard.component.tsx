@@ -9,11 +9,6 @@ import { MenuItemCardBase } from './MenuItemCardBase.component';
 /**
  * Restaurant management menu item card component.
  * Displays item details with quick management controls for stock management, editing, and deletion.
- *
- * @param props.item - Food item payload data containing stock details.
- * @param props.onStockChange - Handler triggered when the inventory number is updated.
- * @param props.onEdit - Handler triggered when the edit button is clicked.
- * @param props.onDelete - Handler triggered when the delete button is clicked.
  */
 export const MenuItemOwnerCard = ({
     item,

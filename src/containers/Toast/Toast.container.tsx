@@ -19,8 +19,6 @@ export const Toast = () => {
 
     /**
      * Handles dismiss alerts and avoids accidental window closures from background clicking actions.
-     * @param _event - Triggering document screen event instance
-     * @param reason - Context explaining what dismissed the snackbar banner frame
      */
 
     const handleClose = (

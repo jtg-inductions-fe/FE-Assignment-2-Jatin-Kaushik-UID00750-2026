@@ -13,12 +13,6 @@ import { CartItemCardProps } from './CartItemCard.types';
 
 /**
  * Renders a card for a single cart item.
- * @param name - The name of the cart item.
- * @param price - The price of the cart item.
- * @param imageUrl - The URL of the cart item's image.
- * @param quantity - The quantity of the cart item.
- * @param onIncrement - Callback function to increment the quantity.
- * @param onDecrement - Callback function to decrement the quantity.
  */
 export const CartItemCard = ({
     name,

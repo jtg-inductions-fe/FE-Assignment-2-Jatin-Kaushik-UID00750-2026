@@ -12,7 +12,7 @@ import {
     FormTextField,
 } from '@components/FormComponents';
 import { RoleToggle } from '@components/RoleToggle';
-import { ASYNC_STATUS, ROUTES, USER_ROLES } from '@constant';
+import { ASYNC_STATUS, ROUTES } from '@constant';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useAppDispatch, useAppSelector, useToast } from '@hooks';
 import { AuthFormLayout } from '@layouts';
@@ -20,6 +20,10 @@ import { clearAuthError } from '@store/slices/authSlice';
 import { signupThunk } from '@store/thunks';
 
 import { rolesConfig } from './SignupForm.config';
+import {
+    defaultSignupFormValues,
+    SIGNUP_FIELD_NAMES,
+} from './SignupForm.constants';
 import { signupSchema } from './SignupForm.schema';
 import { SignupFormData } from './SignupForm.types';
 
@@ -38,23 +42,13 @@ export const SignupForm = () => {
         dispatch(clearAuthError());
     }, [dispatch]);
 
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<SignupFormData>({
+    const { control, handleSubmit } = useForm<SignupFormData>({
         resolver: yupResolver(signupSchema),
-        defaultValues: {
-            name: '',
-            email: '',
-            password: '',
-            role: USER_ROLES.CUSTOMER,
-        },
+        defaultValues: defaultSignupFormValues,
     });
 
     /**
      * Submits registration credentials to the auth store and handles post-signup navigation.
-     * @param data - Evaluated form fields containing validated registration data
      */
 
     const onSubmit = async (data: SignupFormData) => {
@@ -65,7 +59,12 @@ export const SignupForm = () => {
                 type: 'success',
             });
             void navigate(ROUTES.LOGIN);
-        } catch {}
+        } catch {
+            toast({
+                message: 'Unexpected error occurred.',
+                type: 'error',
+            });
+        }
     };
 
     return (
@@ -78,36 +77,36 @@ export const SignupForm = () => {
             footerLinkText="Log in"
             footerLinkTo="/login"
         >
-            <FormFieldRow label="Name" htmlFor="name">
+            <FormFieldRow label="Name" htmlFor={SIGNUP_FIELD_NAMES.NAME}>
                 <FormTextField<SignupFormData>
-                    name="name"
+                    name={SIGNUP_FIELD_NAMES.NAME}
                     control={control}
-                    errors={errors}
                     isLoading={isLoading}
                 />
             </FormFieldRow>
 
-            <FormFieldRow label="Email" htmlFor="email">
+            <FormFieldRow label="Email" htmlFor={SIGNUP_FIELD_NAMES.EMAIL}>
                 <FormTextField<SignupFormData>
-                    name="email"
+                    name={SIGNUP_FIELD_NAMES.EMAIL}
                     control={control}
-                    errors={errors}
                     isLoading={isLoading}
                 />
             </FormFieldRow>
 
-            <FormFieldRow label="Password" htmlFor="password">
+            <FormFieldRow
+                label="Password"
+                htmlFor={SIGNUP_FIELD_NAMES.PASSWORD}
+            >
                 <FormPasswordField<SignupFormData>
-                    name="password"
+                    name={SIGNUP_FIELD_NAMES.PASSWORD}
                     control={control}
-                    errors={errors}
                     isLoading={isLoading}
                 />
             </FormFieldRow>
 
             <FormFieldRow>
                 <Controller
-                    name="role"
+                    name={SIGNUP_FIELD_NAMES.ROLE}
                     control={control}
                     render={({ field: { value, onChange } }) => (
                         <RoleToggle

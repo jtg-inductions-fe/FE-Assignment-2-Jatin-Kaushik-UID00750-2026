@@ -9,8 +9,6 @@ export interface FormAutocompleteProps<
     control: Control<TFieldValues>;
     options: TOption[];
     placeholder?: string;
-    error?: boolean;
-    helperText?: string;
     getOptionLabel?: (option: TOption) => string;
     isOptionEqualToValue?: (option: TOption, value: TOption) => boolean;
 }

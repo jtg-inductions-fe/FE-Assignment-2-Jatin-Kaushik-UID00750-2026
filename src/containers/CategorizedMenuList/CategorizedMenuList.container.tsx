@@ -9,10 +9,6 @@ import { CategorizedMenuListProps } from './CategorizedMenuList.types';
 /**
  * Groups menu items by their respective categories and renders them in sorted sections.
  * Also hides categories that do not contain any menu items.
- *
- * @param props - Component properties.
- * @param props.categorizedData - Array of menu categories with their associated items.
- * @param props.renderItemCard - Render prop function used to instantiate custom item cards.
  */
 export const CategorizedMenuList = ({
     categorizedData,

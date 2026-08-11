@@ -14,12 +14,8 @@ import * as FormStyles from './RestaurantForm.styles';
  */
 
 export const RestaurantHoursForm = () => {
-    const {
-        control,
-        watch,
-        getValues,
-        formState: { errors },
-    } = useFormContext<RestaurantFormValues>();
+    const { control, watch, getValues } =
+        useFormContext<RestaurantFormValues>();
     return (
         <FormStyles.StepContentContainer>
             {DAYS.map((_, index) => {
@@ -53,12 +49,6 @@ export const RestaurantHoursForm = () => {
                             disabled={isDayClosed}
                             slotProps={{ inputLabel: { shrink: true } }}
                             control={control}
-                            errors={errors}
-                            error={!!errors.operatingHours?.[index]?.openTime}
-                            helperText={
-                                errors.operatingHours?.[index]?.openTime
-                                    ?.message
-                            }
                         />
                         <FormTextField
                             name={`operatingHours.${index}.closeTime`}
@@ -67,12 +57,6 @@ export const RestaurantHoursForm = () => {
                             disabled={isDayClosed}
                             slotProps={{ inputLabel: { shrink: true } }}
                             control={control}
-                            errors={errors}
-                            error={!!errors.operatingHours?.[index]?.closeTime}
-                            helperText={
-                                errors.operatingHours?.[index]?.closeTime
-                                    ?.message
-                            }
                         />
                     </FormStyles.OperatingHoursRow>
                 );

@@ -1,18 +1,22 @@
 import * as yup from 'yup';
 
+import { VALIDATION_MESSAGES } from '@constant';
+
+import { LOGIN_FIELD_NAMES } from './LoginForm.constants';
+
 /**
  * Validation rules and error messages for checking user login form inputs
  */
 
 export const loginSchema = yup
     .object({
-        email: yup
+        [LOGIN_FIELD_NAMES.EMAIL]: yup
             .string()
-            .required('Email is required')
-            .email('Enter a valid email address'),
-        password: yup
+            .required(VALIDATION_MESSAGES.REQUIRED_FIELD)
+            .email(VALIDATION_MESSAGES.INVALID_EMAIL),
+        [LOGIN_FIELD_NAMES.PASSWORD]: yup
             .string()
-            .required('Password is required')
-            .min(8, 'Password must be at least 8 characters long'),
+            .required(VALIDATION_MESSAGES.REQUIRED_FIELD)
+            .min(8, VALIDATION_MESSAGES.INVALID_PASSWORD),
     })
     .required();

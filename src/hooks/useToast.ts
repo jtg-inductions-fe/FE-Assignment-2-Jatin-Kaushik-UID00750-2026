@@ -14,9 +14,6 @@ export const useToast = () => {
 
     /**
      * Dispatches an alert banner payload to the UI store.
-     * @param options.message - Alert text
-     * @param options.type - Alert severity type
-     * @param options.duration - Visibility duration in ms
      */
 
     const triggerToast = useCallback(

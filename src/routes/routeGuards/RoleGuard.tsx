@@ -7,8 +7,6 @@ import { UserRole } from '@types';
 
 /**
  * Route guard component that enforces role-based access control (RBAC).
- * @param props - Component properties
- * @param props.allowedRoles - Authorized roles for access
  */
 
 export const RoleGuard = ({ allowedRoles }: { allowedRoles: UserRole[] }) => {

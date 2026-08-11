@@ -1,4 +1,5 @@
 import { DAYS_OF_WEEK, RESTAURANT_VEG_TYPES } from '@constant';
+import { RestaurantFormValues } from '@types';
 
 /** Labels representing each stage of the multi-step restaurant details form  */
 export const RESTAURANT_FORM_STEPS = [
@@ -30,3 +31,19 @@ export const VEG_OPTIONS = [
     { value: RESTAURANT_VEG_TYPES.NON_VEG, label: 'Non-Vegetarian Only' },
     { value: RESTAURANT_VEG_TYPES.ALL, label: 'Serving Both' },
 ];
+
+/** Default values for restaurant form fields */
+export const defaultFormValues: RestaurantFormValues = {
+    name: '',
+    description: '',
+    cuisines: [],
+    vegType: RESTAURANT_VEG_TYPES.ALL,
+    imageUrl: '',
+    address: { street: '', city: '', state: '', pincode: '' },
+    operatingHours: DAYS.map((day) => ({
+        day,
+        isClosed: false,
+        openTime: '09:00',
+        closeTime: '22:00',
+    })),
+};

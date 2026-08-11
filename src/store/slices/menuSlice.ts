@@ -4,12 +4,14 @@ import {
     deleteMenuItem,
     editMenuItem,
     fetchMenuByRestaurant,
+    fetchMenuItemById,
 } from '@store/thunks/menuThunk';
 import { MenuItem, MenuState } from '@types';
 
 const initialState: MenuState = {
     categories: [],
     items: [],
+    selectedMenuItem: null,
     status: 'idle',
     error: null,
 };
@@ -43,6 +45,23 @@ const menuSlice = createSlice({
             .addCase(fetchMenuByRestaurant.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.payload ?? 'An unexpected error occurred';
+            })
+
+            // Fetch Menu Item by Id
+            .addCase(fetchMenuItemById.pending, (state) => {
+                state.status = 'loading';
+                state.error = null;
+            })
+            .addCase(
+                fetchMenuItemById.fulfilled,
+                (state, action: PayloadAction<MenuItem | null>) => {
+                    state.status = 'succeeded';
+                    state.selectedMenuItem = action.payload;
+                },
+            )
+            .addCase(fetchMenuItemById.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.payload ?? 'An unknown error occurred';
             })
 
             // Add Menu Item

@@ -13,7 +13,6 @@ import { fetchMenuByRestaurant } from '@store/thunks/menuThunk';
 import { MenuItem } from '@types';
 
 /** Container component for displaying the customer's menu list.
- * @param isClosed - Boolean indicating if the restaurant is currently closed.
  */
 export const CustomerMenuList = ({ isClosed }: { isClosed: boolean }) => {
     const dispatch = useAppDispatch();
@@ -47,7 +46,6 @@ export const CustomerMenuList = ({ isClosed }: { isClosed: boolean }) => {
     }, [restaurantId, dispatch, toast, rawItemsCount]);
 
     /** Handles adding a menu item to the cart.
-     * @param item - The menu item to add to the cart.
      */
     const handleAddToCart = (item: MenuItem) => {
         const newCartItem = {
@@ -66,7 +64,6 @@ export const CustomerMenuList = ({ isClosed }: { isClosed: boolean }) => {
     };
 
     /** Handles incrementing the quantity of a menu item in the cart.
-     * @param item - The menu item to increment in the cart.
      */
     const handleIncrement = (item: MenuItem) => {
         const currentQty = getItemQuantity(item.id);
@@ -79,7 +76,6 @@ export const CustomerMenuList = ({ isClosed }: { isClosed: boolean }) => {
     };
 
     /** Handles decrementing the quantity of a menu item in the cart.
-     * @param item - The menu item to decrement in the cart.
      */
     const handleDecrement = (item: MenuItem) => {
         const currentQty = getItemQuantity(item.id);

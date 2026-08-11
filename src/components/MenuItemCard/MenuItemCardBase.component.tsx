@@ -6,10 +6,6 @@ import { MenuItemCardBaseProps } from './MenuItemCard.types';
 /**
  * Base layout card for displaying menu item details (name, price, image).
  * Supports contextual actions and an optional disabled/dimmed state.
- * @param props.item - Food item payload data (name, price, image).
- * @param props.showAsDimmed - Flag to visually indicate the item is unavailable or disabled.
- * @param props.actions - Optional action buttons (e.g., edit, delete) to display in the card.
- * @param props.children - Optional child components (e.g., add-to-cart button) to render in the card.
  */
 export const MenuItemCardBase = ({
     item,

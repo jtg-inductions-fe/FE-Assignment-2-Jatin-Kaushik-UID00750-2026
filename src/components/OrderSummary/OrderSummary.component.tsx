@@ -10,12 +10,6 @@ import { OrderSummaryProps } from './OrderSummary.types';
 
 /**
  * OrderSummary component displays a summary of the order including item total, booking fee, and total amount to pay.
- *
- * @param props - The props for the OrderSummary component.
- * @param props.totals - The totals for the cart including subtotal, booking fee, total, and item count.
- * @param props.onCheckout - The function to call when the checkout button is clicked.
- * @param props.isSubmitting - Indicates whether the checkout process is currently submitting.
- * @returns The rendered OrderSummary component.
  */
 export const OrderSummary = ({
     totals,

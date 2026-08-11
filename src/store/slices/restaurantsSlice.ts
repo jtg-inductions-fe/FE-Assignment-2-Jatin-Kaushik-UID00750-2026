@@ -5,11 +5,13 @@ import {
     editRestaurant,
     fetchAllRestaurants,
     fetchMyRestaurants,
+    fetchRestaurantById,
 } from '@store/thunks/restaurantsThunk';
 import type { Restaurant, RestaurantState, RestaurantVegType } from '@types';
 
 const initialState: RestaurantState = {
     list: [],
+    selectedRestaurant: null,
     status: 'idle',
     error: null,
     filters: {
@@ -34,6 +36,22 @@ const restaurantSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+            // Fetch Restaurant By ID
+            .addCase(fetchRestaurantById.pending, (state) => {
+                state.status = 'loading';
+                state.error = null;
+            })
+            .addCase(
+                fetchRestaurantById.fulfilled,
+                (state, action: PayloadAction<Restaurant | null>) => {
+                    state.status = 'succeeded';
+                    state.selectedRestaurant = action.payload;
+                },
+            )
+            .addCase(fetchRestaurantById.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.payload ?? 'An unknown error occurred';
+            })
             // Fetch All Restaurants
             .addCase(fetchAllRestaurants.pending, (state) => {
                 state.status = 'loading';

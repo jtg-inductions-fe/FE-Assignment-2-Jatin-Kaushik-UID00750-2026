@@ -12,7 +12,5 @@ export interface FormSelectProps<
     name: TName;
     control: Control<TFieldValues>;
     options: SelectOption[];
-    error?: boolean;
-    helperText?: string;
     fullWidth?: boolean;
 }
