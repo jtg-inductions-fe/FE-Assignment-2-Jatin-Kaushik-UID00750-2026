@@ -15,7 +15,6 @@ export const useConfirmDialog = () => {
 
     /**
      * Opens the dialog and binds custom text options.
-     * @param options - Config for the dialog title and message text
      */
 
     const openConfirmDialog = useCallback((options: ConfirmDialogState) => {

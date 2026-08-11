@@ -10,36 +10,18 @@ import { RestaurantFormValues } from '@types';
 
 import { RestaurantAddressForm } from './RestaurantAddressForm.component';
 import { RestaurantBasicInfoForm } from './RestaurantBasicInfoForm.component';
-import { DAYS, RESTAURANT_FORM_STEPS } from './RestaurantForm.constants';
+import {
+    defaultFormValues,
+    RESTAURANT_FORM_STEPS,
+} from './RestaurantForm.constants';
 import { restaurantValidationSchema } from './RestaurantForm.schema';
 import * as FormStyles from './RestaurantForm.styles';
 import { RestaurantFormProps } from './RestaurantForm.types';
 import { RestaurantHoursForm } from './RestaurantHoursForm.component';
 
-/** Default values for restaurant form fields */
-const defaultFormValues: RestaurantFormValues = {
-    name: '',
-    description: '',
-    cuisines: [],
-    vegType: 'all',
-    imageUrl: '',
-    address: { street: '', city: '', state: '', pincode: '' },
-    operatingHours: DAYS.map((day) => ({
-        day,
-        isClosed: false,
-        openTime: '09:00',
-        closeTime: '22:00',
-    })),
-};
-
 /**
  * RestaurantForm Component
  * A multi-step form for creating or editing restaurant details
- *
- * @param props - Properties of the form component
- * @param props.initialValues - Existing restaurant data to pre-populate inputs during edit modes
- * @param props.onSubmit - Submission callback triggered after all form stages validate successfully
- * @param props.initialStep - Optional integer indicating the initial step of the multi-step form
  */
 
 export const RestaurantForm = ({

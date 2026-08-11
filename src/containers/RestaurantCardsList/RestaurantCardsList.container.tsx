@@ -43,7 +43,7 @@ export const RestaurantCardsList = () => {
 
     const filteredRestaurants = useAppSelector(selectFilteredRestaurants);
     const { currentUser } = useAppSelector((state) => state.auth);
-    const { loading } = useAppSelector((state) => state.restaurants);
+    const { status } = useAppSelector((state) => state.restaurants);
     const { isOpen, config, openConfirmDialog, closeConfirmDialog } =
         useConfirmDialog();
 
@@ -55,7 +55,7 @@ export const RestaurantCardsList = () => {
         }
     }, [dispatch, currentUser]);
 
-    if (loading) {
+    if (status === 'loading') {
         return (
             <StyledRestaurantCardsList>
                 <RestaurantCardSkeleton />

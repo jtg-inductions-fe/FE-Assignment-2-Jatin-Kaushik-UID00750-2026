@@ -2,6 +2,11 @@ import { RESTAURANTS_SERVICE_ACTIONS } from '@services/restaurantsService';
 import { Restaurant } from '@types';
 import { asyncServiceThunk } from '@utils';
 
+/** Asynchronous Thunk action that fetches a restaurant by its unique ID. */
+export const fetchRestaurantById = asyncServiceThunk(
+    RESTAURANTS_SERVICE_ACTIONS.GET_BY_ID,
+);
+
 /** Asynchronous Thunk action that fetches all restaurants for public listings. */
 export const fetchAllRestaurants = asyncServiceThunk<void, Restaurant[]>(
     RESTAURANTS_SERVICE_ACTIONS.GET_ALL,

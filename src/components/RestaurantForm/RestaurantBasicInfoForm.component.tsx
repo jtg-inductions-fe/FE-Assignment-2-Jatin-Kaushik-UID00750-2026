@@ -16,21 +16,17 @@ import * as FormStyles from './RestaurantForm.styles';
  */
 
 export const RestaurantBasicInfoForm = () => {
-    const {
-        control,
-        formState: { errors },
-    } = useFormContext();
+    const { control } = useFormContext();
     return (
         <FormStyles.StepContentContainer>
             <FormFieldRow label="Name" htmlFor="name">
-                <FormTextField name="name" control={control} errors={errors} />
+                <FormTextField name="name" control={control} />
             </FormFieldRow>
 
             <FormFieldRow label="Description" htmlFor="description">
                 <FormTextField
                     name="description"
                     control={control}
-                    errors={errors}
                     multiline
                     rows={3}
                 />
@@ -42,8 +38,6 @@ export const RestaurantBasicInfoForm = () => {
                     control={control}
                     options={CUISINE_OPTIONS}
                     placeholder="Select cuisines..."
-                    error={!!errors.cuisines}
-                    helperText={errors.cuisines?.message as string | undefined}
                 />
             </FormFieldRow>
 
@@ -52,17 +46,11 @@ export const RestaurantBasicInfoForm = () => {
                     name="vegType"
                     control={control}
                     options={VEG_OPTIONS}
-                    error={!!errors.vegType}
-                    helperText={errors.vegType?.message as string | undefined}
                 />
             </FormFieldRow>
 
             <FormFieldRow label="Display Image URL" htmlFor="imageUrl">
-                <FormTextField
-                    name="imageUrl"
-                    control={control}
-                    errors={errors}
-                />
+                <FormTextField name="imageUrl" control={control} />
             </FormFieldRow>
         </FormStyles.StepContentContainer>
     );

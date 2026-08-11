@@ -22,7 +22,6 @@ const uiSlice = createSlice({
     reducers: {
         /**
          * Opens toast notification banner.
-         * @param action.payload - Banner customization options
          */
 
         showToastAction: (state, action: PayloadAction<ToastPayload>) => {

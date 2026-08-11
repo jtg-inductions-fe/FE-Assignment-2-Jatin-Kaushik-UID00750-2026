@@ -8,11 +8,6 @@ import { RestaurantCardBase } from './RestaurantCardBase.component';
 
 /**
  * Owner variant of the restaurant display card.
- *
- * @param props - The component properties.
- * @param props.onEdit - Callback function executed when the modification button is pressed.
- * @param props.onDelete - Callback function executed when the removal button is pressed.
- * @param props.baseProps - All remaining properties passed down directly to the base layout structure.
  */
 
 export const RestaurantOwnerCard = ({
