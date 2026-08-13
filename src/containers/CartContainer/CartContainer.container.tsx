@@ -1,14 +1,16 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
 import { CartItemsList } from '@components/CartItemsList';
 import { OrderSummary } from '@components/OrderSummary';
-import { ROUTES } from '@constant';
+import { ORDER_STATUS, ROUTES, USER_ROLES } from '@constant';
 import { useAppDispatch, useAppSelector, useToast } from '@hooks';
 import { selectCartTotals } from '@store/selectors/cartSelector';
 import { clearCart, updateQuantity } from '@store/slices/cartSlice';
 import { fetchMenuItemById } from '@store/thunks/menuThunk';
+import { createOrder } from '@store/thunks/ordersThunk';
+import { Address, Order, OrderItem } from '@types';
 
 import { StyledCartContainer } from './CartContainer.styles';
 
@@ -18,8 +20,14 @@ export const CartContainer = () => {
     const toast = useToast();
     const dispatch = useAppDispatch();
 
-    const { cartItems } = useAppSelector((state) => state.cart);
+    // 1. Destructure state properties needed to construct a valid Order object
+    const { cartItems, restaurantId, restaurantName } = useAppSelector(
+        (state) => state.cart,
+    );
+    const { currentUser } = useAppSelector((state) => state.auth);
     const totals = useAppSelector(selectCartTotals);
+
+    const [submitting, setSubmitting] = useState(false);
 
     const onQuantityChange = (menuItemId: string, newQuantity: number) => {
         dispatch(updateQuantity({ menuItemId, quantity: newQuantity }));
@@ -102,15 +110,68 @@ export const CartContainer = () => {
 
     /** Handles the checkout process. */
     const handleCheckout = async () => {
+        // Enforce validations before processing order data
+        if (!currentUser || currentUser?.role !== USER_ROLES.CUSTOMER) {
+            return;
+        }
+
+        if (!restaurantId || !restaurantName) {
+            toast({
+                message: 'Invalid vendor context detected.',
+                type: 'error',
+            });
+            return;
+        }
+
         isCheckingOut.current = true;
+        setSubmitting(true);
 
-        toast({
-            message: 'Order Placed! Thank you for your purchase.',
-            type: 'success',
-        });
+        const mappedItems: OrderItem[] = cartItems.map((item) => ({
+            menuItemId: item.menuItemId,
+            name: item.name,
+            price: item.price,
+            quantity: item.quantity,
+        }));
 
-        dispatch(clearCart());
-        await navigate(ROUTES.ORDERS);
+        const orderPayload: Omit<Order, 'id'> = {
+            customerId: currentUser.id,
+            customerName: currentUser.name,
+            restaurantId,
+            restaurantName,
+            items: mappedItems,
+            subtotal: totals.subtotal,
+            bookingFee: totals.bookingFee,
+            total: totals.total,
+            status: ORDER_STATUS.PENDING,
+            deliveryAddress: currentUser.address as Address,
+            placedAt: new Date().toISOString(),
+            statusHistory: [
+                {
+                    status: ORDER_STATUS.PENDING,
+                    timestamp: new Date().toISOString(),
+                },
+            ],
+        };
+
+        try {
+            await dispatch(createOrder(orderPayload)).unwrap();
+
+            toast({
+                message: 'Order Placed! Thank you for your purchase.',
+                type: 'success',
+            });
+
+            dispatch(clearCart());
+            void navigate(ROUTES.ORDERS);
+        } catch {
+            isCheckingOut.current = false;
+            toast({
+                message: 'Failed to place order. Please try again.',
+                type: 'error',
+            });
+        } finally {
+            setSubmitting(false);
+        }
     };
 
     return (
@@ -121,7 +182,7 @@ export const CartContainer = () => {
             />
             <OrderSummary
                 totals={totals}
-                onCheckout={() => void handleCheckout()}
+                onCheckout={() => !submitting && void handleCheckout()}
             />
         </StyledCartContainer>
     );

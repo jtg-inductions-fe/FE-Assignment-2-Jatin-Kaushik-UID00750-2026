@@ -1,0 +1,117 @@
+[
+    {
+        "id": "ord_001",
+        "customerId": "cus_001",
+        "customerName": "Aditi Sharma",
+        "restaurantId": "rst_001",
+        "restaurantName": "Spice Junction",
+        "items": [
+            {
+                "menuItemId": "itm_003",
+                "name": "Butter Chicken",
+                "price": 340,
+                "quantity": 2
+            },
+            {
+                "menuItemId": "itm_005",
+                "name": "Butter Naan",
+                "price": 60,
+                "quantity": 2
+            }
+        ],
+        "subtotal": 800,
+        "bookingFee": 20,
+        "total": 820,
+        "status": "delivered",
+        "deliveryAddress": {
+            "street": "B-42, Sector 14",
+            "city": "Gurugram",
+            "state": "Haryana",
+            "pincode": "122001"
+        },
+        "placedAt": "2026-07-15T19:02:00.000Z",
+        "statusHistory": [
+            { "status": "pending", "timestamp": "2026-07-15T19:02:00.000Z" },
+            { "status": "accepted", "timestamp": "2026-07-15T19:05:00.000Z" },
+            { "status": "preparing", "timestamp": "2026-07-15T19:10:00.000Z" },
+            {
+                "status": "out-for-delivery",
+                "timestamp": "2026-07-15T19:35:00.000Z"
+            },
+            { "status": "delivered", "timestamp": "2026-07-15T20:05:00.000Z" }
+        ]
+    },
+    {
+        "id": "ord_002",
+        "customerId": "cus_002",
+        "customerName": "Rohan Verma",
+        "restaurantId": "rst_003",
+        "restaurantName": "Momo Street",
+        "items": [
+            {
+                "menuItemId": "itm_010",
+                "name": "Fried Chicken Momos",
+                "price": 180,
+                "quantity": 3
+            },
+            {
+                "menuItemId": "itm_011",
+                "name": "Veg Thukpa",
+                "price": 200,
+                "quantity": 1
+            }
+        ],
+        "subtotal": 740,
+        "bookingFee": 20,
+        "total": 760,
+        "status": "pending",
+        "deliveryAddress": {
+            "street": "Flat 7C, Palm Residency",
+            "line2": "MG Road",
+            "city": "Gurugram",
+            "state": "Haryana",
+            "pincode": "122002"
+        },
+        "placedAt": "2026-07-19T13:20:00.000Z",
+        "statusHistory": [
+            { "status": "pending", "timestamp": "2026-07-19T13:20:00.000Z" }
+        ]
+    },
+    {
+        "id": "ord_003",
+        "customerId": "cus_001",
+        "customerName": "Aditi Sharma",
+        "restaurantId": "rst_002",
+        "restaurantName": "Green Bowl Cafe",
+        "items": [
+            {
+                "menuItemId": "itm_006",
+                "name": "Quinoa & Roasted Veg Bowl",
+                "price": 320,
+                "quantity": 1
+            },
+            {
+                "menuItemId": "itm_007",
+                "name": "Mediterranean Chickpea Salad",
+                "price": 280,
+                "quantity": 2
+            }
+        ],
+        "subtotal": 880,
+        "bookingFee": 20,
+        "total": 900,
+        "status": "rejected",
+        "deliveryAddress": {
+            "street": "B-42, Sector 14",
+            "city": "Gurugram",
+            "state": "Haryana",
+            "pincode": "122001"
+        },
+        "placedAt": "2026-07-18T12:10:00.000Z",
+        "statusHistory": [
+            { "status": "pending", "timestamp": "2026-07-18T12:10:00.000Z" },
+            { "status": "rejected", "timestamp": "2026-07-18T12:14:00.000Z" }
+        ],
+        "rejectionReason": "The restaurant is unable to process this order."
+    }
+]

@@ -14,6 +14,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import authReducer from '@store/slices/authSlice';
 import cartReducer from '@store/slices/cartSlice';
 import menuReducer from '@store/slices/menuSlice';
+import ordersReducer from '@store/slices/ordersSlice';
 import restaurantReducer from '@store/slices/restaurantsSlice';
 import uiReducer from '@store/slices/uiSlice';
 
@@ -38,6 +39,7 @@ const rootReducer = combineReducers({
     restaurants: restaurantReducer,
     menu: menuReducer,
     cart: persistReducer(cartPersistConfig, cartReducer),
+    orders: ordersReducer,
 });
 
 /**

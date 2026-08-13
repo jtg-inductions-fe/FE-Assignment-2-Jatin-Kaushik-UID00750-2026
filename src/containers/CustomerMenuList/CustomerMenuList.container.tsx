@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector, useToast } from '@hooks';
 import { selectCartItemById } from '@store/selectors/cartSelector';
 import { selectCategorizedMenu } from '@store/selectors/menuSelector';
 import { addToCart, updateQuantity } from '@store/slices/cartSlice';
+import { fetchRestaurantById } from '@store/thunks';
 import { fetchMenuByRestaurant } from '@store/thunks/menuThunk';
 import { MenuItem } from '@types';
 
@@ -21,6 +22,7 @@ export const CustomerMenuList = ({ isClosed }: { isClosed: boolean }) => {
 
     const categorizedMenuData = useAppSelector(selectCategorizedMenu);
     const cart = useAppSelector((state) => state.cart);
+    const { selectedRestaurant } = useAppSelector((state) => state.restaurants);
 
     const isLoading = useAppSelector(
         (state) => state.menu.status === 'loading',
@@ -34,6 +36,7 @@ export const CustomerMenuList = ({ isClosed }: { isClosed: boolean }) => {
 
     useEffect(() => {
         if (!restaurantId) return;
+
         if (rawItemsCount > 0) return;
         dispatch(fetchMenuByRestaurant(restaurantId))
             .unwrap()
@@ -54,11 +57,12 @@ export const CustomerMenuList = ({ isClosed }: { isClosed: boolean }) => {
             price: item.price,
             imageUrl: item.imageUrl,
         };
+        void dispatch(fetchRestaurantById(item.restaurantId));
         dispatch(
             addToCart({
                 item: newCartItem,
                 restaurantId: item.restaurantId,
-                restaurantName: '',
+                restaurantName: selectedRestaurant?.name || '',
             }),
         );
     };
