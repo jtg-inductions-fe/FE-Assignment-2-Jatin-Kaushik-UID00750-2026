@@ -17,11 +17,11 @@ export const FallbackStyledContainer = styled(Container)({
 });
 
 export const LargeErrorCode = styled(Typography)(({ theme }) => ({
-    fontSize: '6rem',
+    fontSize: theme.typography.pxToRem(60),
     marginBottom: theme.spacing(2),
     opacity: 0.25,
     [theme.breakpoints.up('md')]: {
-        fontSize: '9rem',
+        fontSize: theme.typography.pxToRem(90),
     },
 }));
 

@@ -1,5 +1,8 @@
 export type ToastType = 'success' | 'error' | 'warning' | 'info';
 
+/**
+ * The internal state structure for managing a popup notification
+ */
 export interface ToastState {
     open: boolean;
     message: string;
@@ -7,34 +10,35 @@ export interface ToastState {
     duration: number;
 }
 
-export interface ConfirmDialogPayload {
-    title?: string;
-    message: string;
-    confirmLabel?: string;
-    cancelLabel?: string;
-}
-
+/**
+ * Data required to trigger and open a new notification alert
+ */
 export interface ToastPayload {
     message: string;
     type?: ToastType;
     duration?: number;
 }
 
-export interface ConfirmDialogState {
-    open: boolean;
-    title: string;
-    message: string;
-    confirmLabel: string;
-    cancelLabel: string;
-}
-
+/**
+ * Global interface state for tracking user interface elements
+ */
 export interface UIState {
     toast: ToastState;
-    confirmDialog: ConfirmDialogState;
 }
 
+/**
+ * Configuration options for calling the toast notification hook
+ */
 export interface UseToastOptions {
     message: string;
     type?: ToastType;
     duration?: number;
+}
+
+/**
+ * Text configuration content for a confirmation modal
+ */
+export interface ConfirmDialogState {
+    title: string;
+    message: string;
 }

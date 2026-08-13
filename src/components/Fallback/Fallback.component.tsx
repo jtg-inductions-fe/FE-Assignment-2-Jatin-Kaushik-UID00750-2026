@@ -11,7 +11,12 @@ import {
 } from './Fallback.styles';
 import { FallbackOptions } from './Fallback.types';
 
-const Fallback = ({
+/**
+ * Generic layout template used to display HTTP errors, empty state screens, and crashes.
+ * Supports rendering buttons as interactive navigation links or click action handlers.
+ */
+
+export const Fallback = ({
     statusCode,
     title,
     description,
@@ -44,5 +49,3 @@ const Fallback = ({
         </FallbackStyledContainer>
     </FallbackPageWrapper>
 );
-
-export default Fallback;

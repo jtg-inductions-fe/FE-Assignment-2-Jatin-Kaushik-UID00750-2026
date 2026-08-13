@@ -6,7 +6,7 @@ import { DiscoveryPage } from '@pages';
 import { EditRestaurantPage } from '@pages';
 import { NewRestaurantPage } from '@pages';
 
-import { RoleGuard } from './RoleGuard';
+import { RoleGuard } from './routeGuards/RoleGuard';
 
 /**
  * Route configurations for restaurant discovery and management.

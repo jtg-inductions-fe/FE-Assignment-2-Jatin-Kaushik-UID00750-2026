@@ -1,0 +1,69 @@
+{
+    "customers": [
+        {
+            "id": "cus_001",
+            "name": "Aditi Sharma",
+            "email": "aditi.sharma@example.com",
+            "role": "customer",
+            "address": {
+                "line1": "B-42, Sector 14",
+                "city": "Gurugram",
+                "state": "Haryana",
+                "pincode": "122001"
+            }
+        },
+        {
+            "id": "cus_002",
+            "name": "Rohan Verma",
+            "email": "rohan.verma@example.com",
+            "role": "customer",
+            "address": {
+                "line1": "Flat 7C, Palm Residency",
+                "line2": "MG Road",
+                "city": "Gurugram",
+                "state": "Haryana",
+                "pincode": "122002"
+            }
+        }
+    ],
+
+    "owners": [
+        {
+            "id": "own_001",
+            "name": "Rajesh Kumar",
+            "email": "rajesh.kumar@example.com",
+            "role": "owner",
+            "restaurantIds": ["rst_001"]
+        },
+        {
+            "id": "own_002",
+            "name": "Meera Iyer",
+            "email": "meera.iyer@example.com",
+            "role": "owner",
+            "restaurantIds": ["rst_002", "rst_003"]
+        }
+    ],
+
+    "credentials": [
+        {
+            "userId": "cus_001",
+            "email": "aditi.sharma@example.com",
+            "password": "Customer@123"
+        },
+        {
+            "userId": "cus_002",
+            "email": "rohan.verma@example.com",
+            "password": "Customer@123"
+        },
+        {
+            "userId": "own_001",
+            "email": "rajesh.kumar@example.com",
+            "password": "Owner@123"
+        },
+        {
+            "userId": "own_002",
+            "email": "meera.iyer@example.com",
+            "password": "Owner@123"
+        }
+    ]
+}

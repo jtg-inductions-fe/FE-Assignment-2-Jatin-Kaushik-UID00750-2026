@@ -1,12 +1,6 @@
 import { DialogTitle } from '@mui/material';
 
 import { UiButton } from '@components/UiButton/UiButton.component';
-import { useAppDispatch, useAppSelector } from '@hooks';
-import {
-    clearConfirmResolve,
-    getConfirmResolve,
-} from '@services/confirmDialogService';
-import { hideConfirmDialogAction } from '@store/slices/uiSlice';
 
 import {
     StyledDialog,
@@ -14,52 +8,35 @@ import {
     StyledDialogContent,
     StyledDialogContentText,
 } from './ConfirmDialog.styles';
+import { ConfirmDialogProps } from './ConfirmDialog.types';
 
 /**
- * Global confirmation modal component.
- * Connects directly to Redux UI state and resolves user selections using a central promise-based service.
+ * Custom confirmation dialog modal component.
  */
 
-export const ConfirmDialog = () => {
-    const dispatch = useAppDispatch();
+export const ConfirmDialog = ({
+    open,
+    title,
+    message,
+    handleCancel,
+    handleConfirm,
+}: ConfirmDialogProps) => (
+    <StyledDialog open={open} disableRestoreFocus onClose={handleCancel}>
+        <DialogTitle>{title}</DialogTitle>
 
-    const { open, title, message, confirmLabel, cancelLabel } = useAppSelector(
-        (state) => state.ui.confirmDialog,
-    );
+        <StyledDialogContent>
+            <StyledDialogContentText color="text.secondary">
+                {message}
+            </StyledDialogContentText>
+        </StyledDialogContent>
 
-    /**
-     * Resolves the pending promise with user selection and hides the modal overlay.
-     * @param choice - Set to true when user accepts, or false when they decline
-     */
-
-    const handleAction = (choice: boolean) => {
-        const resolve = getConfirmResolve();
-        if (resolve) resolve(choice);
-        clearConfirmResolve();
-        dispatch(hideConfirmDialogAction());
-    };
-
-    const handleConfirm = () => handleAction(true);
-    const handleCancel = () => handleAction(false);
-
-    return (
-        <StyledDialog open={open} disableRestoreFocus onClose={handleCancel}>
-            <DialogTitle>{title}</DialogTitle>
-
-            <StyledDialogContent>
-                <StyledDialogContentText color="text.secondary">
-                    {message}
-                </StyledDialogContentText>
-            </StyledDialogContent>
-
-            <StyledDialogActions>
-                <UiButton color="inherit" onClick={handleCancel}>
-                    {cancelLabel}
-                </UiButton>
-                <UiButton variant="contained" onClick={handleConfirm}>
-                    {confirmLabel}
-                </UiButton>
-            </StyledDialogActions>
-        </StyledDialog>
-    );
-};
+        <StyledDialogActions>
+            <UiButton color="inherit" onClick={handleCancel}>
+                Cancel
+            </UiButton>
+            <UiButton variant="contained" onClick={handleConfirm}>
+                Confirm
+            </UiButton>
+        </StyledDialogActions>
+    </StyledDialog>
+);
