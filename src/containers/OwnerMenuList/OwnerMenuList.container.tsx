@@ -30,7 +30,6 @@ export const OwnerMenuList = ({ restaurantId }: { restaurantId: string }) => {
     const isLoading = useAppSelector(
         (state) => state.menu.status === 'loading',
     );
-    const rawItemsCount = useAppSelector((state) => state.menu.items.length);
 
     const [selectedIdToDelete, setSelectedIdToDelete] = useState<string | null>(
         null,
@@ -40,7 +39,6 @@ export const OwnerMenuList = ({ restaurantId }: { restaurantId: string }) => {
 
     useEffect(() => {
         if (!restaurantId) return;
-        if (rawItemsCount > 0) return;
         dispatch(fetchMenuByRestaurant(restaurantId))
             .unwrap()
             .catch(() => {
@@ -49,7 +47,7 @@ export const OwnerMenuList = ({ restaurantId }: { restaurantId: string }) => {
                     type: 'error',
                 });
             });
-    }, [restaurantId, dispatch, toast, rawItemsCount]);
+    }, [restaurantId, dispatch, toast]);
 
     /** Handles navigation to the menu item edit page for a specific item.
      */

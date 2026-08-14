@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Controller, FieldValues } from 'react-hook-form';
+import { Controller, FieldValues, useFormContext } from 'react-hook-form';
 
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { IconButton, InputAdornment, TextField } from '@mui/material';
@@ -13,8 +13,6 @@ import { FormPasswordFieldProps } from './FormPasswordField.types';
 
 export const FormPasswordField = <T extends FieldValues>({
     name,
-    control,
-    isLoading = false,
     ...props
 }: FormPasswordFieldProps<T>) => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -22,6 +20,11 @@ export const FormPasswordField = <T extends FieldValues>({
     const togglePasswordVisibility = () => {
         setShowPassword((prev) => !prev);
     };
+
+    const {
+        control,
+        formState: { isSubmitting },
+    } = useFormContext();
 
     return (
         <Controller
@@ -36,7 +39,7 @@ export const FormPasswordField = <T extends FieldValues>({
                     id={name}
                     type={showPassword ? 'text' : 'password'}
                     autoComplete="current-password"
-                    disabled={isLoading}
+                    disabled={isSubmitting}
                     error={!!error}
                     helperText={error?.message}
                     {...props}

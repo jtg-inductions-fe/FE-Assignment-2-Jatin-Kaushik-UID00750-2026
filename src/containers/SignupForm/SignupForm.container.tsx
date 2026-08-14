@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import { East } from '@mui/icons-material';
@@ -12,7 +12,7 @@ import {
     FormTextField,
 } from '@components/FormComponents';
 import { RoleToggle } from '@components/RoleToggle';
-import { ASYNC_STATUS, ROUTES } from '@constant';
+import { ROUTES } from '@constant';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useAppDispatch, useAppSelector, useToast } from '@hooks';
 import { AuthFormLayout } from '@layouts';
@@ -33,8 +33,7 @@ import { SignupFormData } from './SignupForm.types';
 
 export const SignupForm = () => {
     const dispatch = useAppDispatch();
-    const { status, error } = useAppSelector((state) => state.auth);
-    const isLoading = status === ASYNC_STATUS.LOADING;
+    const { error } = useAppSelector((state) => state.auth);
     const toast = useToast();
     const navigate = useNavigate();
 
@@ -42,10 +41,16 @@ export const SignupForm = () => {
         dispatch(clearAuthError());
     }, [dispatch]);
 
-    const { control, handleSubmit } = useForm<SignupFormData>({
+    const methods = useForm<SignupFormData>({
         resolver: yupResolver(signupSchema),
         defaultValues: defaultSignupFormValues,
     });
+
+    const {
+        control,
+        handleSubmit,
+        formState: { isSubmitting },
+    } = methods;
 
     /**
      * Submits registration credentials to the auth store and handles post-signup navigation.
@@ -72,65 +77,67 @@ export const SignupForm = () => {
             title="Create Account"
             subtitle="Join us to get fresh meals delivered to your doorstep"
             error={error}
-            onSubmit={(e) => void handleSubmit(onSubmit)(e)}
             footerText="Already have an account?"
             footerLinkText="Log in"
             footerLinkTo="/login"
         >
-            <FormFieldRow label="Name" htmlFor={SIGNUP_FIELD_NAMES.NAME}>
-                <FormTextField<SignupFormData>
-                    name={SIGNUP_FIELD_NAMES.NAME}
-                    control={control}
-                    isLoading={isLoading}
-                />
-            </FormFieldRow>
-
-            <FormFieldRow label="Email" htmlFor={SIGNUP_FIELD_NAMES.EMAIL}>
-                <FormTextField<SignupFormData>
-                    name={SIGNUP_FIELD_NAMES.EMAIL}
-                    control={control}
-                    isLoading={isLoading}
-                />
-            </FormFieldRow>
-
-            <FormFieldRow
-                label="Password"
-                htmlFor={SIGNUP_FIELD_NAMES.PASSWORD}
-            >
-                <FormPasswordField<SignupFormData>
-                    name={SIGNUP_FIELD_NAMES.PASSWORD}
-                    control={control}
-                    isLoading={isLoading}
-                />
-            </FormFieldRow>
-
-            <FormFieldRow>
-                <Controller
-                    name={SIGNUP_FIELD_NAMES.ROLE}
-                    control={control}
-                    render={({ field: { value, onChange } }) => (
-                        <RoleToggle
-                            roles={rolesConfig}
-                            value={value}
-                            onChange={onChange}
-                            isLoading={isLoading}
-                        />
-                    )}
-                />
-            </FormFieldRow>
-
-            <FormFieldRow>
-                <FormButton
-                    type="submit"
-                    fullWidth
-                    loading={isLoading}
-                    variant="contained"
-                    disabled={isLoading}
-                    endIcon={<East />}
+            <FormProvider {...methods}>
+                <form
+                    onSubmit={(e) => {
+                        void handleSubmit(onSubmit)(e);
+                    }}
+                    noValidate
                 >
-                    Sign up
-                </FormButton>
-            </FormFieldRow>
+                    <FormFieldRow
+                        label="Name"
+                        htmlFor={SIGNUP_FIELD_NAMES.NAME}
+                    >
+                        <FormTextField name={SIGNUP_FIELD_NAMES.NAME} />
+                    </FormFieldRow>
+
+                    <FormFieldRow
+                        label="Email"
+                        htmlFor={SIGNUP_FIELD_NAMES.EMAIL}
+                    >
+                        <FormTextField name={SIGNUP_FIELD_NAMES.EMAIL} />
+                    </FormFieldRow>
+
+                    <FormFieldRow
+                        label="Password"
+                        htmlFor={SIGNUP_FIELD_NAMES.PASSWORD}
+                    >
+                        <FormPasswordField name={SIGNUP_FIELD_NAMES.PASSWORD} />
+                    </FormFieldRow>
+
+                    <FormFieldRow>
+                        <Controller
+                            name={SIGNUP_FIELD_NAMES.ROLE}
+                            control={control}
+                            render={({ field: { value, onChange } }) => (
+                                <RoleToggle
+                                    roles={rolesConfig}
+                                    value={value}
+                                    onChange={onChange}
+                                    isLoading={isSubmitting}
+                                />
+                            )}
+                        />
+                    </FormFieldRow>
+
+                    <FormFieldRow>
+                        <FormButton
+                            type="submit"
+                            fullWidth
+                            loading={isSubmitting}
+                            variant="contained"
+                            disabled={isSubmitting}
+                            endIcon={<East />}
+                        >
+                            Sign up
+                        </FormButton>
+                    </FormFieldRow>
+                </form>
+            </FormProvider>
         </AuthFormLayout>
     );
 };

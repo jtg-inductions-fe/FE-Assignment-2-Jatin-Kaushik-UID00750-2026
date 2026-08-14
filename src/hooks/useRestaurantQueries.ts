@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { useSearchParams } from 'react-router-dom';
 
+import { RESTAURANT_VEG_TYPES } from '@constant';
 import { useAppDispatch } from '@hooks';
 import { setSearchQuery, setVegFilter } from '@store/slices/restaurantsSlice';
 import type { RestaurantVegType } from '@types';
@@ -15,8 +16,12 @@ export const useRestaurantQueries = () => {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const urlSearchQuery = searchParams.get('search') || '';
-    const urlVegType = (searchParams.get('vegType') ||
-        'all') as RestaurantVegType;
+    const vegTypeParam = searchParams.get('vegType');
+    const urlVegType: RestaurantVegType =
+        vegTypeParam === RESTAURANT_VEG_TYPES.VEG ||
+        vegTypeParam === RESTAURANT_VEG_TYPES.NON_VEG
+            ? vegTypeParam
+            : RESTAURANT_VEG_TYPES.ALL;
 
     const [localSearch, setLocalSearch] = useState(urlSearchQuery);
 
@@ -32,20 +37,32 @@ export const useRestaurantQueries = () => {
         dispatch(setSearchQuery(urlSearchQuery));
     }, [urlSearchQuery, dispatch]);
 
-    useEffect(() => {
-        const handler = setTimeout(() => {
-            setSearchParams((prev) => {
-                if (localSearch.trim()) {
-                    prev.set('search', localSearch);
-                } else {
-                    prev.delete('search');
-                }
-                return prev;
-            });
-        }, 350);
+    const debounceSearchUpdate = useMemo(() => {
+        let timer: ReturnType<typeof setTimeout>;
 
-        return () => clearTimeout(handler);
-    }, [localSearch, setSearchParams]);
+        return (value: string) => {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                setSearchParams((prev) => {
+                    if (value.trim()) {
+                        prev.set('search', value);
+                    } else {
+                        prev.delete('search');
+                    }
+                    return prev;
+                });
+            }, 350);
+        };
+    }, [setSearchParams]);
+
+    // Handler for the input onChange event
+    const handleSearchChange = useCallback(
+        (value: string) => {
+            setLocalSearch(value);
+            debounceSearchUpdate(value);
+        },
+        [debounceSearchUpdate],
+    );
 
     const updateVegFilter = useCallback(
         (value: RestaurantVegType) => {
@@ -63,7 +80,7 @@ export const useRestaurantQueries = () => {
 
     return {
         localSearch,
-        setLocalSearch,
+        setLocalSearch: handleSearchChange,
         vegType: urlVegType,
         updateVegFilter,
     };

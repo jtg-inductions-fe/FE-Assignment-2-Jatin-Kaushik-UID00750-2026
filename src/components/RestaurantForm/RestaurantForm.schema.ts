@@ -1,28 +1,40 @@
 import * as yup from 'yup';
 
-import { DayOfWeek, RestaurantVegType } from '@types';
+import { RESTAURANT_VEG_TYPES, VALIDATION_MESSAGES } from '@constant';
+import { DayHours, DayOfWeek, RestaurantVegType } from '@types';
 
 /** Regular expression validating 24-hour time values in HH:MM format */
 const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
 
 /** Schema representing operational schedules for a single day of the week */
-const dayHoursSchema = yup.object().shape({
+const dayHoursSchema = yup.object<DayHours>().shape({
     day: yup.string().required() as yup.Schema<DayOfWeek>,
     isClosed: yup.boolean().required(),
     openTime: yup.string().when('isClosed', {
         is: false,
         then: (schema) =>
             schema
-                .matches(timeRegex, 'Must be HH:MM format')
-                .required('Open time required'),
+                .matches(timeRegex, VALIDATION_MESSAGES.INVALID_TIME)
+                .required(VALIDATION_MESSAGES.REQUIRED_FIELD),
         otherwise: (schema) => schema.optional().nullable(),
     }),
     closeTime: yup.string().when('isClosed', {
         is: false,
         then: (schema) =>
             schema
-                .matches(timeRegex, 'Must be HH:MM format')
-                .required('Close time required'),
+                .matches(timeRegex, VALIDATION_MESSAGES.INVALID_TIME)
+                .required(VALIDATION_MESSAGES.REQUIRED_FIELD)
+                .test(
+                    'is-greater',
+                    VALIDATION_MESSAGES.INVALID_CLOSE_TIME,
+                    (value, context) => {
+                        const { openTime } = context.parent as {
+                            openTime: string | null;
+                        };
+                        if (!openTime || !value) return true;
+                        return value > openTime;
+                    },
+                ),
         otherwise: (schema) => schema.optional().nullable(),
     }),
 });
@@ -31,35 +43,35 @@ const dayHoursSchema = yup.object().shape({
 export const restaurantValidationSchema = yup.object().shape({
     name: yup
         .string()
-        .min(3, 'Name must be at least 3 characters')
-        .required('Name is required'),
+        .min(3, VALIDATION_MESSAGES.INVALID_NAME)
+        .required(VALIDATION_MESSAGES.REQUIRED_FIELD),
     description: yup
         .string()
-        .min(10, 'Description must be at least 10 characters')
-        .required('Description is required'),
+        .min(10, VALIDATION_MESSAGES.INVALID_DESCRIPTION)
+        .required(VALIDATION_MESSAGES.REQUIRED_FIELD),
     cuisines: yup
         .array()
         .of(yup.string().required())
-        .min(1, 'Select at least one cuisine')
-        .required('Cuisines are required'),
+        .min(1, VALIDATION_MESSAGES.INVALID_CUISINES)
+        .required(VALIDATION_MESSAGES.REQUIRED_FIELD),
     vegType: yup
         .string()
-        .oneOf(['veg', 'non-veg', 'all'])
+        .oneOf(Object.values(RESTAURANT_VEG_TYPES))
         .required(
-            'Veg type selection is required',
+            VALIDATION_MESSAGES.REQUIRED_FIELD,
         ) as yup.Schema<RestaurantVegType>,
     address: yup.object().shape({
-        street: yup.string().required('Street is required'),
-        city: yup.string().required('City is required'),
-        state: yup.string().required('State is required'),
+        street: yup.string().required(VALIDATION_MESSAGES.REQUIRED_FIELD),
+        city: yup.string().required(VALIDATION_MESSAGES.REQUIRED_FIELD),
+        state: yup.string().required(VALIDATION_MESSAGES.REQUIRED_FIELD),
         pincode: yup
             .string()
-            .matches(/^\d{5,6}$/, 'Must be a valid pin code')
-            .required('Pin code is required'),
+            .matches(/^\d{5,6}$/, VALIDATION_MESSAGES.INVALID_PINCODE)
+            .required(VALIDATION_MESSAGES.REQUIRED_FIELD),
     }),
     imageUrl: yup
         .string()
-        .url('Must be a valid image URL')
-        .required('Image URL is required'),
+        .url(VALIDATION_MESSAGES.INVALID_IMAGE_URL)
+        .required(VALIDATION_MESSAGES.REQUIRED_FIELD),
     operatingHours: yup.array().of(dayHoursSchema).length(7).required(),
 });

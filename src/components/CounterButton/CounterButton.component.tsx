@@ -10,12 +10,17 @@ import { CounterButtonProps } from './CounterButton.types';
  */
 export const CounterButton = ({
     value,
+    disabled,
     onIncrement,
     onDecrement,
 }: CounterButtonProps) => (
     <CounterController>
-        <StyledCounterButton onClick={onDecrement}>-</StyledCounterButton>
+        <StyledCounterButton disabled={disabled} onClick={onDecrement}>
+            -
+        </StyledCounterButton>
         <CounterText>{value}</CounterText>
-        <StyledCounterButton onClick={onIncrement}>+</StyledCounterButton>
+        <StyledCounterButton disabled={disabled} onClick={onIncrement}>
+            +
+        </StyledCounterButton>
     </CounterController>
 );

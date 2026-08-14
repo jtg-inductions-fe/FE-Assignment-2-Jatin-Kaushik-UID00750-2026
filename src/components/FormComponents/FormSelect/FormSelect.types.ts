@@ -1,4 +1,4 @@
-import { Control, FieldPath, FieldValues } from 'react-hook-form';
+import { FieldPath, FieldValues } from 'react-hook-form';
 
 export interface SelectOption {
     value: string;
@@ -10,7 +10,6 @@ export interface FormSelectProps<
     TName extends FieldPath<TFieldValues>,
 > {
     name: TName;
-    control: Control<TFieldValues>;
     options: SelectOption[];
     fullWidth?: boolean;
 }

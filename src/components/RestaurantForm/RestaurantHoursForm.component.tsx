@@ -48,7 +48,6 @@ export const RestaurantHoursForm = () => {
                             label="Opening Time"
                             disabled={isDayClosed}
                             slotProps={{ inputLabel: { shrink: true } }}
-                            control={control}
                         />
                         <FormTextField
                             name={`operatingHours.${index}.closeTime`}
@@ -56,7 +55,6 @@ export const RestaurantHoursForm = () => {
                             label="Closing Time"
                             disabled={isDayClosed}
                             slotProps={{ inputLabel: { shrink: true } }}
-                            control={control}
                         />
                     </FormStyles.OperatingHoursRow>
                 );

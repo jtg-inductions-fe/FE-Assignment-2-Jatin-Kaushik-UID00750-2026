@@ -7,7 +7,6 @@ import { RestaurantBanner } from '@components/RestaurantBanner';
 import { CustomerMenuList } from '@containers/CustomerMenuList';
 import { OwnerMenuList } from '@containers/OwnerMenuList';
 import { useAppDispatch, useAppSelector } from '@hooks';
-import { fetchMenuByRestaurant } from '@store/thunks/menuThunk';
 import { fetchRestaurantById } from '@store/thunks/restaurantsThunk';
 import { checkIsRestaurantClosed, routeBuilders } from '@utils';
 
@@ -33,8 +32,8 @@ export const RestaurantDetails = ({
             .then((restaurant) => {
                 if (!restaurant) {
                     void navigate('/404', { replace: true });
+                    return;
                 }
-                void dispatch(fetchMenuByRestaurant(restaurantId));
             })
             .catch(() => {
                 void navigate('/404', { replace: true });
@@ -64,7 +63,6 @@ export const RestaurantDetails = ({
                     })}
                 />
             </div>
-            <div></div>
             {isOwner ? (
                 <OwnerMenuList restaurantId={restaurantId} />
             ) : (

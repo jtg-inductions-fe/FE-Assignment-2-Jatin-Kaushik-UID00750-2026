@@ -1,11 +1,11 @@
 import { useParams } from 'react-router-dom';
 
-import { MenuFormContainer } from '@containers/MenuFormContainer/MenuFormContainer.container';
+import { MenuItemFormContainer } from '@containers/MenuItemFormContainer';
 
 /** Page component for creating a new menu item. */
 export const NewMenuItemPage = () => {
     const { restaurantId } = useParams<{
         restaurantId: string;
     }>();
-    return <MenuFormContainer restaurantId={restaurantId} />;
+    return <MenuItemFormContainer restaurantId={restaurantId} />;
 };

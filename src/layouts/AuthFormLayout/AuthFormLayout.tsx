@@ -13,7 +13,6 @@ export const AuthFormLayout = ({
     title,
     subtitle,
     error,
-    onSubmit,
     footerText,
     footerLinkText,
     footerLinkTo,
@@ -45,9 +44,7 @@ export const AuthFormLayout = ({
 
             {error && <Alert severity="error">{error}</Alert>}
 
-            <Box component="form" width="100%" onSubmit={onSubmit} noValidate>
-                {children}
-            </Box>
+            <Box width="100%">{children}</Box>
 
             <Typography
                 component="p"

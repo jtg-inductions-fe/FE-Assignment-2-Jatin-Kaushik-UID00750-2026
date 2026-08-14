@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 
-import { MenuFormContainer } from '@containers/MenuFormContainer/MenuFormContainer.container';
+import { MenuItemFormContainer } from '@containers/MenuItemFormContainer';
 
 /** Page component for editing a menu item. */
 export const EditMenuItemPage = () => {
@@ -9,7 +9,7 @@ export const EditMenuItemPage = () => {
         menuItemId: string;
     }>();
     return (
-        <MenuFormContainer
+        <MenuItemFormContainer
             restaurantId={restaurantId}
             menuItemId={menuItemId}
         />
