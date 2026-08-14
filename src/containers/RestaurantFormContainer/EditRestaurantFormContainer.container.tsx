@@ -6,7 +6,6 @@ import { FullScreenLoader } from '@components/FullScreenLoader';
 import { RestaurantForm } from '@components/RestaurantForm';
 import { useAppDispatch, useAppSelector, useToast } from '@hooks';
 import {
-    addRestaurant,
     editRestaurant,
     fetchRestaurantById,
 } from '@store/thunks/restaurantsThunk';
@@ -14,14 +13,13 @@ import { RestaurantFormValues } from '@types';
 
 /**
  * Smart container component managing the lifecycle of the restaurant data entry form.
- * Determines whether to hydrate the form fields with existing information or prepare
- * clean slots for new listings.
+ * Hydrate the form fields with existing information.
  */
-export const RestaurantFormContainer = ({
+export const EditRestaurantFormContainer = ({
     restaurantId,
     initialStep = 0,
 }: {
-    restaurantId?: string;
+    restaurantId: string;
     initialStep?: number;
 }) => {
     const dispatch = useAppDispatch();
@@ -29,9 +27,7 @@ export const RestaurantFormContainer = ({
     const toast = useToast();
     const { currentUser } = useAppSelector((state) => state.auth);
 
-    const existingRestaurant = useAppSelector((state) =>
-        state.restaurants.list.find((r) => r.id === restaurantId),
-    );
+    const { selectedRestaurant } = useAppSelector((state) => state.restaurants);
 
     const [initialData, setInitialData] = useState<
         RestaurantFormValues | undefined
@@ -39,54 +35,46 @@ export const RestaurantFormContainer = ({
     const [isPageLoading, setIsPageLoading] = useState<boolean>(!!restaurantId);
 
     useEffect(() => {
-        if (!restaurantId) return;
-
-        if (existingRestaurant) {
-            setInitialData(existingRestaurant);
-            setIsPageLoading(false);
-        } else {
-            dispatch(fetchRestaurantById(restaurantId))
-                .unwrap()
-                .then((restaurant) => {
-                    if (restaurant) setInitialData(restaurant);
-                    else throw new Error('Restaurant not found');
-                })
-                .catch(() => {
-                    toast({
-                        message: 'Failed to fetch restaurant details',
-                        type: 'error',
-                    });
-                    void navigate('/');
-                })
-                .finally(() => {
-                    setIsPageLoading(false);
-                });
+        if (!restaurantId) {
+            toast({
+                message: 'Failed to fetch restaurant details',
+                type: 'error',
+            });
+            void navigate('/404');
+            return;
         }
-    }, [restaurantId, existingRestaurant, navigate, dispatch, toast]);
+        dispatch(fetchRestaurantById(restaurantId))
+            .unwrap()
+            .then((restaurant) => {
+                if (restaurant) setInitialData(restaurant);
+                else throw new Error('Restaurant not found');
+            })
+            .catch(() => {
+                toast({
+                    message: 'Failed to fetch restaurant details',
+                    type: 'error',
+                });
+                void navigate('/');
+            })
+            .finally(() => {
+                setIsPageLoading(false);
+            });
+    }, [restaurantId, navigate, dispatch, toast]);
 
     /**
      * Dispatches payloads to modify current restaurant or add new restaurant.
      */
     const handleFormSubmission = async (formData: RestaurantFormValues) => {
         try {
-            if (restaurantId && currentUser) {
+            if (restaurantId && currentUser && selectedRestaurant) {
                 await dispatch(
                     editRestaurant({
-                        id: restaurantId,
-                        ownerId: currentUser?.id,
+                        ...selectedRestaurant,
                         ...formData,
                     }),
                 ).unwrap();
                 toast({
                     message: 'Changes saved successfully',
-                    type: 'success',
-                });
-            } else if (currentUser) {
-                await dispatch(
-                    addRestaurant({ ownerId: currentUser?.id, ...formData }),
-                ).unwrap();
-                toast({
-                    message: 'Restaurant created successfully',
                     type: 'success',
                 });
             } else {

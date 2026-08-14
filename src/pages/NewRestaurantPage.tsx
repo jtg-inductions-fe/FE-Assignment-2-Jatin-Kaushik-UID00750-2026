@@ -1,7 +1,7 @@
-import { RestaurantFormContainer } from '@containers/RestaurantFormContainer';
+import { NewRestaurantFormContainer } from '@containers/RestaurantFormContainer';
 
 /**
  * Page component for creating a new restaurant listing.
  * Renders the form container without an ID parameter to initialize empty fields.
  */
-export const NewRestaurantPage = () => <RestaurantFormContainer />;
+export const NewRestaurantPage = () => <NewRestaurantFormContainer />;

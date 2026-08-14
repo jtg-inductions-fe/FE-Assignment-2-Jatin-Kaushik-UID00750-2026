@@ -1,4 +1,4 @@
-import { Control, FieldPath, FieldValues } from 'react-hook-form';
+import { FieldPath, FieldValues } from 'react-hook-form';
 
 export interface FormAutocompleteProps<
     TFieldValues extends FieldValues,
@@ -6,7 +6,6 @@ export interface FormAutocompleteProps<
     TOption,
 > {
     name: TName;
-    control: Control<TFieldValues>;
     options: TOption[];
     placeholder?: string;
     getOptionLabel?: (option: TOption) => string;

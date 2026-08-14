@@ -1,3 +1,4 @@
+import { RESTAURANT_VEG_TYPES } from '@constant';
 import { createSelector } from '@reduxjs/toolkit';
 import type { RootState } from '@types';
 
@@ -22,7 +23,8 @@ export const selectFilteredRestaurants = createSelector(
 
         return list.filter((restaurant) => {
             const matchesVeg =
-                vegType === 'all' || restaurant.vegType === vegType;
+                vegType === RESTAURANT_VEG_TYPES.ALL ||
+                restaurant.vegType === vegType;
             const matchesSearch =
                 cleanedQuery === '' ||
                 restaurant.name.toLowerCase().includes(cleanedQuery) ||

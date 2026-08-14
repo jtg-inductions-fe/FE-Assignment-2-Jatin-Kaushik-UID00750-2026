@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 
-import { RestaurantFormContainer } from '@containers/RestaurantFormContainer';
+import { EditRestaurantFormContainer } from '@containers/RestaurantFormContainer';
 
 /**
  * Page component for editing an existing restaurant.
@@ -10,7 +10,7 @@ export const EditRestaurantPage = () => {
     const params = useParams();
     return (
         <>
-            <RestaurantFormContainer
+            <EditRestaurantFormContainer
                 restaurantId={params.restaurantId as string}
             />
         </>
