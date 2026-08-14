@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { FullScreenLoader } from '@components/FullScreenLoader';
-import { MenuForm } from '@components/MenuForm';
+import { MenuItemForm } from '@components/MenuItemForm';
 import { useAppDispatch, useAppSelector, useToast } from '@hooks';
 import {
     addMenuItem,
@@ -17,7 +17,7 @@ import { routeBuilders } from '@utils';
 /**
  * Container component for managing the initialization and submission of the menu item data form.
  */
-export const MenuFormContainer = ({
+export const MenuItemFormContainer = ({
     restaurantId,
     menuItemId,
 }: {
@@ -152,7 +152,7 @@ export const MenuFormContainer = ({
     }
 
     return (
-        <MenuForm
+        <MenuItemForm
             menuItemId={menuItemId}
             initialValues={initialData}
             categories={categories}

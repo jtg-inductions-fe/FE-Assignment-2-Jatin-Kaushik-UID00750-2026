@@ -3,7 +3,15 @@ import { RestaurantMenu } from '@mui/icons-material';
 import { EmptyListIndicator } from '@components/EmptyListIndicator';
 import { useAppSelector } from '@hooks';
 
-import * as S from './CategorizedMenuList.styles';
+import {
+    CardItemFrame,
+    CardsWrapper,
+    CategorySection,
+    CategoryTitle,
+    ItemCountText,
+    ListContainer,
+    SectionDivider,
+} from './CategorizedMenuList.styles';
 import { CategorizedMenuListProps } from './CategorizedMenuList.types';
 
 /**
@@ -20,36 +28,36 @@ export const CategorizedMenuList = ({
         return (
             <EmptyListIndicator
                 title="No Menu Items Found"
-                description="You haven't listed any menu items yet. Create your first menu item to begin receiving orders."
+                description="This restaurant has no menu items available."
                 icon={<RestaurantMenu />}
             />
         );
     }
     return (
-        <S.ListContainer spacing={5}>
+        <ListContainer spacing={5}>
             {categorizedData.map((category) => {
                 if (category.menuItems.length === 0) return null;
                 const count = category.menuItems.length;
 
                 return (
-                    <S.CategorySection key={category.id} component="section">
-                        <S.CategoryTitle variant="h6" component="h2">
+                    <CategorySection key={category.id} component="section">
+                        <CategoryTitle variant="h6" component="h2">
                             {category.name}
-                        </S.CategoryTitle>
-                        <S.ItemCountText variant="body2">
+                        </CategoryTitle>
+                        <ItemCountText variant="body2">
                             {count} {count === 1 ? 'item' : 'items'}
-                        </S.ItemCountText>
-                        <S.SectionDivider />
-                        <S.CardsWrapper>
+                        </ItemCountText>
+                        <SectionDivider />
+                        <CardsWrapper>
                             {category.menuItems.map((item) => (
-                                <S.CardItemFrame key={item.id}>
+                                <CardItemFrame key={item.id}>
                                     {renderItemCard(item)}
-                                </S.CardItemFrame>
+                                </CardItemFrame>
                             ))}
-                        </S.CardsWrapper>
-                    </S.CategorySection>
+                        </CardsWrapper>
+                    </CategorySection>
                 );
             })}
-        </S.ListContainer>
+        </ListContainer>
     );
 };

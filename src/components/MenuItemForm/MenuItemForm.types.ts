@@ -1,9 +1,6 @@
 import * as yup from 'yup';
 
-import { menuFormSchema } from './MenuForm.schema';
-
-// VegType definition matches your design
-export type VegType = 'veg' | 'non-veg';
+import { menuFormSchema } from './MenuItemForm.schema';
 
 /** Represents category of a menu item in the restaurant */
 export interface MenuCategory {
@@ -16,8 +13,8 @@ export interface MenuCategory {
 /** Form values type for the menu item form */
 export type MenuItemFormValues = yup.InferType<typeof menuFormSchema>;
 
-/** Props for the MenuForm component */
-export interface MenuFormProps {
+/** Props for the MenuItemForm component */
+export interface MenuItemFormProps {
     menuItemId?: string;
     initialValues?: MenuItemFormValues;
     categories: MenuCategory[];

@@ -28,12 +28,12 @@ export const cartSlice = createSlice({
             state.restaurantId = restaurantId;
             state.restaurantName = restaurantName;
 
-            const existingItemIndex = state.cartItems.findIndex(
+            const existingItem = state.cartItems.find(
                 (i) => i.menuItemId === item.menuItemId,
             );
 
-            if (existingItemIndex > -1) {
-                state.cartItems[existingItemIndex].quantity += quantityToAdd;
+            if (existingItem) {
+                existingItem.quantity += quantityToAdd;
             } else {
                 state.cartItems.push({
                     menuItemId: item.menuItemId,

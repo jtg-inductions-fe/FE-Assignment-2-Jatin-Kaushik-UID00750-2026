@@ -39,16 +39,27 @@ export const restaurantsService = {
 
     /** Searches for an existing restaurant by ID and updates its fields */
     editRestaurant: (payload: Restaurant): Promise<Restaurant> => {
-        allRestaurants = allRestaurants.map((restaurant) =>
-            restaurant.id === payload.id
-                ? { ...restaurant, ...payload }
-                : restaurant,
+        const index = allRestaurants.findIndex(
+            (restaurant) => restaurant.id === payload.id,
         );
-        return Promise.resolve(payload);
+
+        if (index === -1) {
+            return Promise.reject(new Error('Restaurant not found'));
+        }
+
+        const updatedRestaurant = { ...allRestaurants[index], ...payload };
+        allRestaurants[index] = updatedRestaurant;
+        return Promise.resolve(updatedRestaurant);
     },
 
     /** Excludes a specific restaurant from the list to simulate deletion */
     deleteRestaurant: (restaurantId: string): Promise<string> => {
+        if (
+            !allRestaurants.some((restaurant) => restaurant.id === restaurantId)
+        ) {
+            return Promise.reject(new Error('Restaurant not found'));
+        }
+
         allRestaurants = allRestaurants.filter(
             (restaurant) => restaurant.id !== restaurantId,
         );
