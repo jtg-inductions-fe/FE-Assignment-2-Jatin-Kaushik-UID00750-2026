@@ -38,6 +38,7 @@ export const AddToCartButton = ({
     return (
         <CounterButton
             value={quantity}
+            disabled={disabled}
             onIncrement={onIncrement}
             onDecrement={onDecrement}
         />

@@ -12,6 +12,7 @@ import { RestaurantAddressForm } from './RestaurantAddressForm.component';
 import { RestaurantBasicInfoForm } from './RestaurantBasicInfoForm.component';
 import {
     defaultFormValues,
+    RESTAURANT_FORM_FIELD_NAMES,
     RESTAURANT_FORM_STEPS,
 } from './RestaurantForm.constants';
 import { restaurantValidationSchema } from './RestaurantForm.schema';
@@ -48,18 +49,18 @@ export const RestaurantForm = ({
         let fieldsToValidate: FieldPath<RestaurantFormValues>[] = [];
         if (activeStep === 0)
             fieldsToValidate = [
-                'name',
-                'description',
-                'cuisines',
-                'vegType',
-                'imageUrl',
+                RESTAURANT_FORM_FIELD_NAMES.NAME,
+                RESTAURANT_FORM_FIELD_NAMES.DESCRIPTION,
+                RESTAURANT_FORM_FIELD_NAMES.CUISINIES,
+                RESTAURANT_FORM_FIELD_NAMES.VEG_TYPE,
+                RESTAURANT_FORM_FIELD_NAMES.IMAGE_URL,
             ];
         if (activeStep === 1)
             fieldsToValidate = [
-                'address.street',
-                'address.city',
-                'address.state',
-                'address.pincode',
+                RESTAURANT_FORM_FIELD_NAMES.ADDRESS_STREET,
+                RESTAURANT_FORM_FIELD_NAMES.ADDRESS_CITY,
+                RESTAURANT_FORM_FIELD_NAMES.ADDRESS_STATE,
+                RESTAURANT_FORM_FIELD_NAMES.ADDRESS_PINCODE,
             ];
 
         const isStepValid = await trigger(fieldsToValidate);
@@ -100,20 +101,25 @@ export const RestaurantForm = ({
                         >
                             Back
                         </UiButton>
-                        <UiButton
-                            variant="contained"
-                            loading={isSubmitting}
-                            disabled={isSubmitting}
-                            onClick={() =>
-                                activeStep < RESTAURANT_FORM_STEPS.length - 1
-                                    ? void handleNext()
-                                    : void handleSubmit(onSubmit)()
-                            }
-                        >
-                            {activeStep < RESTAURANT_FORM_STEPS.length - 1
-                                ? 'Next'
-                                : 'Save Restaurant'}
-                        </UiButton>
+                        {activeStep < RESTAURANT_FORM_STEPS.length - 1 ? (
+                            <UiButton
+                                variant="contained"
+                                loading={isSubmitting}
+                                disabled={isSubmitting}
+                                onClick={() => void handleNext()}
+                            >
+                                Next
+                            </UiButton>
+                        ) : (
+                            <UiButton
+                                variant="contained"
+                                loading={isSubmitting}
+                                disabled={isSubmitting}
+                                onClick={() => void handleSubmit(onSubmit)()}
+                            >
+                                Save Restaurant
+                            </UiButton>
+                        )}
                     </FormStyles.ButtonContainer>
                 </form>
             </FormStyles.FormCard>

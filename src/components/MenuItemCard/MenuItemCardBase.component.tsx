@@ -1,6 +1,16 @@
-import { VegIndicator } from '@components/VegIndicator';
+import { VegIndicator } from '@components/VegTypeIndicator';
 
-import * as S from './MenuItemCard.styles';
+import {
+    ActionsWrapper,
+    ChildrenWrapper,
+    ImageSection,
+    InfoSection,
+    ItemDescription,
+    ItemImage,
+    ItemName,
+    ItemPrice,
+    StyledCard,
+} from './MenuItemCard.styles';
 import { MenuItemCardBaseProps } from './MenuItemCard.types';
 
 /**
@@ -13,24 +23,27 @@ export const MenuItemCardBase = ({
     actions,
     children,
 }: MenuItemCardBaseProps) => (
-    <S.StyledCard isAvailable={!showAsDimmed}>
-        <S.InfoSection>
-            <VegIndicator vegType={item.vegType} />
-            <S.ItemName variant="h6">{item.name}</S.ItemName>
-            <S.ItemPrice variant="body1">₹{item.price}</S.ItemPrice>
-            <S.ItemDescription>{item.description}</S.ItemDescription>
+    <StyledCard isAvailable={!showAsDimmed}>
+        <InfoSection>
+            <VegIndicator
+                vegType={item.vegType}
+                aria-label={item.vegType.replace(/-/g, ' ')}
+            />
+            <ItemName variant="h6">{item.name}</ItemName>
+            <ItemPrice variant="body1">₹{item.price}</ItemPrice>
+            <ItemDescription>{item.description}</ItemDescription>
             {/* Custom structural action slots like edit, or delete */}
-            {actions && <S.ActionsWrapper>{actions}</S.ActionsWrapper>}
-        </S.InfoSection>
+            {actions && <ActionsWrapper>{actions}</ActionsWrapper>}
+        </InfoSection>
 
-        <S.ImageSection>
-            <S.ItemImage
+        <ImageSection>
+            <ItemImage
                 src={item.imageUrl}
                 alt={item.name}
                 isAvailable={!showAsDimmed}
             />
             {/* Slot used for add-to-cart or counter controls */}
-            <S.ChildrenWrapper>{children}</S.ChildrenWrapper>
-        </S.ImageSection>
-    </S.StyledCard>
+            <ChildrenWrapper>{children}</ChildrenWrapper>
+        </ImageSection>
+    </StyledCard>
 );

@@ -21,11 +21,9 @@ export const CustomerMenuList = ({ isClosed }: { isClosed: boolean }) => {
     const isLoading = useAppSelector(
         (state) => state.menu.status === 'loading',
     );
-    const rawItemsCount = useAppSelector((state) => state.menu.items.length);
 
     useEffect(() => {
         if (!restaurantId) return;
-        if (rawItemsCount > 0) return;
         dispatch(fetchMenuByRestaurant(restaurantId))
             .unwrap()
             .catch(() => {
@@ -34,7 +32,7 @@ export const CustomerMenuList = ({ isClosed }: { isClosed: boolean }) => {
                     type: 'error',
                 });
             });
-    }, [restaurantId, dispatch, toast, rawItemsCount]);
+    }, [restaurantId, dispatch, toast]);
 
     const [cart, setCart] = useState<Record<string, number>>({});
     const getCartQuantity = (itemId: string): number => cart[itemId] || 0;

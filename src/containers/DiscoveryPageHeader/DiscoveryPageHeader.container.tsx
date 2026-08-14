@@ -6,11 +6,11 @@ import { Searchbar } from '@components/Searchbar';
 import { UiButton } from '@components/UiButton';
 import { ROUTES } from '@constant';
 import { useAppSelector } from '@hooks';
+import { useRestaurantQueries } from '@hooks';
 import { RestaurantVegType } from '@types';
 
 import { filterConfig } from './DiscoveryPageHeader.config';
 import { StyledDiscoveryPageHeader } from './DiscoveryPageHeader.styles';
-import { useRestaurantQueries } from '../../hooks/useRestaurantQueries';
 
 /**
  * Header controller for the restaurant discovery page.

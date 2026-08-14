@@ -1,5 +1,7 @@
 import { CardContent, Typography } from '@mui/material';
 
+import { routeBuilders } from '@utils';
+
 import { dietConfigurations } from './RestaurantCard.config';
 import {
     CardActionLink,
@@ -32,7 +34,7 @@ export const RestaurantCardBase = ({
     return (
         <StyledCard elevation={2}>
             <CardActionLink
-                to={`/restaurants/${id}`}
+                to={routeBuilders.restaurantDetails(id)}
                 aria-label={`View full details for restaurant ${name}`}
             />
 
