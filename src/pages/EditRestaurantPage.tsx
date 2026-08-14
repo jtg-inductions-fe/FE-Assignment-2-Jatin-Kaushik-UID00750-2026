@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 
-import { EditRestaurantFormContainer } from '@containers/RestaurantFormContainer';
+import { EditRestaurantFormContainer } from '@containers/EditRestaurantFormContainer';
 
 /**
  * Page component for editing an existing restaurant.

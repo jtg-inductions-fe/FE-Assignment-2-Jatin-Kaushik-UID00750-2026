@@ -1,4 +1,4 @@
-import { NewRestaurantFormContainer } from '@containers/RestaurantFormContainer';
+import { NewRestaurantFormContainer } from '@containers/NewRestaurantFormContainer';
 
 /**
  * Page component for creating a new restaurant listing.
