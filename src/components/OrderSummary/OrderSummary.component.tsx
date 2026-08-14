@@ -1,5 +1,7 @@
 import Typography from '@mui/material/Typography';
 
+import { formatIndianCurrency } from '@utils';
+
 import {
     CheckoutButton,
     Row,
@@ -18,12 +20,6 @@ export const OrderSummary = ({
 }: OrderSummaryProps) => {
     const { subtotal, bookingFee, total, itemCount } = totals;
 
-    const formatCurrency = (amount: number) =>
-        new Intl.NumberFormat('en-IN', {
-            style: 'currency',
-            currency: 'INR',
-        }).format(amount);
-
     return (
         <SummaryContainer>
             <Typography variant="h6">Order Summary</Typography>
@@ -35,7 +31,7 @@ export const OrderSummary = ({
                         {itemCount === 1 ? 'item' : 'items'})
                     </Typography>
                     <Typography variant="body2">
-                        {formatCurrency(subtotal)}
+                        {formatIndianCurrency(subtotal)}
                     </Typography>
                 </Row>
 
@@ -44,7 +40,9 @@ export const OrderSummary = ({
                         Booking Fee
                     </Typography>
                     <Typography variant="body2">
-                        {bookingFee > 0 ? formatCurrency(bookingFee) : 'FREE'}
+                        {bookingFee > 0
+                            ? formatIndianCurrency(bookingFee)
+                            : 'FREE'}
                     </Typography>
                 </Row>
 
@@ -63,7 +61,7 @@ export const OrderSummary = ({
                         fontWeight="bold"
                         color="primary.main"
                     >
-                        {formatCurrency(total)}
+                        {formatIndianCurrency(total)}
                     </Typography>
                 </Row>
             </SummaryContainer>
