@@ -63,14 +63,23 @@ export const CustomerMenuList = ({ isClosed }: { isClosed: boolean }) => {
 
     /** Handles incrementing the quantity of a menu item in the cart.
      */
-    const handleIncrement = (item: MenuItem) => {
-        const currentQty = getItemQuantity(item.id);
+    const handleIncrement = (item: MenuItem, currentQty: number) => {
         dispatch(
             updateQuantity({
                 menuItemId: item.id,
                 quantity: currentQty + 1,
             }),
         );
+    };
+
+    const handleAddToCartOrIncrement = (item: MenuItem) => {
+        const currentQty = getItemQuantity(item.id);
+
+        if (currentQty === 0) {
+            handleAddToCart(item);
+        } else {
+            handleIncrement(item, currentQty);
+        }
     };
 
     /** Handles decrementing the quantity of a menu item in the cart.
@@ -100,9 +109,8 @@ export const CustomerMenuList = ({ isClosed }: { isClosed: boolean }) => {
                         quantity={currentQuantity}
                         isAvailable={computedAvailableStock > 0}
                         disabled={isClosed}
-                        onIncrement={() => handleIncrement(item)}
+                        onIncrement={() => handleAddToCartOrIncrement(item)}
                         onDecrement={() => handleDecrement(item)}
-                        onAddToCart={() => handleAddToCart(item)}
                     />
                 );
             }}

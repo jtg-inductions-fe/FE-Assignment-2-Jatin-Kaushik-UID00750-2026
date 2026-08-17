@@ -1,8 +1,8 @@
 import { Delete, Edit } from '@mui/icons-material';
 
-import { StockField } from '@components/StockField';
 import { UiButton } from '@components/UiButton';
 
+import { StyledStockField } from './MenuItemCard.styles';
 import { MenuItemOwnerCardProps } from './MenuItemCard.types';
 import { MenuItemCardBase } from './MenuItemCardBase.component';
 
@@ -41,6 +41,12 @@ export const MenuItemOwnerCard = ({
             </>
         }
     >
-        <StockField stock={item.stock} disabled={true} />
+        <StyledStockField
+            label="Stock"
+            type="number"
+            disabled
+            size="small"
+            value={item.stock}
+        />
     </MenuItemCardBase>
 );
