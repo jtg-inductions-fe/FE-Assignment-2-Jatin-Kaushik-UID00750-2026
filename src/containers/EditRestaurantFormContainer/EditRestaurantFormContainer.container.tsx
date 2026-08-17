@@ -83,7 +83,7 @@ export const EditRestaurantFormContainer = ({
                     type: 'error',
                 });
             }
-            await navigate('/');
+            await navigate(-1);
         } catch {
             toast({
                 message: 'Unable to complete request. Please try again',

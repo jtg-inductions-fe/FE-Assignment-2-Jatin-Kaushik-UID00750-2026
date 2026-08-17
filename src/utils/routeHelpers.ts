@@ -23,4 +23,12 @@ export const routeBuilders = {
     /** Generates restaurant editing path. */
     restaurantEdit: (restaurantId: string) =>
         compileRoute(ROUTES.RESTAURANT_EDIT, { restaurantId }),
+
+    /** Generates menu item editing path. */
+    menuItemEdit: (restaurantId: string, menuItemId: string) =>
+        compileRoute(ROUTES.MENU_EDIT, { restaurantId, menuItemId }),
+
+    /** Generates menu item new path. */
+    menuItemNew: (restaurantId: string) =>
+        compileRoute(ROUTES.MENU_NEW, { restaurantId }),
 } as const;

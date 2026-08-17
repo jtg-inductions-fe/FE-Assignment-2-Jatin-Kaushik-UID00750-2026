@@ -8,3 +8,4 @@ export { NotFoundPage } from './NotFoundPage';
 export { OrdersPage } from './OrdersPage';
 export { RestaurantDetailsPage } from './RestaurantDetailsPage';
 export { SignupPage } from './SignupPage';
+export { EditMenuItemPage } from './EditMenuItemPage';
