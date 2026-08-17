@@ -1,4 +1,4 @@
-import { Box, Card, Typography } from '@mui/material';
+import { Box, Card, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export const StyledCard = styled(Card, {
@@ -74,4 +74,22 @@ export const ActionsWrapper = styled(Box)(({ theme }) => ({
     marginTop: theme.spacing(2),
     display: 'flex',
     gap: theme.spacing(2),
+}));
+
+export const StyledStockField = styled(TextField)(({ theme }) => ({
+    width: '10rem',
+    marginTop: theme.spacing(1),
+    '& .MuiInputBase-input': {
+        textAlign: 'center',
+        padding: theme.spacing(1),
+        borderRadius: theme.shape.borderRadius,
+        backgroundColor: theme.palette.background.paper,
+    },
+    '& .MuiFormLabel-root': {
+        textAlign: 'center',
+        width: '100%',
+        top: -4,
+        borderRadius: theme.shape.borderRadius,
+        backgroundColor: theme.palette.background.paper,
+    },
 }));
