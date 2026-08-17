@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { useParams } from 'react-router-dom';
 
@@ -6,7 +6,9 @@ import { FullScreenLoader } from '@components/FullScreenLoader';
 import { MenuItemCustomerCard } from '@components/MenuItemCard/MenuItemCustomerCard.component';
 import { CategorizedMenuList } from '@containers/CategorizedMenuList/CategorizedMenuList.container';
 import { useAppDispatch, useAppSelector, useToast } from '@hooks';
+import { selectCartItemById } from '@store/selectors/cartSelector';
 import { selectCategorizedMenu } from '@store/selectors/menuSelector';
+import { addToCart, updateQuantity } from '@store/slices/cartSlice';
 import { fetchMenuByRestaurant } from '@store/thunks/menuThunk';
 import { MenuItem } from '@types';
 
@@ -18,9 +20,16 @@ export const CustomerMenuList = ({ isClosed }: { isClosed: boolean }) => {
     const { restaurantId } = useParams<{ restaurantId: string }>();
 
     const categorizedMenuData = useAppSelector(selectCategorizedMenu);
+    const cart = useAppSelector((state) => state.cart);
+
     const isLoading = useAppSelector(
         (state) => state.menu.status === 'loading',
     );
+
+    const getItemQuantity = (menuItemId: string): number => {
+        const cartItem = selectCartItemById({ cart: cart }, menuItemId);
+        return cartItem ? cartItem.quantity : 0;
+    };
 
     useEffect(() => {
         if (!restaurantId) return;
@@ -34,31 +43,53 @@ export const CustomerMenuList = ({ isClosed }: { isClosed: boolean }) => {
             });
     }, [restaurantId, dispatch, toast]);
 
-    const [cart, setCart] = useState<Record<string, number>>({});
-    const getCartQuantity = (itemId: string): number => cart[itemId] || 0;
+    /** Handles adding a menu item to the cart.
+     */
+    const handleAddToCart = (item: MenuItem) => {
+        const newCartItem = {
+            menuItemId: item.id,
+            name: item.name,
+            price: item.price,
+            imageUrl: item.imageUrl,
+        };
+        dispatch(
+            addToCart({
+                item: newCartItem,
+                restaurantId: item.restaurantId,
+                restaurantName: '',
+            }),
+        );
+    };
 
     /** Handles incrementing the quantity of a menu item in the cart.
      */
-    const handleIncrement = (item: MenuItem) => {
-        const currentQty = getCartQuantity(item.id);
-        if (currentQty >= item.stock) {
-            alert(`Sorry, only ${item.stock} items left in stock.`);
-            return;
+    const handleIncrement = (item: MenuItem, currentQty: number) => {
+        dispatch(
+            updateQuantity({
+                menuItemId: item.id,
+                quantity: currentQty + 1,
+            }),
+        );
+    };
+
+    const handleAddToCartOrIncrement = (item: MenuItem) => {
+        const currentQty = getItemQuantity(item.id);
+
+        if (currentQty === 0) {
+            handleAddToCart(item);
+        } else {
+            handleIncrement(item, currentQty);
         }
-        setCart((prevCart) => ({ ...prevCart, [item.id]: currentQty + 1 }));
     };
 
     /** Handles decrementing the quantity of a menu item in the cart.
      */
-    const handleDecrement = (itemId: string) => {
-        const currentQty = getCartQuantity(itemId);
+    const handleDecrement = (item: MenuItem) => {
+        const currentQty = getItemQuantity(item.id);
         if (currentQty <= 0) return;
-        setCart((prevCart) => {
-            const updatedCart = { ...prevCart };
-            if (currentQty === 1) delete updatedCart[itemId];
-            else updatedCart[itemId] = currentQty - 1;
-            return updatedCart;
-        });
+        dispatch(
+            updateQuantity({ menuItemId: item.id, quantity: currentQty - 1 }),
+        );
     };
 
     if (isLoading) {
@@ -69,7 +100,7 @@ export const CustomerMenuList = ({ isClosed }: { isClosed: boolean }) => {
         <CategorizedMenuList
             categorizedData={categorizedMenuData}
             renderItemCard={(item) => {
-                const currentQuantity = getCartQuantity(item.id);
+                const currentQuantity = getItemQuantity(item.id);
                 const computedAvailableStock = item.stock - currentQuantity;
 
                 return (
@@ -78,8 +109,8 @@ export const CustomerMenuList = ({ isClosed }: { isClosed: boolean }) => {
                         quantity={currentQuantity}
                         isAvailable={computedAvailableStock > 0}
                         disabled={isClosed}
-                        onIncrement={() => handleIncrement(item)}
-                        onDecrement={() => handleDecrement(item.id)}
+                        onIncrement={() => handleAddToCartOrIncrement(item)}
+                        onDecrement={() => handleDecrement(item)}
                     />
                 );
             }}
