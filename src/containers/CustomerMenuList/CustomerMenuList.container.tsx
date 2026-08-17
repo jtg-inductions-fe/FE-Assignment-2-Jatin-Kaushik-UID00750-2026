@@ -21,6 +21,7 @@ export const CustomerMenuList = ({ isClosed }: { isClosed: boolean }) => {
 
     const categorizedMenuData = useAppSelector(selectCategorizedMenu);
     const cart = useAppSelector((state) => state.cart);
+    const { selectedRestaurant } = useAppSelector((state) => state.restaurants);
 
     const isLoading = useAppSelector(
         (state) => state.menu.status === 'loading',
@@ -52,11 +53,21 @@ export const CustomerMenuList = ({ isClosed }: { isClosed: boolean }) => {
             price: item.price,
             imageUrl: item.imageUrl,
         };
+
+        if (!selectedRestaurant?.name) {
+            toast({
+                message:
+                    'failed to add item to cart! Please reload and try again',
+                type: 'error',
+            });
+            return;
+        }
+
         dispatch(
             addToCart({
                 item: newCartItem,
                 restaurantId: item.restaurantId,
-                restaurantName: '',
+                restaurantName: selectedRestaurant.name,
             }),
         );
     };

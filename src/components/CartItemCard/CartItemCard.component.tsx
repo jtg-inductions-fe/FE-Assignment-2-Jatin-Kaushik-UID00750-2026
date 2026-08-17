@@ -1,4 +1,5 @@
 import { CounterButton } from '@components/CounterButton';
+import { formatIndianCurrency } from '@utils';
 
 import {
     ActionContainer,
@@ -21,30 +22,23 @@ export const CartItemCard = ({
     quantity,
     onIncrement,
     onDecrement,
-}: CartItemCardProps) => {
-    const formattedPrice = new Intl.NumberFormat('en-IN', {
-        style: 'currency',
-        currency: 'INR',
-    }).format(price * quantity);
+}: CartItemCardProps) => (
+    <StyledCard>
+        <ImageContainer>
+            <ItemImage src={imageUrl} alt={name} />
+        </ImageContainer>
 
-    return (
-        <StyledCard>
-            <ImageContainer>
-                <ItemImage src={imageUrl} alt={name} />
-            </ImageContainer>
+        <ContentContainer>
+            <ItemName>{name}</ItemName>
+            <ItemPrice>{formatIndianCurrency(price * quantity)}</ItemPrice>
+        </ContentContainer>
 
-            <ContentContainer>
-                <ItemName>{name}</ItemName>
-                <ItemPrice>{formattedPrice}</ItemPrice>
-            </ContentContainer>
-
-            <ActionContainer>
-                <CounterButton
-                    value={quantity}
-                    onIncrement={onIncrement}
-                    onDecrement={onDecrement}
-                />
-            </ActionContainer>
-        </StyledCard>
-    );
-};
+        <ActionContainer>
+            <CounterButton
+                value={quantity}
+                onIncrement={onIncrement}
+                onDecrement={onDecrement}
+            />
+        </ActionContainer>
+    </StyledCard>
+);

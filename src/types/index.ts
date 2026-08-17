@@ -6,3 +6,4 @@ export * from './store.types';
 export * from './restaurant.types';
 export * from './menu.types';
 export * from './cart.types';
+export * from './orders.types';
