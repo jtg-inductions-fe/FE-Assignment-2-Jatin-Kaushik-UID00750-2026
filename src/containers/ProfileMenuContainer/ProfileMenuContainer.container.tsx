@@ -1,5 +1,5 @@
-import { ConfirmDialog } from '@components/ConfirmDialog/ConfirmDialog.component';
-import { ProfileMenu } from '@components/ProfileMenu/ProfileMenu.component';
+import { ConfirmDialog } from '@components/ConfirmDialog';
+import { ProfileMenu } from '@components/ProfileMenu';
 import {
     useAppDispatch,
     useAppSelector,

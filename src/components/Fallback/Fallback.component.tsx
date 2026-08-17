@@ -1,6 +1,6 @@
 import { Link as RouterLink } from 'react-router-dom';
 
-import { UiButton } from '@components/UiButton/UiButton.component';
+import { UiButton } from '@components/UiButton';
 
 import {
     FallbackDescription,

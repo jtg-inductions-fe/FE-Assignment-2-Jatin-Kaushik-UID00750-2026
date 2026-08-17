@@ -6,7 +6,7 @@
             "email": "aditi.sharma@example.com",
             "role": "customer",
             "address": {
-                "line1": "B-42, Sector 14",
+                "street": "B-42, Sector 14",
                 "city": "Gurugram",
                 "state": "Haryana",
                 "pincode": "122001"
@@ -18,8 +18,7 @@
             "email": "rohan.verma@example.com",
             "role": "customer",
             "address": {
-                "line1": "Flat 7C, Palm Residency",
-                "line2": "MG Road",
+                "street": "Flat 7C, Palm Residency",
                 "city": "Gurugram",
                 "state": "Haryana",
                 "pincode": "122002"

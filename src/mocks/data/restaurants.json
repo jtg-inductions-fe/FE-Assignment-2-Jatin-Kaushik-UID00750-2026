@@ -1,0 +1,169 @@
+[
+    {
+        "id": "rst_001",
+        "ownerId": "own_001",
+        "name": "Spice Junction",
+        "description": "Classic North Indian and Mughlai fare — rich curries, tandoor specials, and fresh-baked breads.",
+        "cuisines": ["North Indian", "Mughlai"],
+        "vegType": "all",
+        "address": {
+            "street": "Shop 12, Galleria Market",
+            "city": "Gurugram",
+            "state": "Haryana",
+            "pincode": "122002"
+        },
+        "imageUrl": "https://plus.unsplash.com/premium_photo-1661883237884-263e8de8869b?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzdGF1cmFudHxlbnwwfHwwfHx8MA%3D%3D",
+        "operatingHours": [
+            {
+                "day": "Monday",
+                "isClosed": false,
+                "openTime": "11:00",
+                "closeTime": "23:00"
+            },
+            {
+                "day": "Tuesday",
+                "isClosed": false,
+                "openTime": "11:00",
+                "closeTime": "23:00"
+            },
+            {
+                "day": "Wednesday",
+                "isClosed": false,
+                "openTime": "11:00",
+                "closeTime": "23:00"
+            },
+            {
+                "day": "Thursday",
+                "isClosed": false,
+                "openTime": "11:00",
+                "closeTime": "23:00"
+            },
+            {
+                "day": "Friday",
+                "isClosed": false,
+                "openTime": "11:00",
+                "closeTime": "23:30"
+            },
+            {
+                "day": "Saturday",
+                "isClosed": false,
+                "openTime": "11:00",
+                "closeTime": "23:30"
+            },
+            {
+                "day": "Sunday",
+                "isClosed": false,
+                "openTime": "11:00",
+                "closeTime": "23:00"
+            }
+        ]
+    },
+    {
+        "id": "rst_002",
+        "ownerId": "own_002",
+        "name": "Green Bowl Cafe",
+        "description": "Pure vegetarian salad bowls, smoothies, and light continental plates for the health-conscious.",
+        "cuisines": ["Healthy", "Continental"],
+        "vegType": "veg",
+        "address": {
+            "street": "F-3, DLF Cyber Hub",
+            "city": "Gurugram",
+            "state": "Haryana",
+            "pincode": "122002"
+        },
+        "imageUrl": "https://images.unsplash.com/photo-1536305030588-45dc07a2a372?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGluZGlhbiUyMHJlc3RhdXJhbnR8ZW58MHx8MHx8fDA%3D",
+        "operatingHours": [
+            {
+                "day": "Monday",
+                "isClosed": false,
+                "openTime": "08:00",
+                "closeTime": "21:00"
+            },
+            {
+                "day": "Tuesday",
+                "isClosed": false,
+                "openTime": "08:00",
+                "closeTime": "21:00"
+            },
+            {
+                "day": "Wednesday",
+                "isClosed": false,
+                "openTime": "08:00",
+                "closeTime": "21:00"
+            },
+            {
+                "day": "Thursday",
+                "isClosed": false,
+                "openTime": "08:00",
+                "closeTime": "21:00"
+            },
+            {
+                "day": "Friday",
+                "isClosed": false,
+                "openTime": "08:00",
+                "closeTime": "21:30"
+            },
+            {
+                "day": "Saturday",
+                "isClosed": false,
+                "openTime": "09:00",
+                "closeTime": "21:30"
+            },
+            { "day": "Sunday", "isClosed": true }
+        ]
+    },
+    {
+        "id": "rst_003",
+        "ownerId": "own_002",
+        "name": "Momo Street",
+        "description": "Tibetan and Indo-Chinese street food — steamed and fried momos, thukpa, and noodles.",
+        "cuisines": ["Tibetan", "Chinese"],
+        "vegType": "all",
+        "address": {
+            "street": "Kiosk 4, Sector 29 Food Market",
+            "city": "Gurugram",
+            "state": "Haryana",
+            "pincode": "122001"
+        },
+        "imageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW5kaWFuJTIwcmVzdGF1cmFudHxlbnwwfHwwfHx8MA%3D%3D",
+        "operatingHours": [
+            { "day": "Monday", "isClosed": true },
+            {
+                "day": "Tuesday",
+                "isClosed": false,
+                "openTime": "12:00",
+                "closeTime": "22:00"
+            },
+            {
+                "day": "Wednesday",
+                "isClosed": false,
+                "openTime": "12:00",
+                "closeTime": "22:00"
+            },
+            {
+                "day": "Thursday",
+                "isClosed": false,
+                "openTime": "12:00",
+                "closeTime": "22:00"
+            },
+            {
+                "day": "Friday",
+                "isClosed": false,
+                "openTime": "12:00",
+                "closeTime": "22:30"
+            },
+            {
+                "day": "Saturday",
+                "isClosed": false,
+                "openTime": "12:00",
+                "closeTime": "22:30"
+            },
+            {
+                "day": "Sunday",
+                "isClosed": false,
+                "openTime": "12:00",
+                "closeTime": "22:00"
+            }
+        ]
+    }
+]

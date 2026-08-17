@@ -1,4 +1,4 @@
-import { Control, FieldValues, Path } from 'react-hook-form';
+import { FieldValues, Path } from 'react-hook-form';
 
 import { TextFieldProps } from '@mui/material';
 
@@ -12,8 +12,4 @@ export type FormTextFieldProps<TFieldValues extends FieldValues> = Omit<
 > & {
     /** Unique form registration field identifier key */
     name: Path<TFieldValues>;
-    /** Parent layout react-hook-form state manager instance */
-    control: Control<TFieldValues>;
-    /** Submitting loading status indicator to lock the input */
-    isLoading?: boolean;
 };

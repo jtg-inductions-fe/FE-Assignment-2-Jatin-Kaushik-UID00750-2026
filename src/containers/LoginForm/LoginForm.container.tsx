@@ -1,14 +1,16 @@
 import { useEffect } from 'react';
 
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import { East } from '@mui/icons-material';
 
-import { FormButton } from '@components/FormComponents/FormButton/FormButton.component';
-import { FormFieldRow } from '@components/FormComponents/FormFieldRow/FormFieldRow.component';
-import { FormPasswordField } from '@components/FormComponents/FormPasswordField/FormPasswordField.component';
-import { FormTextField } from '@components/FormComponents/FormTextField/FormTextField.component';
+import {
+    FormButton,
+    FormFieldRow,
+    FormPasswordField,
+    FormTextField,
+} from '@components/FormComponents';
 import { ROUTES } from '@constant';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useAppDispatch, useAppSelector, useToast } from '@hooks';
@@ -27,9 +29,8 @@ import { LoginFormData } from './LoginForm.types';
 
 export const LoginForm = () => {
     const dispatch = useAppDispatch();
-    const { status, error } = useAppSelector((state) => state.auth);
+    const { error } = useAppSelector((state) => state.auth);
 
-    const isLoading = status === 'loading';
     const toast = useToast();
     const navigate = useNavigate();
 
@@ -37,10 +38,15 @@ export const LoginForm = () => {
         dispatch(clearAuthError());
     }, [dispatch]);
 
-    const { control, handleSubmit } = useForm<LoginFormData>({
+    const methods = useForm<LoginFormData>({
         resolver: yupResolver(loginSchema),
         defaultValues: defaultLoginFormValues,
     });
+
+    const {
+        handleSubmit,
+        formState: { isSubmitting },
+    } = methods;
 
     /**
      * Dispatches user credentials to verification store thunks and handles navigation loops.
@@ -61,41 +67,45 @@ export const LoginForm = () => {
             title="Welcome Back"
             subtitle="Log in to get your food hot and fast"
             error={error}
-            onSubmit={(e) => {
-                void handleSubmit(onSubmit)(e);
-            }}
             footerText="New to Nosh?"
             footerLinkText="Create an account"
             footerLinkTo="/signup"
         >
-            <FormFieldRow label="Email" htmlFor={LOGIN_FIELD_NAMES.EMAIL}>
-                <FormTextField<LoginFormData>
-                    name={LOGIN_FIELD_NAMES.EMAIL}
-                    control={control}
-                    isLoading={isLoading}
-                />
-            </FormFieldRow>
-
-            <FormFieldRow label="Password" htmlFor={LOGIN_FIELD_NAMES.PASSWORD}>
-                <FormPasswordField<LoginFormData>
-                    name={LOGIN_FIELD_NAMES.PASSWORD}
-                    control={control}
-                    isLoading={isLoading}
-                />
-            </FormFieldRow>
-
-            <FormFieldRow>
-                <FormButton
-                    type="submit"
-                    fullWidth
-                    loading={isLoading}
-                    variant="contained"
-                    disabled={isLoading}
-                    endIcon={<East />}
+            <FormProvider {...methods}>
+                <form
+                    onSubmit={(e) => {
+                        void handleSubmit(onSubmit)(e);
+                    }}
+                    noValidate
                 >
-                    Log In
-                </FormButton>
-            </FormFieldRow>
+                    <FormFieldRow
+                        label="Email"
+                        htmlFor={LOGIN_FIELD_NAMES.EMAIL}
+                    >
+                        <FormTextField name={LOGIN_FIELD_NAMES.EMAIL} />
+                    </FormFieldRow>
+
+                    <FormFieldRow
+                        label="Password"
+                        htmlFor={LOGIN_FIELD_NAMES.PASSWORD}
+                    >
+                        <FormPasswordField name={LOGIN_FIELD_NAMES.PASSWORD} />
+                    </FormFieldRow>
+
+                    <FormFieldRow>
+                        <FormButton
+                            type="submit"
+                            fullWidth
+                            loading={isSubmitting}
+                            variant="contained"
+                            disabled={isSubmitting}
+                            endIcon={<East />}
+                        >
+                            Log In
+                        </FormButton>
+                    </FormFieldRow>
+                </form>
+            </FormProvider>
         </AuthFormLayout>
     );
 };
