@@ -65,14 +65,17 @@ export const OrderCardsList = () => {
         }
     };
 
-    const handleOnUpdateStatus = (
-        orderId: string,
-        nextStatus: OrderStatus,
-        reason?: string,
-    ) => void handleUpdateOrderStatus(orderId, nextStatus, reason);
-
     if (status === 'loading' && orders.length === 0) {
         return <FullScreenLoader message="loading orders..." />;
+    }
+
+    if (status === 'failed' && orders.length === 0) {
+        return (
+            <EmptyListIndicator
+                title="Could not load orders"
+                description="Please try again."
+            />
+        );
     }
 
     return (
@@ -88,7 +91,7 @@ export const OrderCardsList = () => {
                         <OwnerOrderCard
                             key={order.id}
                             order={order}
-                            onUpdateStatus={handleOnUpdateStatus}
+                            onUpdateStatus={handleUpdateOrderStatus}
                         />
                     ) : (
                         <CustomerOrderCard key={order.id} order={order} />

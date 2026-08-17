@@ -10,7 +10,7 @@ import { selectCartTotals } from '@store/selectors/cartSelector';
 import { clearCart, updateQuantity } from '@store/slices/cartSlice';
 import { fetchMenuItemById } from '@store/thunks/menuThunk';
 import { createOrder } from '@store/thunks/ordersThunk';
-import { Address, Order, OrderItem } from '@types';
+import { Order, OrderItem } from '@types';
 
 import { StyledCartContainer } from './CartContainer.styles';
 
@@ -110,6 +110,9 @@ export const CartContainer = () => {
 
     /** Handles the checkout process. */
     const handleCheckout = async () => {
+        if (isCheckingOut.current) {
+            return;
+        }
         // Enforce validations before processing order data
         if (!currentUser || currentUser?.role !== USER_ROLES.CUSTOMER) {
             return;
@@ -133,6 +136,8 @@ export const CartContainer = () => {
             quantity: item.quantity,
         }));
 
+        if (!currentUser?.address) return;
+
         const orderPayload: Omit<Order, 'id'> = {
             customerId: currentUser.id,
             customerName: currentUser.name,
@@ -143,7 +148,7 @@ export const CartContainer = () => {
             bookingFee: totals.bookingFee,
             total: totals.total,
             status: ORDER_STATUS.PENDING,
-            deliveryAddress: currentUser.address as Address,
+            deliveryAddress: currentUser.address,
             placedAt: new Date().toISOString(),
             statusHistory: [
                 {

@@ -34,6 +34,23 @@ export const OwnerOrderCard = ({
         order.status === ORDER_STATUS.DELIVERED ||
         order.status === ORDER_STATUS.REJECTED;
 
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    /** A wrapper handler to safely manage the loading state asynchronously */
+    const handleStatusUpdate = async (
+        orderId: string,
+        status: OrderStatus,
+        reason?: string,
+    ) => {
+        if (isSubmitting) return;
+        try {
+            setIsSubmitting(true);
+            await onUpdateStatus(orderId, status, reason);
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
     return (
         <>
             <BaseOrderCard
@@ -68,8 +85,12 @@ export const OwnerOrderCard = ({
                                 <UiButton
                                     variant="contained"
                                     color="primary"
+                                    disabled={isSubmitting}
                                     onClick={() =>
-                                        onUpdateStatus(order.id, nextStatus)
+                                        void handleStatusUpdate(
+                                            order.id,
+                                            nextStatus,
+                                        )
                                     }
                                 >
                                     Mark as {nextStatus.replace(/-/g, ' ')}
@@ -79,8 +100,9 @@ export const OwnerOrderCard = ({
                                 <UiButton
                                     variant="outlined"
                                     color="error"
+                                    disabled={isSubmitting}
                                     onClick={() =>
-                                        onUpdateStatus(
+                                        void handleStatusUpdate(
                                             order.id,
                                             ORDER_STATUS.REJECTED,
                                             'The Restaurant is unable to process this order',

@@ -54,11 +54,20 @@ export const CustomerMenuList = ({ isClosed }: { isClosed: boolean }) => {
             imageUrl: item.imageUrl,
         };
 
+        if (!selectedRestaurant?.name) {
+            toast({
+                message:
+                    'failed to add item to cart! Please reload and try again',
+                type: 'error',
+            });
+            return;
+        }
+
         dispatch(
             addToCart({
                 item: newCartItem,
                 restaurantId: item.restaurantId,
-                restaurantName: selectedRestaurant?.name || '',
+                restaurantName: selectedRestaurant.name,
             }),
         );
     };

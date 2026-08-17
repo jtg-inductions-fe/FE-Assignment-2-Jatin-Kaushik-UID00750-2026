@@ -21,5 +21,5 @@ export interface OwnerOrderCardProps {
         orderId: string,
         nextStatus: OrderStatus,
         reason?: string,
-    ) => void;
+    ) => Promise<void> | void;
 }

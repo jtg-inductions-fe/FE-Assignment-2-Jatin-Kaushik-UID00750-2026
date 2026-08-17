@@ -43,9 +43,19 @@ export const ordersService = {
 
     /** Searches for an existing order by ID and updates its fields */
     updateOrder: (payload: Order): Promise<Order> => {
-        allOrders = allOrders.map((order) =>
-            order.id === payload.id ? { ...order, ...payload } : order,
+        const existingOrder = allOrders.find(
+            (order) => order.id === payload.id,
         );
-        return Promise.resolve(payload);
+
+        if (!existingOrder) {
+            return Promise.reject(new Error('Order not found.'));
+        }
+
+        const updatedOrder = { ...existingOrder, ...payload };
+        allOrders = allOrders.map((order) =>
+            order.id === payload.id ? updatedOrder : order,
+        );
+
+        return Promise.resolve(updatedOrder);
     },
 };
