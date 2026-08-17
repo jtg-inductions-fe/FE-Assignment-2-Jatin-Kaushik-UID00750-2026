@@ -48,6 +48,14 @@ export const MenuItemForm = ({
         label: cat.name,
     }));
 
+    if (categoryOptions.length === 0) {
+        const defaultCategory = {
+            value: 'food',
+            label: 'Food',
+        };
+        categoryOptions.push(defaultCategory);
+    }
+
     return (
         <FormProvider {...methods}>
             <form>
