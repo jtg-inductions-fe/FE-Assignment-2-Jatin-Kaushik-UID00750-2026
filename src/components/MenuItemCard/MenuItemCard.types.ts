@@ -16,7 +16,6 @@ export interface MenuItemCustomerCardProps {
     disabled?: boolean;
     onIncrement: () => void;
     onDecrement: () => void;
-    onAddToCart: () => void;
 }
 
 /** Props for the restaurant owner card view, handles inventory actions */

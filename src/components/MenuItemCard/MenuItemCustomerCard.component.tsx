@@ -14,7 +14,6 @@ export const MenuItemCustomerCard = ({
     disabled,
     onIncrement,
     onDecrement,
-    onAddToCart,
 }: MenuItemCustomerCardProps) => (
     <MenuItemCardBase item={item} showAsDimmed={disabled || !isAvailable}>
         <AddToCartButton
@@ -23,7 +22,6 @@ export const MenuItemCustomerCard = ({
             disabled={disabled}
             onIncrement={onIncrement}
             onDecrement={onDecrement}
-            onAddToCart={onAddToCart}
         />
     </MenuItemCardBase>
 );

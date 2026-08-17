@@ -14,7 +14,6 @@ export const AddToCartButton = ({
     disabled,
     onIncrement,
     onDecrement,
-    onAddToCart,
 }: AddToCartButtonProps) => {
     if (!isAvailable) {
         return (
@@ -27,7 +26,7 @@ export const AddToCartButton = ({
             <UiButton
                 variant="contained"
                 color="primary"
-                onClick={onAddToCart}
+                onClick={onIncrement}
                 size="small"
                 disabled={disabled}
             >
