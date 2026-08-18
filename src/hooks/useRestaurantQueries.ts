@@ -3,8 +3,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { RESTAURANT_VEG_TYPES } from '@constant';
-import { useAppDispatch } from '@hooks';
-import { setSearchQuery, setVegFilter } from '@store/slices/restaurantsSlice';
 import type { RestaurantVegType } from '@types';
 
 /**
@@ -12,7 +10,6 @@ import type { RestaurantVegType } from '@types';
  * Manages debounced text search dispatching and active dietary filters to keep global state in sync.
  */
 export const useRestaurantQueries = () => {
-    const dispatch = useAppDispatch();
     const [searchParams, setSearchParams] = useSearchParams();
 
     const urlSearchQuery = searchParams.get('search') || '';
@@ -28,14 +25,6 @@ export const useRestaurantQueries = () => {
     useEffect(() => {
         setLocalSearch(urlSearchQuery);
     }, [urlSearchQuery]);
-
-    useEffect(() => {
-        dispatch(setVegFilter(urlVegType));
-    }, [urlVegType, dispatch]);
-
-    useEffect(() => {
-        dispatch(setSearchQuery(urlSearchQuery));
-    }, [urlSearchQuery, dispatch]);
 
     const debounceSearchUpdate = useMemo(() => {
         let timer: ReturnType<typeof setTimeout>;

@@ -1,6 +1,6 @@
 import { RouteObject } from 'react-router-dom';
 
-import { ROUTES } from '@constant';
+import { ROUTES, USER_ROLES } from '@constant';
 import { CartPage } from '@pages';
 import { OrdersPage } from '@pages';
 
@@ -14,7 +14,7 @@ import { RoleGuard } from './routeGuards/RoleGuard';
 export const orderRoutes: RouteObject[] = [
     {
         path: ROUTES.CART,
-        element: <RoleGuard allowedRoles={['customer']} />,
+        element: <RoleGuard allowedRoles={[USER_ROLES.CUSTOMER]} />,
         children: [
             {
                 index: true,

@@ -4,7 +4,7 @@ import { FilterToggle } from '@components/FilterToggle';
 import { PageHeader } from '@components/PageHeader';
 import { Searchbar } from '@components/Searchbar';
 import { UiButton } from '@components/UiButton';
-import { ROUTES } from '@constant';
+import { ROUTES, USER_ROLES } from '@constant';
 import { useAppSelector } from '@hooks';
 import { useRestaurantQueries } from '@hooks';
 import { RestaurantVegType } from '@types';
@@ -46,7 +46,7 @@ export const DiscoveryPageHeader = () => {
                     aria-label="Veg type toggle"
                 />
             </StyledDiscoveryPageHeader>
-            {currentUser?.role === 'owner' ? (
+            {currentUser?.role === USER_ROLES.OWNER ? (
                 <PageHeader
                     title="My Restaurants"
                     subline="Manage your restaurants"

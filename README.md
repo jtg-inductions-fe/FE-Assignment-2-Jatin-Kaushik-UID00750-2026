@@ -1,6 +1,6 @@
 ## Nosh - Unified Food Delivery Platform
 
-Nosh is a unified food delivery platform which provides a shared ui platform for both restaurant owners and customers to view and manage authentication, restaurants, menu items, cart and orders with specific actions.
+Nosh is a unified food delivery platform with a shared UI for restaurant owners and customers. It supports authentication, restaurant and menu management, carts, and orders with role-specific actions.
 
 ## Getting Started
 

@@ -1,7 +1,7 @@
 import { Link as RouterLink } from 'react-router-dom';
 
 import { CartBadge } from '@components/CartBadge';
-import { ROUTES } from '@constant';
+import { ROUTES, USER_ROLES } from '@constant';
 import { ProfileMenuContainer } from '@containers/ProfileMenu';
 import { useAppSelector } from '@hooks';
 
@@ -33,7 +33,7 @@ export const AppHeader = () => {
                     Nosh
                 </LogoBox>
                 <HeaderActions>
-                    {currentUser?.role === 'customer' && (
+                    {currentUser?.role === USER_ROLES.CUSTOMER && (
                         <CartBadge count={cartItems.length} />
                     )}
                     <ProfileMenuContainer />

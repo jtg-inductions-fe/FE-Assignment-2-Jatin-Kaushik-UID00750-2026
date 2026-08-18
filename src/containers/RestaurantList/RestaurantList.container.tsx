@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -11,14 +11,14 @@ import {
     RestaurantOwnerCard,
 } from '@components/RestaurantCard';
 import { RestaurantCardSkeleton } from '@components/RestaurantCardSkeleton';
-import { USER_ROLES } from '@constant';
+import { RESTAURANT_VEG_TYPES, USER_ROLES } from '@constant';
 import {
     useAppDispatch,
     useAppSelector,
     useConfirmDialog,
+    useRestaurantQueries,
     useToast,
 } from '@hooks';
-import { selectFilteredRestaurants } from '@store/selectors/restaurantsSelector';
 import {
     deleteRestaurant,
     fetchAllRestaurants,
@@ -42,11 +42,36 @@ export const RestaurantList = () => {
         null,
     );
 
-    const filteredRestaurants = useAppSelector(selectFilteredRestaurants);
     const { currentUser } = useAppSelector((state) => state.auth);
-    const { status } = useAppSelector((state) => state.restaurants);
+    const { status, list } = useAppSelector((state) => state.restaurants);
     const { isOpen, config, openConfirmDialog, closeConfirmDialog } =
         useConfirmDialog();
+    const { localSearch, vegType } = useRestaurantQueries();
+
+    const filteredRestaurants = useMemo(
+        () =>
+            list.filter((restaurant) => {
+                // Apply text query match across name or cuisines
+                const matchesSearch =
+                    !localSearch.trim() ||
+                    restaurant.name
+                        .toLowerCase()
+                        .includes(localSearch.toLowerCase()) ||
+                    restaurant.cuisines.some((cuisine) =>
+                        cuisine
+                            .toLowerCase()
+                            .includes(localSearch.toLowerCase()),
+                    );
+
+                // Apply dietary preference match
+                const matchesVeg =
+                    vegType === RESTAURANT_VEG_TYPES.ALL ||
+                    restaurant.vegType === vegType;
+
+                return matchesSearch && matchesVeg;
+            }),
+        [list, localSearch, vegType],
+    );
 
     useEffect(() => {
         if (currentUser?.role === USER_ROLES.OWNER && currentUser.id) {
@@ -66,7 +91,7 @@ export const RestaurantList = () => {
     }
 
     if (filteredRestaurants.length === 0) {
-        return currentUser?.role === 'owner' ? (
+        return currentUser?.role === USER_ROLES.OWNER ? (
             <EmptyListIndicator
                 title="No Restaurant Found"
                 description="You haven't listed any restaurants yet. Create your first restaurant listing to begin receiving orders."
