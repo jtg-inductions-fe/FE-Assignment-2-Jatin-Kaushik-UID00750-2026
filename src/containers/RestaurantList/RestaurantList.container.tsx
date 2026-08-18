@@ -11,6 +11,7 @@ import {
     RestaurantOwnerCard,
 } from '@components/RestaurantCard';
 import { RestaurantCardSkeleton } from '@components/RestaurantCardSkeleton';
+import { USER_ROLES } from '@constant';
 import {
     useAppDispatch,
     useAppSelector,
@@ -26,13 +27,13 @@ import {
 import { routeBuilders } from '@utils';
 import { checkIsRestaurantClosed } from '@utils';
 
-import { StyledRestaurantCardsList } from './RestaurantCardsList.styles';
+import { StyledRestaurantCardsList } from './RestaurantList.styles';
 
 /**
  * Grid list that handles fetching, filtering, and displaying restaurants.
  * Dynamically switches between consumer layouts and management control flows based on user role.
  */
-export const RestaurantCardsList = () => {
+export const RestaurantList = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const toast = useToast();
@@ -48,7 +49,7 @@ export const RestaurantCardsList = () => {
         useConfirmDialog();
 
     useEffect(() => {
-        if (currentUser?.role === 'owner' && currentUser.id) {
+        if (currentUser?.role === USER_ROLES.OWNER && currentUser.id) {
             void dispatch(fetchMyRestaurants(currentUser.id));
         } else {
             void dispatch(fetchAllRestaurants());
@@ -123,7 +124,7 @@ export const RestaurantCardsList = () => {
         <>
             <StyledRestaurantCardsList>
                 {filteredRestaurants.map((restaurant) =>
-                    currentUser?.role === 'owner' ? (
+                    currentUser?.role === USER_ROLES.OWNER ? (
                         <RestaurantOwnerCard
                             key={restaurant.id}
                             id={restaurant.id}

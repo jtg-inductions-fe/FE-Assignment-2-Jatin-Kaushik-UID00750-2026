@@ -9,7 +9,7 @@ import { RestaurantFormValues } from '@types';
  * Smart container component managing the lifecycle of the restaurant data entry form.
  * Provide a clean/empty form for creating new restaurant
  */
-export const NewRestaurantFormContainer = () => {
+export const NewRestaurantForm = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const toast = useToast();

@@ -2,7 +2,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import { CartBadge } from '@components/CartBadge';
 import { ROUTES } from '@constant';
-import { ProfileMenuContainer } from '@containers/ProfileMenuContainer';
+import { ProfileMenuContainer } from '@containers/ProfileMenu';
 import { useAppSelector } from '@hooks';
 
 import {

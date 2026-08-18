@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 
 import { useParams } from 'react-router-dom';
 
+import { CategorizedMenuList } from '@components/CategorizedMenuList/CategorizedMenuList.container';
 import { FullScreenLoader } from '@components/FullScreenLoader';
 import { MenuItemCustomerCard } from '@components/MenuItemCard/MenuItemCustomerCard.component';
-import { CategorizedMenuList } from '@containers/CategorizedMenuList/CategorizedMenuList.container';
 import { useAppDispatch, useAppSelector, useToast } from '@hooks';
 import { selectCartItemById } from '@store/selectors/cartSelector';
 import { selectCategorizedMenu } from '@store/selectors/menuSelector';

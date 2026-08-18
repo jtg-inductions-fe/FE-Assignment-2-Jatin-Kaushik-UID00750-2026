@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 import { RestaurantMenu } from '@mui/icons-material';
 
 import { EmptyListIndicator } from '@components/EmptyListIndicator';
@@ -23,18 +21,11 @@ export const CategorizedMenuList = ({
     categorizedData,
     renderItemCard,
 }: CategorizedMenuListProps) => {
-    const [isListEmpty, setIsListEmpty] = useState(true);
+    const isListEmpty = categorizedData.find(
+        (data) => data.menuItems.length !== 0,
+    );
 
-    useEffect(() => {
-        categorizedData.forEach((data) => {
-            if (data.menuItems.length !== 0) {
-                setIsListEmpty(false);
-                return;
-            }
-        });
-    });
-
-    if (isListEmpty) {
+    if (!isListEmpty) {
         return (
             <EmptyListIndicator
                 title="No Menu Items Found"

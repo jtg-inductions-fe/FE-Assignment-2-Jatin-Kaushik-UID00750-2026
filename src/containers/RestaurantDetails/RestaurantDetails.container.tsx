@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { FullScreenLoader } from '@components/FullScreenLoader';
 import { RestaurantBanner } from '@components/RestaurantBanner';
-import { CustomerMenuList } from '@containers/CustomerMenuList';
-import { OwnerMenuList } from '@containers/OwnerMenuList';
+import { CustomerMenuList } from '@containers/MenuList';
+import { OwnerMenuList } from '@containers/MenuList';
 import { useAppDispatch, useAppSelector } from '@hooks';
 import { fetchRestaurantById } from '@store/thunks/restaurantsThunk';
 import { checkIsRestaurantClosed, routeBuilders } from '@utils';
