@@ -15,7 +15,7 @@ import { RestaurantFormValues } from '@types';
  * Smart container component managing the lifecycle of the restaurant data entry form.
  * Hydrate the form fields with existing information.
  */
-export const EditRestaurantFormContainer = ({
+export const EditRestaurantForm = ({
     restaurantId,
     initialStep = 0,
 }: {

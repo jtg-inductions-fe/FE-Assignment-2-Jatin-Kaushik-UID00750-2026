@@ -1,6 +1,6 @@
 import { RouteObject } from 'react-router-dom';
 
-import { ROUTES } from '@constant';
+import { ROUTES, USER_ROLES } from '@constant';
 import { RestaurantDetailsPage } from '@pages';
 import { DiscoveryPage } from '@pages';
 import { EditRestaurantPage } from '@pages';
@@ -22,7 +22,7 @@ export const restaurantRoutes: RouteObject[] = [
     },
     {
         path: ROUTES.RESTAURANT_NEW,
-        element: <RoleGuard allowedRoles={['owner']} />,
+        element: <RoleGuard allowedRoles={[USER_ROLES.OWNER]} />,
         children: [
             {
                 index: true,
@@ -32,7 +32,7 @@ export const restaurantRoutes: RouteObject[] = [
     },
     {
         path: ROUTES.RESTAURANT_EDIT,
-        element: <RoleGuard allowedRoles={['owner']} />,
+        element: <RoleGuard allowedRoles={[USER_ROLES.OWNER]} />,
         children: [
             {
                 index: true,
@@ -46,7 +46,7 @@ export const restaurantRoutes: RouteObject[] = [
     },
     {
         path: ROUTES.MENU_EDIT,
-        element: <RoleGuard allowedRoles={['owner']} />,
+        element: <RoleGuard allowedRoles={[USER_ROLES.OWNER]} />,
         children: [
             {
                 index: true,
@@ -56,7 +56,7 @@ export const restaurantRoutes: RouteObject[] = [
     },
     {
         path: ROUTES.MENU_NEW,
-        element: <RoleGuard allowedRoles={['owner']} />,
+        element: <RoleGuard allowedRoles={[USER_ROLES.OWNER]} />,
         children: [
             {
                 index: true,

@@ -38,7 +38,7 @@ export const BaseOrderCard = ({
                             ORDER ID
                         </Typography>
                         <Typography variant="body2" fontWeight={600}>
-                            #{order.id.slice(-8).toUpperCase()}
+                            #{order.id.toUpperCase()}
                         </Typography>
                     </Box>
                     <Box>

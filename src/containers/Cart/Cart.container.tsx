@@ -12,10 +12,10 @@ import { fetchMenuItemById } from '@store/thunks/menuThunk';
 import { createOrder } from '@store/thunks/ordersThunk';
 import { Order, OrderItem } from '@types';
 
-import { StyledCartContainer } from './CartContainer.styles';
+import { StyledCartContainer } from './Cart.styles';
 
 /** Container component for managing and displaying the shopping cart. */
-export const CartContainer = () => {
+export const Cart = () => {
     const navigate = useNavigate();
     const toast = useToast();
     const dispatch = useAppDispatch();

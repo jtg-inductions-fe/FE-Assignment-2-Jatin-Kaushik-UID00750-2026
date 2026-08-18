@@ -7,33 +7,19 @@ import {
     fetchMyRestaurants,
     fetchRestaurantById,
 } from '@store/thunks/restaurantsThunk';
-import type { Restaurant, RestaurantState, RestaurantVegType } from '@types';
+import type { Restaurant, RestaurantState } from '@types';
 
 const initialState: RestaurantState = {
     list: [],
     selectedRestaurant: null,
     status: 'idle',
     error: null,
-    filters: {
-        vegType: 'all',
-        searchQuery: '',
-    },
 };
 
 const restaurantSlice = createSlice({
     name: 'restaurants',
     initialState,
-    reducers: {
-        setVegFilter: (state, action: PayloadAction<RestaurantVegType>) => {
-            state.filters.vegType = action.payload;
-        },
-        setSearchQuery: (state, action: PayloadAction<string>) => {
-            state.filters.searchQuery = action.payload;
-        },
-        clearFilters: (state) => {
-            state.filters = initialState.filters;
-        },
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             // Fetch Restaurant By ID
@@ -144,6 +130,5 @@ const restaurantSlice = createSlice({
     },
 });
 
-export const { setVegFilter, setSearchQuery, clearFilters } =
-    restaurantSlice.actions;
+export const {} = restaurantSlice.actions;
 export default restaurantSlice.reducer;

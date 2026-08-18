@@ -4,11 +4,11 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 import { Box } from '@mui/material';
 
+import { CategorizedMenuList } from '@components/CategorizedMenuList/CategorizedMenuList.container';
 import { ConfirmDialog } from '@components/ConfirmDialog';
 import { FullScreenLoader } from '@components/FullScreenLoader';
 import { MenuItemOwnerCard } from '@components/MenuItemCard/MenuItemOwnerCard.component';
 import { UiButton } from '@components/UiButton';
-import { CategorizedMenuList } from '@containers/CategorizedMenuList/CategorizedMenuList.container';
 import {
     useAppDispatch,
     useAppSelector,

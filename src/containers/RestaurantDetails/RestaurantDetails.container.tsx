@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 
 import { FullScreenLoader } from '@components/FullScreenLoader';
 import { RestaurantBanner } from '@components/RestaurantBanner';
-import { CustomerMenuList } from '@containers/CustomerMenuList';
-import { OwnerMenuList } from '@containers/OwnerMenuList';
+import { USER_ROLES } from '@constant';
+import { CustomerMenuList } from '@containers/MenuList';
+import { OwnerMenuList } from '@containers/MenuList';
 import { useAppDispatch, useAppSelector } from '@hooks';
 import { fetchRestaurantById } from '@store/thunks/restaurantsThunk';
 import { checkIsRestaurantClosed, routeBuilders } from '@utils';
@@ -18,7 +19,7 @@ export const RestaurantDetails = ({
     restaurantId: string;
 }) => {
     const { currentUser } = useAppSelector((state) => state.auth);
-    const isOwner = currentUser?.role === 'owner';
+    const isOwner = currentUser?.role === USER_ROLES.OWNER;
     const dispatch = useAppDispatch();
 
     const { selectedRestaurant, status } = useAppSelector(

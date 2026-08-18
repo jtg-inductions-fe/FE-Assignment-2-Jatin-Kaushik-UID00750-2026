@@ -8,7 +8,7 @@ import {
 } from '@hooks';
 import { logout } from '@store/slices/authSlice';
 
-import { menuItemConfig } from './ProfileMenuContainer.config';
+import { menuItemConfig } from './ProfileMenu.config';
 
 /**
  * Container component handling data fetching and logout workflows for ProfileMenu.

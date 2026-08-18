@@ -1,9 +1,9 @@
 import { PageHeader } from '@components/PageHeader';
-import { OrderCardsList } from '@containers/OrderCardsList';
+import { OrdersList } from '@containers/OrdersList';
 
 export const OrdersPage = () => (
     <div>
         <PageHeader title="Orders" />
-        <OrderCardsList />
+        <OrdersList />
     </div>
 );

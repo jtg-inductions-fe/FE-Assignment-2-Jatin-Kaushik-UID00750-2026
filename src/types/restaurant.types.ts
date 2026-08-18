@@ -40,8 +40,4 @@ export interface RestaurantState {
     selectedRestaurant: Restaurant | null;
     status: AsyncStatus;
     error: string | null;
-    filters: {
-        vegType: RestaurantVegType;
-        searchQuery: string;
-    };
 }

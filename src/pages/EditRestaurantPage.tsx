@@ -1,6 +1,6 @@
 import { useParams, useSearchParams } from 'react-router-dom';
 
-import { EditRestaurantFormContainer } from '@containers/EditRestaurantFormContainer';
+import { EditRestaurantForm } from '@containers/RestaurantForms';
 
 /**
  * Page component for editing an existing restaurant.
@@ -13,7 +13,7 @@ export const EditRestaurantPage = () => {
     const currentStep = isNaN(parsedStep) || parsedStep < 0 ? 0 : parsedStep;
     return (
         <>
-            <EditRestaurantFormContainer
+            <EditRestaurantForm
                 restaurantId={restaurantId as string}
                 initialStep={currentStep}
             />
