@@ -13,9 +13,9 @@ import {
 } from '@store/thunks';
 import { Order, OrderStatus } from '@types';
 
-import { ListContainer } from './OrderCardsList.styles';
+import { ListContainer } from './OrdersList.styles';
 
-export const OrderCardsList = () => {
+export const OrdersList = () => {
     const dispatch = useAppDispatch();
     const toast = useToast();
 
